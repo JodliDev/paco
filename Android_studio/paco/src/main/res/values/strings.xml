@@ -35,6 +35,8 @@
     <string name="about_brian" description="[No Translation]" translatable="false">Brian Ong</string>
     <string name="about_kanwal" description="[No Translation]" translatable="false">Kanwal Safdar</string>
     <string name="about_team" description="Label for list of team members">Team:</string>
+    <string name="about_jodli" description="[No Translation]" translatable="false">David Lewetz</string> <!--FORK-->
+    <string name="fork" description="Label for anonymous-fork">Anonymisation:</string> <!--FORK-->
     <string name="about_version" description="Detail label for Paco version">Version:</string>
         <string name="welcome_about" description="button label to go to Paco version information">Paco Version</string>
     
@@ -353,7 +355,7 @@
     <string name="new_invitation_title">You have new invitations</string>
     <string name="ringtone_for_alerts_label">Ringtone for alerts</string>
     <string name="server_address_label">Server Address</string>
-    <string name="google_email_address_label">Google Email Address</string>
+    <string name="google_email_address_label">Subject-number</string><!--FORK-->
     <string name="libraries_used_by_paco_label">Libraries used by Paco</string>
     <string name="we_are_grateful_for_their_contributions_label">We are grateful for their contributions.</string>
     <string name="no_groups_in_experiment_message">No groups in experiment</string>
@@ -365,7 +367,7 @@
     <string name="review_schedule_button_label">Review Schedule</string>
     <string name="the_personal_analytics_companion_subtitle">The Personal Analytics Companion</string>
     <string name="login_with_your_google_email_to_join_experiments_message">Login with your Google email to join experiments</string>
-    <string name="login_button_label">Login</string>
+    <string name="login_button_label">Create subject-Nr</string> <!--FORK-->
     <string name="time_schedule_edit_label">Time</string>
     <string name="title_audio_recorder">Audio Recorder</string>
     <string name="record_audio_label">Record audio</string>

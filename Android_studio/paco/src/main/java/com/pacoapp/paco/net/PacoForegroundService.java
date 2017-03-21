@@ -92,7 +92,7 @@ public class PacoForegroundService extends GetAuthTokenInForeground {
       networkClient.showAndFinish(result);
       return;
     } else if (sc == 401) {
-        GoogleAuthUtil.invalidateToken(networkClient.getContext(), token);
+//FORK        GoogleAuthUtil.invalidateToken(networkClient.getContext(), token);
         onError("Server auth error, please try again.", null);
         Log.info("Server auth error: " + readResponse(urlConnection.getErrorStream()));
         return;
@@ -111,6 +111,7 @@ public class PacoForegroundService extends GetAuthTokenInForeground {
 
   public void addAccessTokenBearerHeader(String accessToken, final List<Pair<String, String>> headers) {
     headers.add(new Pair<String, String>("Authorization", "Bearer " + accessToken));
+    headers.add(new Pair<String, String>("email", userPrefs.getSelectedAccount())); //FORK
   }
 
 

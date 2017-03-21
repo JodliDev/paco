@@ -90,31 +90,32 @@ public abstract class AbstractAuthTokenTask extends AsyncTask<Void, Void, Void> 
             return;
           }
           userPrefs.setAccessToken(token);
-          URL url = new URL("https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + token);
-          HttpURLConnection con = ServerAddressBuilder.getConnection(url);
-
-          int sc = 0;
-          try {
-            sc = con.getResponseCode();
-          } catch (ConnectException e) {
-            sc = 503;
-          }
-
-          if (sc == 200) {
-            InputStream is = con.getInputStream();
-            String name = "Finished!"; //getFirstName(readResponse(is));
-            is.close();
-            networkClient.showAndFinish("Hello " + name + "!");
-            return;
-          } else if (sc == 401) {
-              GoogleAuthUtil.invalidateToken(networkClient.getContext(), token);
-              onError("Server auth error, please try again.", null);
-              Log.info("Server auth error: " + readResponse(con.getErrorStream()));
-              return;
-          } else {
-            onError("Server returned the following error code: " + sc, null);
-            return;
-          }
+          networkClient.showAndFinish("Hello!"); //FORK
+//FORK          URL url = new URL("https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + token);
+//          HttpURLConnection con = ServerAddressBuilder.getConnection(url);
+//
+//          int sc = 0;
+//          try {
+//            sc = con.getResponseCode();
+//          } catch (ConnectException e) {
+//            sc = 503;
+//          }
+//
+//          if (sc == 200) {
+//            InputStream is = con.getInputStream();
+//            String name = "Finished!"; //getFirstName(readResponse(is));
+//            is.close();
+//            networkClient.showAndFinish("Hello " + name + "!");
+//            return;
+//          } else if (sc == 401) {
+//              GoogleAuthUtil.invalidateToken(networkClient.getContext(), token);
+//              onError("Server auth error, please try again.", null);
+//              Log.info("Server auth error: " + readResponse(con.getErrorStream()));
+//              return;
+//          } else {
+//            onError("Server returned the following error code: " + sc, null);
+//            return;
+//          }
       }
 
       /**

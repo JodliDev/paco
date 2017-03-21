@@ -59,35 +59,35 @@ public class SettingsActivity extends ActionBarActivity {
 //    });
 
     accountTextView = (TextView)findViewById(R.id.accountTextView);
-    accountTextView.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SettingsActivity.this);
-        alertDialogBuilder.setMessage(R.string.dialog_change_email_warning);
-        alertDialogBuilder.setCancelable(true);
-
-        alertDialogBuilder.setPositiveButton(
-            R.string.change_email_address_button,
-            new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                  dialog.cancel();
-                  launchAccountChooser();
-                }
-            });
-
-        alertDialogBuilder.setNegativeButton(
-            R.string.cancel_button,
-            new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    dialog.cancel();
-                }
-            });
-
-        emailChangeAlertDialog = alertDialogBuilder.create();
-        emailChangeAlertDialog.show();
-
-      }
-    });
+//FORK    accountTextView.setOnClickListener(new OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SettingsActivity.this);
+//        alertDialogBuilder.setMessage(R.string.dialog_change_email_warning);
+//        alertDialogBuilder.setCancelable(true);
+//
+//        alertDialogBuilder.setPositiveButton(
+//            R.string.change_email_address_button,
+//            new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int id) {
+//                  dialog.cancel();
+//                  launchAccountChooser();
+//                }
+//            });
+//
+//        alertDialogBuilder.setNegativeButton(
+//            R.string.cancel_button,
+//            new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int id) {
+//                    dialog.cancel();
+//                }
+//            });
+//
+//        emailChangeAlertDialog = alertDialogBuilder.create();
+//        emailChangeAlertDialog.show();
+//
+//      }
+//    });
 
     serverAddressTextView = (TextView)findViewById(R.id.serverAddressView);
     serverAddressTextView.setText(userPrefs.getServerAddress());

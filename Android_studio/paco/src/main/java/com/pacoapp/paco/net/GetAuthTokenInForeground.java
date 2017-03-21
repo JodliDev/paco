@@ -19,16 +19,17 @@ public class GetAuthTokenInForeground extends AbstractAuthTokenTask {
      */
     @Override
     protected String fetchToken() throws IOException {
-        try {
-            return GoogleAuthUtil.getToken(networkClient.getContext(), userPrefs.getSelectedAccount(), oAuthScope);
-        } catch (UserRecoverableAuthException userRecoverableException) {
-            // GooglePlayServices.apk is either old, disabled, or not present, which is
-            // recoverable, so we need to show the user some UI through the networkClient.
-            networkClient.handleException(userRecoverableException);
-        } catch (GoogleAuthException fatalException) {
-            onError("Unrecoverable error " + fatalException.getMessage(), fatalException);
-        }
-        return null;
+        return "noToken"; //FORK
+//FORK        try {
+//            return GoogleAuthUtil.getToken(networkClient.getContext(), userPrefs.getSelectedAccount(), oAuthScope);
+//        } catch (UserRecoverableAuthException userRecoverableException) {
+//            // GooglePlayServices.apk is either old, disabled, or not present, which is
+//            // recoverable, so we need to show the user some UI through the networkClient.
+//            networkClient.handleException(userRecoverableException);
+//        } catch (GoogleAuthException fatalException) {
+//            onError("Unrecoverable error " + fatalException.getMessage(), fatalException);
+//        }
+//        return null;
     }
 
 }

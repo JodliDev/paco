@@ -45,6 +45,23 @@
   <View
     android:layout_height="2dip" />
 
+
+  <TableRow> <!--FORK-->
+    <TextView
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:layout_column="1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/fork"
+        android:textSize="12sp" />
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/about_jodli"
+        android:textSize="9sp" />
+  </TableRow>
+
   <TableRow>
     <TextView
       android:paddingLeft="10dip"

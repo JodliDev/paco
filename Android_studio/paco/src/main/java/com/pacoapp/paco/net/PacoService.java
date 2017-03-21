@@ -160,6 +160,7 @@ public class PacoService {
   public void addAccessTokenBearerHeader(String accessToken, final List<Pair<String, String>> headers) {
     userPrefs.setAccessToken(accessToken);
     headers.add(new Pair<String, String>("Authorization", "Bearer " + accessToken));
+    headers.add(new Pair<String, String>("email", userPrefs.getSelectedAccount())); //FORK
   }
 
   static String read(InputStreamReader reader) throws IOException {
@@ -202,45 +203,45 @@ public class PacoService {
 
     @SuppressWarnings("deprecation")
     protected void getAuthAccessToken() {
-        AccountManager accountManager = AccountManager.get(context);
-        Account[] accounts = accountManager.getAccountsByType("com.google");
-        Account account = null;
-        for (Account currentAccount : accounts) {
-          if (currentAccount.name.equals(accountName)) {
-            account = currentAccount;
-            break;
-          }
-        }
-
-        String accessToken = userPrefs.getAccessToken();
-        if (accessToken != null) {
-          Log.info("Invalidating previous OAuth2 access token: " + accessToken);
-          accountManager.invalidateAuthToken(account.type, accessToken);
-          userPrefs.setAccessToken(null);
-        }
-
-        String authTokenType = AbstractAuthTokenTask.AUTH_TOKEN_TYPE_USERINFO_EMAIL;
-
-        Log.info("Get access token for " + accountName + " using authTokenType " + authTokenType);
-        accountManager.getAuthToken(account, authTokenType, true,
-            new AccountManagerCallback<Bundle>() {
-              @Override
-              public void run(AccountManagerFuture<Bundle> future) {
-                try {
-                  String accessToken = future.getResult().getString(AccountManager.KEY_AUTHTOKEN);
-                  onResult(accessToken);
-                  Log.info("Got OAuth2 access token: " + accessToken);
-                } catch (OperationCanceledException e) {
-                  Log.error("TokenError: The user has denied you access to the API");
-                  cancel(false);
-                } catch (Exception e) {
-                  Log.error("TokenError: " + e.getMessage());
-                  Log.error("Exception: ", e);
-                  cancel(false);
-                }
-              }
-
-            }, null);
+//FORK        AccountManager accountManager = AccountManager.get(context);
+//        Account[] accounts = accountManager.getAccountsByType("com.google");
+//        Account account = null;
+//        for (Account currentAccount : accounts) {
+//          if (currentAccount.name.equals(accountName)) {
+//            account = currentAccount;
+//            break;
+//          }
+//        }
+//
+//        String accessToken = userPrefs.getAccessToken();
+//        if (accessToken != null) {
+//          Log.info("Invalidating previous OAuth2 access token: " + accessToken);
+//          accountManager.invalidateAuthToken(account.type, accessToken);
+//          userPrefs.setAccessToken(null);
+//        }
+//
+//        String authTokenType = AbstractAuthTokenTask.AUTH_TOKEN_TYPE_USERINFO_EMAIL;
+//
+//        Log.info("Get access token for " + accountName + " using authTokenType " + authTokenType);
+//        accountManager.getAuthToken(account, authTokenType, true,
+//            new AccountManagerCallback<Bundle>() {
+//              @Override
+//              public void run(AccountManagerFuture<Bundle> future) {
+//                try {
+//                  String accessToken = future.getResult().getString(AccountManager.KEY_AUTHTOKEN);
+//                  onResult(accessToken);
+//                  Log.info("Got OAuth2 access token: " + accessToken);
+//                } catch (OperationCanceledException e) {
+//                  Log.error("TokenError: The user has denied you access to the API");
+//                  cancel(false);
+//                } catch (Exception e) {
+//                  Log.error("TokenError: " + e.getMessage());
+//                  Log.error("Exception: ", e);
+//                  cancel(false);
+//                }
+//              }
+//
+//            }, null);
     }
 
     @Override

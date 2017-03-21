@@ -32,6 +32,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.sql.Timestamp;
+
 public class SplashActivity extends Activity implements NetworkClient {
 
   private static Logger Log = LoggerFactory.getLogger(SplashActivity.class);
@@ -186,42 +188,47 @@ public class SplashActivity extends Activity implements NetworkClient {
   @Override
   protected void onResume() {
     super.onResume();
+
+    if (changingExistingAccount) { //FORK
+      authenticateUser();
+    }
+
     //handle case of broken Google Play Services
     // TODO remove when we get a build that properly incorporates Google Play Services and resources
     // and can build an apk with < 64k methods for Android < 5.0 phones
-    int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
-
-    if (resultCode != ConnectionResult.SUCCESS) {
-      try {
-        // if the class that Paco doesn't provide is not on the system, don't
-        // use it to show an error dialog. Instead make a toast or dialog.
-        SplashActivity.this.getClassLoader().loadClass("com.google.android.gms.common.R$string");
-        Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode,
-                                                              SplashActivity.this,
-                                                              REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR);
-                                                      dialog.show();
-      } catch (ClassNotFoundException e) {
-        Toast.makeText(getApplicationContext(),
-                       "GooglePlayServices " + getString(R.string.are_not_available_) + " " + getString(R.string.error) + ":\n" + getGooglePlayConnectionErrorString(resultCode),
-                       Toast.LENGTH_LONG).show();
-      }
-    } else {
-      if (changingExistingAccount) {
-        authenticateUser();
-      }
-    }
+//FORK    int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
+//
+//    if (resultCode != ConnectionResult.SUCCESS) {
+//      try {
+//        // if the class that Paco doesn't provide is not on the system, don't
+//        // use it to show an error dialog. Instead make a toast or dialog.
+//        SplashActivity.this.getClassLoader().loadClass("com.google.android.gms.common.R$string");
+//        Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode,
+//                                                              SplashActivity.this,
+//                                                              REQUEST_CODE_RECOVER_FROM_PLAY_SERVICES_ERROR);
+//                                                      dialog.show();
+//      } catch (ClassNotFoundException e) {
+//        Toast.makeText(getApplicationContext(),
+//                       "GooglePlayServices " + getString(R.string.are_not_available_) + " " + getString(R.string.error) + ":\n" + getGooglePlayConnectionErrorString(resultCode),
+//                       Toast.LENGTH_LONG).show();
+//      }
+//    } else {
+//      if (changingExistingAccount) {
+//        authenticateUser();
+//      }
+//    }
   }
 
   public void authenticateUser() {
     if (userPrefs.getSelectedAccount() == null || changingExistingAccount) {
       pickUserAccount();
-    } else {
+    } //FORK else {
       if (isDeviceOnline()) {
         getTask(this).execute();
       } else {
         Toast.makeText(this, getString(R.string.network_required), Toast.LENGTH_LONG).show();
       }
-    }
+//FORK    }
   }
 
   private AbstractAuthTokenTask getTask(SplashActivity activity) {
@@ -231,22 +238,28 @@ public class SplashActivity extends Activity implements NetworkClient {
 
   @SuppressLint("NewApi")
   public void pickUserAccount() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-      Account account = null;
-      if (userPrefs.getSelectedAccount() != null) {
-        account = getAccountFor(userPrefs.getSelectedAccount());
-      }
-      Intent intent = AccountManager.newChooseAccountIntent(account, null,
-                                                            new String[]{"com.google"},
-                                                            changingExistingAccount,
-                                                            null,
-                                                            AbstractAuthTokenTask.AUTH_TOKEN_TYPE_USERINFO_EMAIL,
-                                                            null, null);
-      startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
-    } else {
-      Intent intent = new Intent(SplashActivity.this, AccountChooser.class);
-      startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
-    }
+    //FORK>
+    Timestamp t = new Timestamp(System.currentTimeMillis());
+    String username = String.valueOf(Math.round(t.getTime()/1000)%10000000)+"." + String.valueOf(Math.round(Math.random()*1000));
+    userPrefs.saveSelectedAccount(username);
+    Log.debug("Fork - Account is: " + username);
+    //<FORK
+//FORK    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+//      Account account = null;
+//      if (userPrefs.getSelectedAccount() != null) {
+//        account = getAccountFor(userPrefs.getSelectedAccount());
+//      }
+//      Intent intent = AccountManager.newChooseAccountIntent(account, null,
+//                                                            new String[]{"com.google"},
+//                                                            changingExistingAccount,
+//                                                            null,
+//                                                            AbstractAuthTokenTask.AUTH_TOKEN_TYPE_USERINFO_EMAIL,
+//                                                            null, null);
+//      startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
+//    } else {
+//      Intent intent = new Intent(SplashActivity.this, AccountChooser.class);
+//      startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
+//    }
   }
 
   private Account getAccountFor(String selectedAccount) {

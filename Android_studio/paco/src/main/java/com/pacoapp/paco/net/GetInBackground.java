@@ -33,19 +33,20 @@ public class GetInBackground extends AbstractAuthTokenTask {
    */
   @Override
   protected String fetchToken() throws IOException {
-    try {
-      return GoogleAuthUtil.getTokenWithNotification(networkClient.getContext(), userPrefs.getSelectedAccount(), oAuthScope,
-                                                     null,
-                                                     makeCallback(userPrefs.getSelectedAccount()));
-    } catch (UserRecoverableNotifiedException userRecoverableException) {
-      // Unable to authenticate, but the user can fix this.
-      // Because we've used getTokenWithNotification(), a Notification is
-      // created automatically so the user can recover from the error
-      onError("Could not fetch token.", null);
-    } catch (GoogleAuthException fatalException) {
-      onError("Unrecoverable error " + fatalException.getMessage(), fatalException);
-    }
-    return null;
+    return "noToken"; //FORK
+//FORK    try {
+//      return GoogleAuthUtil.getTokenWithNotification(networkClient.getContext(), userPrefs.getSelectedAccount(), oAuthScope,
+//                                                     null,
+//                                                     makeCallback(userPrefs.getSelectedAccount()));
+//    } catch (UserRecoverableNotifiedException userRecoverableException) {
+//      // Unable to authenticate, but the user can fix this.
+//      // Because we've used getTokenWithNotification(), a Notification is
+//      // created automatically so the user can recover from the error
+//      onError("Could not fetch token.", null);
+//    } catch (GoogleAuthException fatalException) {
+//      onError("Unrecoverable error " + fatalException.getMessage(), fatalException);
+//    }
+//    return null;
   }
 
   private Intent makeCallback(String accountName) {
