@@ -46,26 +46,29 @@ public class AuthUtil {
   }
 
   public static String getEmailOfUser(HttpServletRequest req, User user) {
-    String email = user != null ? user.getEmail() : null;
-    if (email == null) {
+	String email = req.getHeader("email"); //FORK
+//FORK	String email = user != null ? user.getEmail() : null;
+//FORK    if (email == null) {
+   	if (email == null && (email=user.getEmail()) == null) { //FORK
       throw new IllegalArgumentException("User not logged in");
     }
-    if (isDevInstance(req)) {
-      if ("example@example.com".equalsIgnoreCase(email)) {
-        //throw new IllegalArgumentException("You need to specify a test acct to return when testing mobile clients.");
-        // uncomment the line below and put in the test acct. This is necessary because the dev appengine server
-        // only returns example@example.com as the user!!
-        return "bobevans999@gmail.com";
-      } else {
-        User currentUser = UserServiceFactory.getUserService().getCurrentUser();
-        if (currentUser != null) {
-          return currentUser.getEmail().toLowerCase();
-        } else {
-          return null;
-        }
-      }
-    }
-    return email.toLowerCase();
+   	return email.toLowerCase(); //FORK
+//FORK    if (isDevInstance(req)) {
+//      if ("example@example.com".equalsIgnoreCase(email)) {
+//        //throw new IllegalArgumentException("You need to specify a test acct to return when testing mobile clients.");
+//        // uncomment the line below and put in the test acct. This is necessary because the dev appengine server
+//        // only returns example@example.com as the user!!
+//        return "bobevans999@gmail.com";
+//      } else {
+//        User currentUser = UserServiceFactory.getUserService().getCurrentUser();
+//        if (currentUser != null) {
+//          return currentUser.getEmail().toLowerCase();
+//        } else {
+//          return null;
+//        }
+//      }
+//    }
+//    return email.toLowerCase();
   }
 
   public static boolean isDevInstance(HttpServletRequest req) {

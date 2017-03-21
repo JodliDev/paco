@@ -72,10 +72,10 @@ public class EventServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     setCharacterEncoding(req, resp);
-    User user = AuthUtil.getWhoFromLogin();
-    if (user == null) {
-      AuthUtil.redirectUserToLogin(req, resp);
-    } else {
+//FORK    User user = AuthUtil.getWhoFromLogin();
+//    if (user == null) {
+//      AuthUtil.redirectUserToLogin(req, resp);
+//    } else {
       String anonStr = req.getParameter("anon");
       boolean anon = false;
       if (anonStr != null) {
@@ -117,7 +117,7 @@ public class EventServlet extends HttpServlet {
       } else {
         dumpEventsHtml(resp, req, anon, limit, cursor, cmdline);
       }
-    }
+//FORK    }
   }
 
   private void dumpEventJsonUsingBackend(HttpServletResponse resp, HttpServletRequest req, boolean anon, int limit, String cursor, boolean cmdline) throws IOException {
@@ -453,16 +453,16 @@ public class EventServlet extends HttpServlet {
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
     setCharacterEncoding(req, resp);
-    User who = AuthUtil.getWhoFromLogin();
-    if (who == null) {
-      AuthUtil.redirectUserToLogin(req, resp);
-    } else {
+//FORK    User who = AuthUtil.getWhoFromLogin();
+//    if (who == null) {
+//      AuthUtil.redirectUserToLogin(req, resp);
+//    } else {
       if (ServletFileUpload.isMultipartContent(req)) {
         processCsvUpload(req, resp);
       } else {
         processJsonUpload(req, resp);
       }
-    }
+//FORK    }
   }
 
   private void processCsvUpload(HttpServletRequest req, HttpServletResponse resp) throws IOException {

@@ -64,9 +64,9 @@ public class ExperimentServlet extends HttpServlet {
 
     User user = AuthUtil.getWhoFromLogin();
 
-    if (user == null) {
-      AuthUtil.redirectUserToLogin(req, resp);
-    } else {
+//FORK    if (user == null) {
+//      AuthUtil.redirectUserToLogin(req, resp);
+//    } else {
       DateTimeZone timezone = TimeUtil.getTimeZoneForClient(req);
       log.info("Timezone is computed to be: " + timezone.toString());
       logPacoClientVersion(req);
@@ -131,7 +131,7 @@ public class ExperimentServlet extends HttpServlet {
         resp.getWriter().println(scriptBust("Unrecognized parameters!"));
       }
 
-    }
+//FORK    }
   }
 
 
@@ -151,9 +151,9 @@ public class ExperimentServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     resp.setContentType("application/json;charset=UTF-8");
     User user = AuthUtil.getWhoFromLogin();
-    if (user == null) {
-      AuthUtil.redirectUserToLogin(req, resp);
-    } else {
+//FORK    if (user == null) {
+//      AuthUtil.redirectUserToLogin(req, resp);
+//    } else {
       DateTimeZone timezone = TimeUtil.getTimeZoneForClient(req);
       logPacoClientVersion(req);
       String email = AuthUtil.getEmailOfUser(req, user);
@@ -171,7 +171,7 @@ public class ExperimentServlet extends HttpServlet {
       } else {
         readExperimentDefinitions(req, resp);
       }
-    }
+//FORK    }
   }
 
 
