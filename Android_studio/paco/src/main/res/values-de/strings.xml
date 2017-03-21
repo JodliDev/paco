@@ -9,7 +9,7 @@
     <string name="accessibility_rationale">Diese Berechtigung wird benötigt, damit Paco Text am Bildschirm lesen und Clicks erkennen kann.</string>
     <string name="action_email_paco_team">Email an Paco Team</string>
     <string name="action_find_experiments">Finde Experimente</string>
-    <string name="action_language_preference">Sprach-Einstellungen</string>
+    <string name="action_language_preference">Sprache</string>
     <string name="action_open_source_libs">Open source Bibliotheken</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_troubleshooting">Fehlersuche</string>
@@ -59,7 +59,7 @@
     <string name="debug_menu_item">Debuggen</string>
     <string name="decline">Ablehnen</string>
     <string name="default_end_hour">17:30</string>
-    <string name="default_list_item">Wählen Sie eine Option</string>
+    <string name="default_list_item">Option auswählen</string>
     <string name="default_start_time">9:30</string>
     <string name="delete_audio_label">Löschen</string>
     <string name="description">Beschreibung:</string>
@@ -139,7 +139,7 @@
     <string name="explore_data">Daten überprüfen</string>
     <string name="explore_data_menu_item">Daten überprüfen</string>
     <string name="find_all_public_experiments">Finde alle öffentlichen Experimente</string>
-    <string name="find_my_experiments">Meine Experiment-Einladungen</string>
+    <string name="find_my_experiments">Experiment-Einladungen</string>
     <string name="find_public_experiments_title">Experiment-Hub</string>
     <string name="force_upload_events_button_label">Events synchronisieren</string>
     <string name="gallery">Gallerie</string>
@@ -151,7 +151,7 @@
     <string name="informed_consent_preamble">Durch das Beitreten zu diesem Experiment teilen Sie Ihre Antworten mit dem Ersteller und Administratoren des Experimentes. DIese können Ihre Informationen für Forschung, Produktentwicklung, oder andere Zwecke nutzen. Bitte lesen Sie die deren Datenschutz- oder Datenverarbeitungserklärung und entscheiden Sie, ob Sie an diesem Experiment teilnehmen möchten.</string>
     <string name="installed_app_data_collected">Am Telefon installierte Apps</string>
     <string name="invalid_data">Fehler beim Laden der Experiment-Daten</string>
-    <string name="join_this_experiment">Diesem Experiment beitreten</string>
+    <string name="join_this_experiment">Experiment beitreten</string>
     <string name="joined_on">Beigetreten am</string>
     <string name="last_refreshed">Letzte Aktualisierung</string>
     <string name="libraries_used_by_paco_label">Verwendete Libraries</string>
@@ -211,7 +211,7 @@
     <string name="review_schedule_button_label">Lade Zeitplan</string>
     <string name="review_usageaccess_button_label">Klicken Sie hier um sicher zu gehen, dass Paco App-Verlaufs-Berechtigungen hat</string>
     <string name="ringtone_for_alerts_label">Alarmton</string>
-    <string name="running_experiments_title">Meine laufenden Experimente</string>
+    <string name="running_experiments_title">Laufende Experimente</string>
     <string name="save_button">Speichern</string>
     <string name="save_response">Antwort speichern</string>
     <string name="schedule">\"Zeitplan:\"</string>
