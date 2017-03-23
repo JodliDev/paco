@@ -9,7 +9,7 @@
     <string name="accessibility_rationale">Diese Berechtigung wird benötigt, damit Paco Text am Bildschirm lesen und Clicks erkennen kann.</string>
     <string name="action_email_paco_team">Email an Paco Team</string>
     <string name="action_find_experiments">Finde Experimente</string>
-    <string name="action_language_preference">Sprach-Einstellungen</string>
+    <string name="action_language_preference">Sprache</string>
     <string name="action_open_source_libs">Open source Bibliotheken</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_troubleshooting">Fehlersuche</string>
@@ -59,7 +59,7 @@
     <string name="debug_menu_item">Debuggen</string>
     <string name="decline">Ablehnen</string>
     <string name="default_end_hour">17:30</string>
-    <string name="default_list_item">Wählen Sie eine Option</string>
+    <string name="default_list_item">Option auswählen</string>
     <string name="default_start_time">9:30</string>
     <string name="delete_audio_label">Löschen</string>
     <string name="description">Beschreibung:</string>
@@ -139,7 +139,7 @@
     <string name="explore_data">Daten überprüfen</string>
     <string name="explore_data_menu_item">Daten überprüfen</string>
     <string name="find_all_public_experiments">Finde alle öffentlichen Experimente</string>
-    <string name="find_my_experiments">Meine Experiment-Einladungen</string>
+    <string name="find_my_experiments">Experiment-Einladungen</string>
     <string name="find_public_experiments_title">Experiment-Hub</string>
     <string name="force_upload_events_button_label">Events synchronisieren</string>
     <string name="gallery">Gallerie</string>
@@ -148,10 +148,10 @@
     <string name="gps_message">\"GPS für verbesserte Ortung verwenden (nur draußen)?</string>
     <string name="i_did_not_understand">Ich habe nicht verstanden</string>
     <string name="ic_phone_make_model_carrier_label">Telefon-Hersteller, Modell, Netzbetreiber</string>
-    <string name="informed_consent_preamble">Durch das Beitreten zu diesem Experiment teilen Sie Ihre Antworten mit dem Ersteller und Administratoren des Experimentes. DIese können Ihre Informationen für Forschung, Produktentwicklung, oder andere Zwecke nutzen. Bitte lesen Sie die deren Datenschutz- oder Datenverarbeitungserklärung und entscheiden Sie, ob Sie an diesem Experiment teilnehmen möchten.</string>
+    <string name="informed_consent_preamble">Durch das Beitreten zu diesem Experiment teilen Sie Ihre Daten mit dem Ersteller und den Administratoren des Experimentes. Diese können Ihre Informationen für Forschung, Produktentwicklung, oder andere Zwecke nutzen. Bitte lesen Sie die deren Datenschutz- oder Datenverarbeitungserklärung und entscheiden Sie, ob Sie an diesem Experiment teilnehmen möchten.</string>
     <string name="installed_app_data_collected">Am Telefon installierte Apps</string>
     <string name="invalid_data">Fehler beim Laden der Experiment-Daten</string>
-    <string name="join_this_experiment">Diesem Experiment beitreten</string>
+    <string name="join_this_experiment">Experiment beitreten</string>
     <string name="joined_on">Beigetreten am</string>
     <string name="last_refreshed">Letzte Aktualisierung</string>
     <string name="libraries_used_by_paco_label">Verwendete Libraries</string>
@@ -166,13 +166,13 @@
     <string name="maps_button_label">Karten</string>
     <string name="missed_signal_value">Verpasst</string>
     <string name="missing_image_warning">Kann Fotodatei von Kamera nicht finden!</string>
-    <string name="modify_time_title">Veränderungszeitpunkt</string>
+    <string name="modify_time_title">Zeitplan verändern</string>
     <string name="month_esm_period">Monat</string>
     <string name="monthly_schedule_type">Monatlich</string>
     <string name="months">Monate</string>
     <string name="multiselectListManyItemsChosen">Items ausgewählt</string>
     <string name="multiselectListOneItemChosen">Item ausgewählt</string>
-    <string name="must_answer">\"Pflichtfeld:\"</string>
+    <string name="must_answer">Bitte beantworten:</string>
     <string name="navigation_drawer_close">Schließe Navigation</string>
     <string name="navigation_drawer_open">Öffne Navigation</string>
     <string name="need_location">\"Um Ortungsdaten beizufügen, muss zumindest eine Form von Ortungsdiensten aktiviert sein.\"</string>
@@ -208,10 +208,10 @@
     <string name="retrieving_location">Lade...</string>
     <string name="retrieving_your_joined_experiment_from_the_server">Ihre Experimente werden vom Server geladen</string>
     <string name="review_accessibility_button_label">Klicken Sie hier um sicher zu gehen, dass Paco Barrierefreiheits-Berechtigungen hat</string>
-    <string name="review_schedule_button_label">Lade Zeitplan</string>
+    <string name="review_schedule_button_label">Zeitplan verändern</string>
     <string name="review_usageaccess_button_label">Klicken Sie hier um sicher zu gehen, dass Paco App-Verlaufs-Berechtigungen hat</string>
     <string name="ringtone_for_alerts_label">Alarmton</string>
-    <string name="running_experiments_title">Meine laufenden Experimente</string>
+    <string name="running_experiments_title">Laufende Experimente</string>
     <string name="save_button">Speichern</string>
     <string name="save_response">Antwort speichern</string>
     <string name="schedule">\"Zeitplan:\"</string>
@@ -238,7 +238,7 @@
     <string name="success">Erfolgreich</string>
     <string name="suggested_signalling_schedule">Vorgeschlagener Signal-Zeitplan</string>
     <string name="survey_expired">Der Befragungs-Aufforderung ist abgelaufen. Es müssen keine Daten angegeben werden</string>
-    <string name="survey_responses_data_collected">User-Antworten auf Experiment</string>
+    <string name="survey_responses_data_collected">Ihre Antworten auf das Experiment</string>
     <string name="take_picture">Bild hinzufügen</string>
     <string name="thank_you_for_participating">Danke für die Teilnahme</string>
     <string name="the_personal_analytics_companion_subtitle">Der persönliche Analyse-Begleiter</string>
@@ -274,4 +274,8 @@
     <string name="yes">Ja</string>
     <string name="you_must_pick_an_account">Sie müssen einen Account auswählen</string>
     <string name="your_current_experiments">Meine laufenden Experimente</string>
+    <string name="title_activity_experiment_schedules">Experiment-Zeitplan</string>
+    <string name="title_activity_schedule_details">Zeitplan-Details</string>
+    <string name="title_activity_group_to_respond">Antwort-Gruppe auswählen</string>
+    <string name="title_activity_raw_data_viewer">Rohdaten-Anzeige</string>
 </resources>
