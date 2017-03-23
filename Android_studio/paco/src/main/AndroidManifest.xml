@@ -114,7 +114,7 @@
         
         <activity
             android:name="com.pacoapp.paco.ui.ExperimentGroupPicker"
-            android:label="Pick Group to Respond"
+            android:label="@string/title_activity_group_to_respond"
             android:configChanges="orientation|keyboardHidden|locale|layoutDirection"
             android:screenOrientation="portrait" />
         <activity
@@ -173,7 +173,7 @@
         </activity>
         <activity
             android:name="com.pacoapp.paco.ui.RawDataActivity"
-            android:label="Paco Raw Data Viewer" 
+            android:label="@string/title_activity_raw_data_viewer"
             android:configChanges="locale|layoutDirection">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
@@ -186,7 +186,7 @@
             android:label="Opensource" />
 <!-- New UI -->
         <activity
-            android:name="com.pacoapp.paco.ui.ScheduleListActivity" android:label="Experiment Schedules" android:configChanges="locale|layoutDirection">
+            android:name="com.pacoapp.paco.ui.ScheduleListActivity" android:label="@string/title_activity_experiment_schedules" android:configChanges="locale|layoutDirection">
         </activity>
          <activity android:name="com.pacoapp.paco.ui.SchedulePagerActivity"
              android:label="Experiment Schedule Details" android:configChanges="locale|layoutDirection">
@@ -196,7 +196,7 @@
             
         <activity
             android:name="com.pacoapp.paco.ui.ScheduleDetailActivity"
-            android:label="Schedule Details" android:configChanges="locale|layoutDirection"
+            android:label="@string/title_activity_schedule_details" android:configChanges="locale|layoutDirection"
             android:parentActivityName="com.pacoapp.paco.ui.ScheduleListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

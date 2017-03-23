@@ -251,6 +251,10 @@
     <string name="title_activity_experiment_detail" description="Title lable for the Screen to join a specific Experiment">Join Experiment</string>
     <string name="title_activity_Informed_consent" description="Title lable for the screen to accept the informed consent from an experiment">Informed Consent</string>
     <string name="title_activity_Post_join_instructions" description="">Participation Instructions</string>
+    <string name="title_activity_experiment_schedules" description="">Experiment Schedules</string>
+    <string name="title_activity_schedule_details" description="">Schedule Details</string>
+    <string name="title_activity_group_to_respond" description="">Pick Group to Respond</string>
+    <string name="title_activity_raw_data_viewer" description="">Paco Raw Data Viewer</string>
     <string name="location_to_be_recorded_default_prompt" description="Default prompt text for a location input survey item. This is shown next to the lat/long retrieved and the button to modify location settings">Location to be recorded</string>
     <string name="organization" description="Label for field showing the organization that is offering the experiment">Organization:</string>
     <string name="contact_" description="Label for the field showing the contact email address for the experiment">Contact:</string>
