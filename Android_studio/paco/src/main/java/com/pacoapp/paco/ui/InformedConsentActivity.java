@@ -26,13 +26,16 @@ import org.joda.time.DateTime;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.TelephonyManager;
@@ -205,15 +208,67 @@ public class InformedConsentActivity extends ActionBarActivity implements Experi
   // Visible for testing
   public void saveDownloadedExperimentBeforeScheduling(Experiment fullExperiment) {
     experiment = fullExperiment;
+    if (ExperimentHelper.shouldWatchProcesses(experiment.getExperimentDAO())) {
+      BroadcastTriggerReceiver.initPollingAndLoggingPreference(this);
+      BroadcastTriggerReceiver.startProcessService(this);
+      //if service started successful: saveExperimentAfterPermissionsCheck will be called from within the service
+      //if not: Button has to be pressed again (preferably after they granted the permissions)
+      LocalBroadcastManager.getInstance(this).registerReceiver(receivePermissionsOK,
+          new IntentFilter("com.pacoapp.paco.sensors.android.AppUsage"));
+    }
+    else {
+      saveExperimentAfterPermissionsCheck();
+    }
+  }
+
+  private void unregisterReceiver() {
+    LocalBroadcastManager.getInstance(this).unregisterReceiver(receivePermissionsOK);
+  }
+
+  private void noPermissionDialog() {
+    AlertDialog.Builder alertDialog = new AlertDialog.Builder(this)
+            .setIcon(R.drawable.paco64)
+            .setTitle("Permissions needed")
+            .setMessage("This experiment requires the permission to access your App-usage. A settings-screen will be opened, where you can activate that permission.")
+            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+              public void onClick(DialogInterface dialog, int which) {
+                finish();
+                Intent settings_intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                settings_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(settings_intent);
+              }
+            });
+
+    alertDialog.show();
+  }
+  private BroadcastReceiver receivePermissionsOK = new BroadcastReceiver() {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      if(!intent.getAction().equals("com.pacoapp.paco.sensors.android.AppUsage")) {
+        return;
+      }
+      unregisterReceiver();
+
+      String message = intent.getStringExtra("permission");
+      if (message.equals("no_access")) {
+        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+          noPermissionDialog();
+
+        }
+      } else {
+        saveExperimentAfterPermissionsCheck();
+      }
+    }
+  };
+
+  public void saveExperimentAfterPermissionsCheck() {
+    Log.d("log", "saveExperimentAfterPermissionsCheck()");
     joinExperiment();
     createJoinEvent();
     PacoExperimentActionBroadcaster.sendJoinExperiment(getApplicationContext(),  experiment);
     startService(new Intent(this, SyncService.class));
     startService(new Intent(this, BeeperService.class));
-    if (ExperimentHelper.shouldWatchProcesses(experiment.getExperimentDAO())) {
-      BroadcastTriggerReceiver.initPollingAndLoggingPreference(this);
-      BroadcastTriggerReceiver.startProcessService(this);
-    }
+
     startService(new Intent(this, ExperimentExpirationManagerService.class));
     if (ExperimentHelper.declaresInstalledAppDataCollection(experiment.getExperimentDAO())) {
       // Cache installed app names at the start of the experiment

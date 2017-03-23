@@ -34,6 +34,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.support.v4.content.LocalBroadcastManager;
 
 public class ProcessService extends Service {
 
@@ -47,6 +48,7 @@ public class ProcessService extends Service {
   @Override
   public void onStart(Intent intent, int startId) {
     super.onStart(intent, startId);
+    reportPermission("ok"); //no permission-checks for this service, just go on
     if (running) {
       Log.info("Paco App Usage Poller.onStart() -- Already running");
       return;
@@ -276,6 +278,12 @@ public class ProcessService extends Service {
     }
   }
 
+
+  private void reportPermission(String s) {
+    Intent intent_broadcast = new Intent("com.pacoapp.paco.sensors.android.AppUsage");
+    intent_broadcast.putExtra("permission", s);
+    LocalBroadcastManager.getInstance(this).sendBroadcast(intent_broadcast);
+  }
   // create PacoEvent for list of apps in mru order
   protected void logProcessesUsedSinceLastPolling(List<String> newlyUsedTasks) {
     if (newlyUsedTasks.isEmpty()) {
