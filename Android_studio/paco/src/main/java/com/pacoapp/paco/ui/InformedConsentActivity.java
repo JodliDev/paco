@@ -228,13 +228,12 @@ public class InformedConsentActivity extends ActionBarActivity implements Experi
   private void noPermissionDialog() {
     AlertDialog.Builder alertDialog = new AlertDialog.Builder(this)
             .setIcon(R.drawable.paco64)
-            .setTitle("Permissions needed")
-            .setMessage("This experiment requires the permission to access your App-usage. A settings-screen will be opened, where you can activate that permission.")
+            .setTitle(R.string.dialog_permissions_needed)
+            .setMessage(R.string.dialog_app_usage_permissions_needed_msg)
             .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
               public void onClick(DialogInterface dialog, int which) {
                 finish();
                 Intent settings_intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-                settings_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(settings_intent);
               }
             });
