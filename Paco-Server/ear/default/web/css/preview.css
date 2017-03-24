@@ -25,6 +25,17 @@
   height: 200px;
 }
 
+.preview md-slider.va_scale .md-track-container {
+  height:20px; 
+  margin-top:-9px
+}
+.preview md-slider.va_scale .md-track-fill {
+  background-color:#bbb;
+}
+.preview md-slider.va_scale .md-thumb-container {
+  display:none;
+}
+
 .event .header div {
   padding-left: 16px;
 }
