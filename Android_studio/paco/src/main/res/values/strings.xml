@@ -384,6 +384,8 @@
     <string name="end_time_must_be_after_start_time_warning_label">End time must be after start time</string>
     <string name="start_and_end_time_too_short">Start and End time window is too short</string>
     <string name="diagnostic_accessibility_type">accessibility access</string>
+    <string name="dialog_permissions_needed">Permissions needed</string>
+    <string name="dialog_app_usage_permissions_needed_msg">This experiment requires the permission to access your App-usage. Please give Paco access to your App usage data (under Settings/Security/App usage)</string>
 
 
 </resources>
