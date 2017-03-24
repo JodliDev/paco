@@ -54,6 +54,18 @@
         </div>
       </div>
 
+      <div ng-if="input.responseType === 'va_scale'">
+        <md-input-container flex>
+          <label>Left Side Label</label>
+          <input ng-model="input.leftSideLabel">
+        </md-input-container>
+
+        <md-input-container flex>
+          <label>Right Side Label</label>
+          <input ng-model="input.rightSideLabel">
+        </md-input-container>
+      </div>
+      
       <div ng-if="input.responseType === 'list'">
         <md-checkbox ng-model="input.multiselect" aria-label="Multiple selections">
           Multiple selections

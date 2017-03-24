@@ -5,6 +5,16 @@
         <div ng-repeat="input in group.inputs track by $index" ng-hide="mask[$index]">
           <div class="padded">
             <div>{{$index + 1}} {{input.text}}</div>
+            
+            <div ng-if="input.responseType === 'va_scale'" class="input">
+               <div layout="row">
+                <span>{{input.leftSideLabel}}</span>
+                <md-slider class="va_scale" ng-model="responses[input.name]" min="0" max="100" flex onMouseDown="this.getElementsByClassName('md-thumb-container')[0].style.display = 'block';">
+                </md-slider>
+                <span>{{input.rightSideLabel}}</span>
+              </div>
+            </div>
+            
             <div ng-if="input.responseType === 'likert'" class="likert input">
               <div layout="row">
                 <span>{{input.leftSideLabel}}</span>
