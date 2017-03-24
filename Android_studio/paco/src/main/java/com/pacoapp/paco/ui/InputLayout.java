@@ -514,7 +514,7 @@ public class InputLayout extends LinearLayout implements SpeechRecognitionListen
     } else if (questionType.equals(Input2.AUDIO)) {
       return renderAudioRecorder(input2);
     } else if (questionType.equals(Input2.VA_SCALE)) {
-      return renderVaScale();
+      return renderVaScale(input2);
     }
     return null;
   }
@@ -927,9 +927,22 @@ public class InputLayout extends LinearLayout implements SpeechRecognitionListen
 
   }
 
-  private View renderVaScale() {
+  private View renderVaScale(Input2 input2) {
     View view = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
             R.layout.va_scale, this, true);
+
+//    likertView.setPadding(0, 2, 0, 16);
+    String leftSideLabel = input2.getLeftSideLabel();
+    if (leftSideLabel != null) {
+      TextView leftSideView = (TextView) findViewById(R.id.LeftText);
+      leftSideView.setText(Html.fromHtml(leftSideLabel));
+    }
+    String rightSideLabel = input2.getRightSideLabel();
+    if (rightSideLabel != null) {
+      TextView rightSideView = (TextView) findViewById(R.id.RightText);
+      rightSideView.setText(Html.fromHtml(rightSideLabel));
+    }
+
     SeekBar_api14 seekBar = (SeekBar_api14) findViewById(R.id.va_scale_input);
     seekBar.getThumb().mutate().setAlpha(0);
 

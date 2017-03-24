@@ -23,17 +23,43 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:paddingBottom="8dip"
         android:weightSum="1">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dip"
+            android:paddingBottom="0dip"
+            >
+
+            <TextView
+                android:id="@+id/LeftText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_alignParentLeft="true"
+                android:padding="0dip"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/RightText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:padding="0dip"
+                android:text="" />
+        </RelativeLayout>
 
         <com.pacoapp.paco.ui.SeekBar_api14
             android:id="@+id/va_scale_input"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
+            android:layout_gravity="center"
             android:progressDrawable="@drawable/seekbar_progress" />
     </LinearLayout>
 
