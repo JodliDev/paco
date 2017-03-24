@@ -344,9 +344,9 @@
         <service android:name="com.pacoapp.paco.sensors.android.procmon.LollipopProcessMonitorService"></service>
     </application>
 
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <!--<uses-permission android:name="android.permission.GET_ACCOUNTS" />-->
+    <!--<uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />-->
+    <!--<uses-permission android:name="android.permission.USE_CREDENTIALS" />-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
