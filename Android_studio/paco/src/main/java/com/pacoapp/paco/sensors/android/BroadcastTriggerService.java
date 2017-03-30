@@ -7,6 +7,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.pacoapp.paco.R;
 import com.pacoapp.paco.UserPreferences;
 import com.pacoapp.paco.model.Event;
 import com.pacoapp.paco.model.EventUtil;
@@ -25,7 +26,9 @@ import com.pacoapp.paco.shared.util.ExperimentHelper.Trio;
 import com.pacoapp.paco.shared.util.TimeUtil;
 import com.pacoapp.paco.triggering.AndroidActionExecutor;
 import com.pacoapp.paco.triggering.NotificationCreator;
+import com.pacoapp.paco.ui.DialogActivity;
 
+import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -145,16 +148,25 @@ public class BroadcastTriggerService extends Service {
           for (PacoAction pacoAction : actions) {
             final ExperimentGroup group = triggerInfo.first;
             final Long actionTriggerSpecId = triggerInfo.third != null ? triggerInfo.third.getId() : null;
-            if (pacoAction.getActionCode() == pacoAction.NOTIFICATION_TO_PARTICIPATE_ACTION_CODE) {
+            if (pacoAction.getActionCode() == PacoAction.NOTIFICATION_TO_PARTICIPATE_ACTION_CODE) {
               ActionSpecification timeExperiment = new ActionSpecification(time, experiment.getExperimentDAO(), group,
-                                                                           actionTrigger,
-                                                                           (PacoNotificationAction) pacoAction,
-                                                                           actionTriggerSpecId);
+                  actionTrigger,
+                  (PacoNotificationAction) pacoAction,
+                  actionTriggerSpecId);
               Log.info("creating a notification");
               final long delay = ((PacoNotificationAction) pacoAction).getDelay();
               notificationCreator.createNotificationsForTrigger(experiment, triggerInfo, delay, time, triggerEvent,
                                                                 sourceIdentifier, timeExperiment);
               Log.info("created a notification");
+            } else if (pacoAction.getActionCode() == PacoAction.NOTIFICATION_ACTION_CODE) {
+              ActionSpecification timeExperiment = new ActionSpecification(time, experiment.getExperimentDAO(), group,
+                      actionTrigger,
+                      (PacoNotificationAction) pacoAction,
+                      actionTriggerSpecId);
+              Intent intent = new Intent(this.getApplicationContext(), DialogActivity.class);
+              intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+              intent.putExtra(DialogActivity.MSG_KEY, timeExperiment.action.getMsgText());
+              startActivity(intent);
             } else if (pacoAction.getActionCode() == PacoAction.EXECUTE_SCRIPT_ACTION_CODE) {
               AndroidActionExecutor.runAction(getApplicationContext(), pacoAction, experiment,
                                               experiment.getExperimentDAO(), group, actionTriggerSpecId, actionTrigger.getId());

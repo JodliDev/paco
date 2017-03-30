@@ -148,9 +148,11 @@ public class ProcessService extends Service {
               tasksToSendTrigger.add(taskName);
             }
           }
-
-          for (String taskName : tasksToSendTrigger) {
-            triggerAppUsed(taskName);
+          if(tasksToSendTrigger.size() > 0) {
+            for (String taskName : tasksToSendTrigger) {
+              triggerAppUsed(taskName);
+            }
+            logProcessesUsedSinceLastPolling(newlyUsedTasks); //log that a trigger has fired
           }
 
         }
@@ -358,7 +360,9 @@ public class ProcessService extends Service {
     List<Experiment> experimentsNeedingEvent = Lists.newArrayList();
     DateTime now = DateTime.now();
     for (Experiment experiment2 : joined) {
-      if (!ActionScheduleGenerator.isOver(now, experiment2.getExperimentDAO()) && ExperimentHelper.isLogActions(experiment2.getExperimentDAO())) {
+      if (!ActionScheduleGenerator.isOver(now, experiment2.getExperimentDAO())
+              && (ExperimentHelper.isLogActions(experiment2.getExperimentDAO())
+                || ExperimentHelper.hasAppUsageTrigger(experiment2.getExperimentDAO()))) {
         experimentsNeedingEvent.add(experiment2);
       }
     }

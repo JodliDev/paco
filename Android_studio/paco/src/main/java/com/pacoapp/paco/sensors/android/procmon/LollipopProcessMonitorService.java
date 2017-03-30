@@ -39,7 +39,6 @@ public class LollipopProcessMonitorService extends Service {
     super.onStart(intent, startId);
     if (running) {
       Log.info("Paco App Usage Poller.onStart() -- Already running");
-      reportPermission("ok");
       stopSelf();
       return;
     } else {
@@ -50,12 +49,8 @@ public class LollipopProcessMonitorService extends Service {
                                                                      BroadcastTriggerReceiver.getFrequency(getApplicationContext()));
       if (!usageEventsService.canGetStats()) {
         Log.info("no access to Usage Stats. Please turn on setting.");
-        reportPermission("no_access");
         stopSelf();
         return;
-      }
-      else {
-        reportPermission("ok");
       }
 
       final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -96,8 +91,8 @@ public class LollipopProcessMonitorService extends Service {
         public LollipopAppUsageMonitor createAppUsageMonitor(final AppUsageEventsService usageEventsService) {
           ExperimentProviderUtil experimentProviderUtil = new ExperimentProviderUtil(getApplicationContext());
           AppUsageTriggerHelper apmh = new AppUsageTriggerHelper(experimentProviderUtil);
-          List<String> appOpenTasks = apmh.getAppStartTasksToWatch();
-          List<String> appCloseTasks = apmh.getAppCloseTasksToWatch();
+          List<String> appOpenTasks = apmh.getAppStartStopTasksToWatch(true);
+          List<String> appCloseTasks = apmh.getAppStartStopTasksToWatch(false);
           List<Experiment> experimentsWatchingAppUsage = apmh.initializeExperimentsWatchingAppUsage();
 
           AppUsageEventLogger pueb = new AppUsageEventLogger(getApplicationContext(),
@@ -117,12 +112,6 @@ public class LollipopProcessMonitorService extends Service {
     }
 
 
-  }
-
-  private void reportPermission(String s) {
-    Intent intent_broadcast = new Intent("com.pacoapp.paco.sensors.android.AppUsage");
-    intent_broadcast.putExtra("permission", s);
-    LocalBroadcastManager.getInstance(this).sendBroadcast(intent_broadcast);
   }
 
   protected void createScreenOffPacoEvents(Context context) {
