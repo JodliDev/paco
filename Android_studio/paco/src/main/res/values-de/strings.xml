@@ -278,4 +278,6 @@
     <string name="title_activity_schedule_details">Zeitplan-Details</string>
     <string name="title_activity_group_to_respond">Antwort-Gruppe auswählen</string>
     <string name="title_activity_raw_data_viewer">Rohdaten-Anzeige</string>
+    <string name="dialog_app_usage_permissions_needed_msg">Für dieses Experiment benötigt Paco Zugriff auf Ihre Nutzungsdaten (Möglich unter: Einstellungen/Sicherheit/Apps mit Zugriff auf Nutzungsdaten)</string>
+    <string name="dialog_permissions_needed">Berechtigung benötigt</string>
 </resources>
