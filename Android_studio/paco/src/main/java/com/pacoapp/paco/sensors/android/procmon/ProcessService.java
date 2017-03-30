@@ -48,7 +48,6 @@ public class ProcessService extends Service {
   @Override
   public void onStart(Intent intent, int startId) {
     super.onStart(intent, startId);
-    reportPermission("ok"); //no permission-checks for this service, just go on
     if (running) {
       Log.info("Paco App Usage Poller.onStart() -- Already running");
       return;
@@ -99,7 +98,6 @@ public class ProcessService extends Service {
                     createTriggersForNewlyUsedTasksOfInterest(tasksOfInterest, newlyUsedTasks);
                     markNewlyUsedTaskToWatchForClosing(tasksOfInterestForClosing, newlyUsedTasks.get(0));
                     createTriggerForNewlyStoppedTaskOfInterest(newlyUsedTasks.get(0));
-
                   }
 
                   if (BroadcastTriggerReceiver.shouldLogActions(getApplicationContext())) {
@@ -278,12 +276,6 @@ public class ProcessService extends Service {
     }
   }
 
-
-  private void reportPermission(String s) {
-    Intent intent_broadcast = new Intent("com.pacoapp.paco.sensors.android.AppUsage");
-    intent_broadcast.putExtra("permission", s);
-    LocalBroadcastManager.getInstance(this).sendBroadcast(intent_broadcast);
-  }
   // create PacoEvent for list of apps in mru order
   protected void logProcessesUsedSinceLastPolling(List<String> newlyUsedTasks) {
     if (newlyUsedTasks.isEmpty()) {
