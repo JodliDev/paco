@@ -26,6 +26,8 @@ import org.joda.time.DateTime;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -208,60 +210,31 @@ public class InformedConsentActivity extends ActionBarActivity implements Experi
   // Visible for testing
   public void saveDownloadedExperimentBeforeScheduling(Experiment fullExperiment) {
     experiment = fullExperiment;
-    if (ExperimentHelper.shouldWatchProcesses(experiment.getExperimentDAO())) {
-      BroadcastTriggerReceiver.initPollingAndLoggingPreference(this);
-      BroadcastTriggerReceiver.startProcessService(this);
-      //if service started successful: saveExperimentAfterPermissionsCheck will be called from within the service
-      //if not: Button has to be pressed again (preferably after they granted the permissions)
-      LocalBroadcastManager.getInstance(this).registerReceiver(receivePermissionsOK,
-          new IntentFilter("com.pacoapp.paco.sensors.android.AppUsage"));
-    }
-    else {
-      saveExperimentAfterPermissionsCheck();
-    }
-  }
+    boolean watchProcesses = ExperimentHelper.shouldWatchProcesses(experiment.getExperimentDAO());
 
-  private void unregisterReceiver() {
-    LocalBroadcastManager.getInstance(this).unregisterReceiver(receivePermissionsOK);
-  }
+    if (watchProcesses && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      //check for App usage-permissions:
+      final UsageStatsManager usageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
+      final List<UsageStats> queryUsageStats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, 0, System.currentTimeMillis());
 
-  private void noPermissionDialog() {
-    AlertDialog.Builder alertDialog = new AlertDialog.Builder(this)
-            .setIcon(R.drawable.paco64)
-            .setTitle(R.string.dialog_permissions_needed)
-            .setMessage(R.string.dialog_app_usage_permissions_needed_msg)
-            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-              public void onClick(DialogInterface dialog, int which) {
-                finish();
-                Intent settings_intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-                startActivity(settings_intent);
-              }
-            });
+      if (queryUsageStats.isEmpty()) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this)
+                .setIcon(R.drawable.paco64)
+                .setTitle(R.string.dialog_permissions_needed)
+                .setMessage(R.string.dialog_app_usage_permissions_needed_msg)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                  public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                    Intent settings_intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                    startActivity(settings_intent);
+                  }
+                });
 
-    alertDialog.show();
-  }
-  private BroadcastReceiver receivePermissionsOK = new BroadcastReceiver() {
-    @Override
-    public void onReceive(Context context, Intent intent) {
-      if(!intent.getAction().equals("com.pacoapp.paco.sensors.android.AppUsage")) {
+        alertDialog.show();
         return;
       }
-      unregisterReceiver();
-
-      String message = intent.getStringExtra("permission");
-      if (message.equals("no_access")) {
-        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-          noPermissionDialog();
-
-        }
-      } else {
-        saveExperimentAfterPermissionsCheck();
-      }
     }
-  };
 
-  public void saveExperimentAfterPermissionsCheck() {
-    Log.d("log", "saveExperimentAfterPermissionsCheck()");
     joinExperiment();
     createJoinEvent();
     PacoExperimentActionBroadcaster.sendJoinExperiment(getApplicationContext(),  experiment);
@@ -275,6 +248,12 @@ public class InformedConsentActivity extends ActionBarActivity implements Experi
     }
     progressBar.setVisibility(View.GONE);
     runPostJoinInstructionsActivity();
+
+
+    if (watchProcesses) { //has to be after joinExperiments()
+      BroadcastTriggerReceiver.initPollingAndLoggingPreference(this);
+      BroadcastTriggerReceiver.startProcessService(this);
+    }
   }
 
   private void runPostJoinInstructionsActivity() {

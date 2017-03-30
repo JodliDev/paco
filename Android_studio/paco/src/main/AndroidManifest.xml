@@ -70,6 +70,12 @@
             android:configChanges="orientation|keyboardHidden|locale|layoutDirection"
             android:screenOrientation="portrait" >
         </activity>
+
+        <activity
+            android:name="com.pacoapp.paco.ui.DialogActivity"
+            android:excludeFromRecents="true"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" >
+        </activity>
         
         <activity
             android:name="com.pacoapp.paco.ui.ExperimentDetailActivity"
