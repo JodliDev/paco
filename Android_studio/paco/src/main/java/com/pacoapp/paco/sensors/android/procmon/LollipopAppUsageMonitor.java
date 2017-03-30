@@ -66,11 +66,10 @@ public class LollipopAppUsageMonitor {
         }
 
 
-        if (shouldLogActions) {
+        if (shouldLogActions || shouldTrigger) {//shouldTrigger: log that the trigger has been fired
           // nutso that we use the same flag for logging apps used and sites visited
           processUsageEventBuilder.logProcessesUsedSinceLastPolling(event);
         }
-
       }
 
       @Override
@@ -82,6 +81,7 @@ public class LollipopAppUsageMonitor {
         }
         if (shouldTrigger) {
           triggerAppClosed(event.getAppIdentifier());
+          processUsageEventBuilder.logProcessesUsedSinceLastPolling(event); //log that the trigger has been fired
         }
       }
     };

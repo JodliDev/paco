@@ -89,8 +89,8 @@ public class LollipopProcessMonitorService extends Service {
         public LollipopAppUsageMonitor createAppUsageMonitor(final AppUsageEventsService usageEventsService) {
           ExperimentProviderUtil experimentProviderUtil = new ExperimentProviderUtil(getApplicationContext());
           AppUsageTriggerHelper apmh = new AppUsageTriggerHelper(experimentProviderUtil);
-          List<String> appOpenTasks = apmh.getAppStartTasksToWatch();
-          List<String> appCloseTasks = apmh.getAppCloseTasksToWatch();
+          List<String> appOpenTasks = apmh.getAppStartStopTasksToWatch(true);
+          List<String> appCloseTasks = apmh.getAppStartStopTasksToWatch(false);
           List<Experiment> experimentsWatchingAppUsage = apmh.initializeExperimentsWatchingAppUsage();
 
           AppUsageEventLogger pueb = new AppUsageEventLogger(getApplicationContext(),

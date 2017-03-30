@@ -14,6 +14,9 @@ import com.pacoapp.paco.shared.model2.InterruptTrigger;
 import com.pacoapp.paco.shared.scheduling.ActionScheduleGenerator;
 import com.pacoapp.paco.shared.util.ExperimentHelper;
 
+/*
+ * JodliDev: Beware the confusing Class-name: This Class is only used by the Lollipop-version!
+ */
 public class AppUsageTriggerHelper {
   private ExperimentProviderUtil eu;
 
@@ -23,7 +26,8 @@ public class AppUsageTriggerHelper {
   }
 
 
-  public List<String> getAppStartTasksToWatch() {
+  public List<String> getAppStartStopTasksToWatch(boolean startstop) {
+    final int cue = startstop ? InterruptCue.APP_USAGE : InterruptCue.APP_CLOSED;
     List<String> tasks = Lists.newArrayList();
     DateTime now = new DateTime();
     List<Experiment> joined = eu.getJoinedExperiments();
@@ -37,34 +41,7 @@ public class AppUsageTriggerHelper {
               InterruptTrigger interrupt = (InterruptTrigger) actionTrigger;
               List<InterruptCue> cues = interrupt.getCues();
               for (InterruptCue interruptCue : cues) {
-                if (interruptCue.getCueCode() == InterruptCue.APP_USAGE) {
-                  tasks.add(interruptCue.getCueSource());
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    return tasks;
-  }
-
-
-  public List<String> getAppCloseTasksToWatch() {
-    List<String> tasks = Lists.newArrayList();
-    DateTime now = new DateTime();
-    List<Experiment> joined = eu.getJoinedExperiments();
-    for (Experiment experiment : joined) {
-      if (!ActionScheduleGenerator.isOver(now, experiment.getExperimentDAO())) {
-        List<ExperimentGroup> experimentGroups = experiment.getExperimentDAO().getGroups();
-        for (ExperimentGroup experimentGroup : experimentGroups) {
-          List<ActionTrigger> actionTriggers = experimentGroup.getActionTriggers();
-          for (ActionTrigger actionTrigger : actionTriggers) {
-            if (actionTrigger instanceof InterruptTrigger) {
-              InterruptTrigger interrupt = (InterruptTrigger) actionTrigger;
-              List<InterruptCue> cues = interrupt.getCues();
-              for (InterruptCue interruptCue : cues) {
-                if (interruptCue.getCueCode() == InterruptCue.APP_CLOSED) {
+                if (interruptCue.getCueCode() == cue) {
                   tasks.add(interruptCue.getCueSource());
                 }
               }
@@ -82,14 +59,11 @@ public class AppUsageTriggerHelper {
     DateTime now = DateTime.now();
     for (Experiment experiment2 : joined) {
       if (!ActionScheduleGenerator.isOver(now, experiment2.getExperimentDAO())
-              && ExperimentHelper.isLogActions(experiment2.getExperimentDAO())) {
+              && (ExperimentHelper.isLogActions(experiment2.getExperimentDAO())
+                || ExperimentHelper.hasAppUsageTrigger(experiment2.getExperimentDAO()))) {
         experimentsNeedingEvent.add(experiment2);
       }
     }
     return experimentsNeedingEvent;
   }
-
-
-
-
 }
