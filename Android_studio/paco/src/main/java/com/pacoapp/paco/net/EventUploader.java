@@ -142,6 +142,7 @@ public class EventUploader {
     if (contentAsString != null) {
       ObjectMapper mapper2 = JsonConverter.getObjectMapper();
       try {
+        Log.info(contentAsString);
         responsePair.outcomes = mapper2.readValue(contentAsString, new TypeReference<List<Outcome>>() {});
       } catch (JsonParseException e) {
         Log.error(e.getMessage(), e);
