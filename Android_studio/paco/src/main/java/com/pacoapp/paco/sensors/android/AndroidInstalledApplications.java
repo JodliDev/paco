@@ -157,15 +157,20 @@ public class AndroidInstalledApplications {
    * Cache pairs of all package names and their corresponding app names in the shared preferences
    * store, so we can query even for application names of packages that have been uninstalled.
    */
-  public void cacheApplicationNames() {
+  public String cacheApplicationNames() {
     Log.info("Caching names of installed applications");
     SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
 
+    StringBuilder output = new StringBuilder();
     for (ApplicationInfo appInfo : packageManager.getInstalledApplications(0)) {
       String packageName = appInfo.packageName.toString();
       String appName = appInfo.loadLabel(packageManager).toString();
       preferencesEditor.putString(packageName, appName);
+      output.append(appName);
+      output.append(';');
     }
-    preferencesEditor.commit();
+    preferencesEditor.apply();
+
+    return output.toString();
   }
 }
