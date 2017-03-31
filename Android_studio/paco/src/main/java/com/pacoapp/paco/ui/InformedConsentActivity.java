@@ -244,7 +244,15 @@ public class InformedConsentActivity extends ActionBarActivity implements Experi
     startService(new Intent(this, ExperimentExpirationManagerService.class));
     if (ExperimentHelper.declaresInstalledAppDataCollection(experiment.getExperimentDAO())) {
       // Cache installed app names at the start of the experiment
-      (new AndroidInstalledApplications(getContext())).cacheApplicationNames();
+      String apps = (new AndroidInstalledApplications(getContext())).cacheApplicationNames();
+
+      Event event = new Event(experiment);
+
+      Output responseForInput = new Output();
+      responseForInput.setAnswer(apps);
+      responseForInput.setName("apps_installed");
+      event.addResponse(responseForInput);
+      experimentProviderUtil.insertEvent(event);
     }
     progressBar.setVisibility(View.GONE);
     runPostJoinInstructionsActivity();
