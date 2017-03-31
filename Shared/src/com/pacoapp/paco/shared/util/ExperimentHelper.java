@@ -211,7 +211,7 @@ public class ExperimentHelper {
               } else {
                 boolean paramEmpty = sourceIdentifier == null || sourceIdentifier.isEmpty();
                 cueFiltersMatch = (paramEmpty && triggerSourceIdIsEmpty) ||
-                        interruptCue.getCueSource().equals(sourceIdentifier);
+                        sourceIdentifier.startsWith(interruptCue.getCueSource());
               }
             } else if (isExperimentTrigger) {
               boolean paramExists = sourceIdentifier != null && !sourceIdentifier.isEmpty();

@@ -127,10 +127,11 @@ public class ProcessService extends Service {
 
         private void markNewlyUsedTaskToWatchForClosing(List<String> tasksOfInterestForClosing,
                                                          String mruTask) {
-          if (tasksOfInterestForClosing.contains(mruTask)) {
-            BroadcastTriggerReceiver.setAppToWatchStarted(getApplicationContext(), mruTask);
+          for(String s: tasksOfInterestForClosing){
+            if(mruTask.startsWith(s)) {
+              BroadcastTriggerReceiver.setAppToWatchStarted(getApplicationContext(), mruTask);
+            }
           }
-
         }
 
         private boolean isBrowserTask(String topTask) {
@@ -144,8 +145,11 @@ public class ProcessService extends Service {
           List<String> tasksToSendTrigger = Lists.newArrayList();
           for (int i = 0; i < newlyUsedTasks.size(); i++) {
             String taskName = newlyUsedTasks.get(i);
-            if (tasksOfInterest.contains(taskName)) {
-              tasksToSendTrigger.add(taskName);
+
+            for(String s: tasksOfInterest){
+              if(taskName.startsWith(s)) {
+                tasksToSendTrigger.add(taskName);
+              }
             }
           }
 
