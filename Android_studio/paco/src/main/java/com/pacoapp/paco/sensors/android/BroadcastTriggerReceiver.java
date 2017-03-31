@@ -140,12 +140,7 @@ public class BroadcastTriggerReceiver extends BroadcastReceiver {
   }
 
   protected static Event createPhoneShutdownPacoEvent(Experiment experiment, String phoneOnState) {
-    Event event = new Event();
-    event.setExperimentId(experiment.getId());
-    event.setServerExperimentId(experiment.getServerId());
-    event.setExperimentName(experiment.getExperimentDAO().getTitle());
-    event.setExperimentVersion(experiment.getExperimentDAO().getVersion());
-    event.setResponseTime(new DateTime());
+    Event event = new Event(experiment);
 
     Output responseForInput = new Output();
     responseForInput.setAnswer(phoneOnState);
@@ -392,12 +387,7 @@ public class BroadcastTriggerReceiver extends BroadcastReceiver {
   }
 
   protected Event createScreenOnPacoEvent(Experiment experiment) {
-      Event event = new Event();
-      event.setExperimentId(experiment.getId());
-      event.setServerExperimentId(experiment.getServerId());
-      event.setExperimentName(experiment.getExperimentDAO().getTitle());
-      event.setExperimentVersion(experiment.getExperimentDAO().getVersion());
-      event.setResponseTime(new DateTime());
+      Event event = new Event(experiment);
 
       Output responseForInput = new Output();
 

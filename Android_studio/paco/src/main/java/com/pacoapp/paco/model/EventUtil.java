@@ -6,30 +6,20 @@ public class EventUtil {
 
   public static Event createEvent(Experiment experiment, String experimentGroup, Long actionTriggerId,
                                   Long actionId, Long actionTriggerSpecId, Long scheduledTime) {
-    Event event = new Event();
-    event.setExperimentId(experiment.getId());
-    event.setServerExperimentId(experiment.getServerId());
-    event.setExperimentName(experiment.getExperimentDAO().getTitle());
+    Event event = new Event(experiment);
     if (scheduledTime != null && scheduledTime != 0L) {
       event.setScheduledTime(new DateTime(scheduledTime));
     }
-    event.setExperimentVersion(experiment.getExperimentDAO().getVersion());
     event.setExperimentGroupName(experimentGroup);
     event.setActionId(actionId);
     event.setActionTriggerId(actionTriggerId);
     event.setActionTriggerSpecId(actionTriggerSpecId);
 
-    event.setResponseTime(new DateTime());
     return event;
   }
 
   public static Event createSitesVisitedPacoEvent(String usedAppsString, Experiment experiment, long startTime) {
-    Event event = new Event();
-    event.setExperimentId(experiment.getId());
-    event.setServerExperimentId(experiment.getServerId());
-    event.setExperimentName(experiment.getExperimentDAO().getTitle());
-    event.setExperimentVersion(experiment.getExperimentDAO().getVersion());
-    event.setResponseTime(new DateTime());
+    Event event = new Event(experiment);
 
     Output responseForInput = new Output();
 

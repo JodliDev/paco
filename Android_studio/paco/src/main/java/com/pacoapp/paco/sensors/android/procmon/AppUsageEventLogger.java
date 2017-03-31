@@ -70,15 +70,8 @@ public class AppUsageEventLogger {
 
   private Event createAppsUsedPacoEvent(String usedAppsPrettyNamesString, String usedAppsTaskNamesString,
                                         Experiment experiment) {
-    Event event = new Event();
-    event.setExperimentId(experiment.getId());
-    event.setServerExperimentId(experiment.getServerId());
-    event.setExperimentName(experiment.getExperimentDAO().getTitle());
-
-
+    Event event = new Event(experiment);
     event.setExperimentGroupName(experimentGroupFor(experiment));
-    event.setExperimentVersion(experiment.getExperimentDAO().getVersion());
-    event.setResponseTime(new DateTime());
 
     Output responseForInput = new Output();
     responseForInput.setAnswer(usedAppsPrettyNamesString);

@@ -283,15 +283,11 @@ public class NotificationCreator {
 
   private void createMissedPacot(Context context, NotificationHolder notificationHolder) {
     Experiment experiment = experimentProviderUtil.getExperimentByServerId(notificationHolder.getExperimentId());
-    Event event = new Event();
-    event.setExperimentId(experiment.getId());
-    event.setServerExperimentId(experiment.getServerId());
-    event.setExperimentName(experiment.getExperimentDAO().getTitle());
+    Event event = new Event(experiment);
     event.setExperimentGroupName(notificationHolder.getExperimentGroupName());
     event.setActionTriggerId(notificationHolder.getActionTriggerId());
     event.setActionTriggerSpecId(notificationHolder.getActionTriggerSpecId());
     event.setActionId(notificationHolder.getActionId());
-    event.setExperimentVersion(experiment.getExperimentDAO().getVersion());
     event.setScheduledTime(new DateTime(notificationHolder.getAlarmTime()));
     experimentProviderUtil.insertEvent(event);
   }

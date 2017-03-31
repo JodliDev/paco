@@ -336,12 +336,7 @@ public class ProcessService extends Service {
 
   private Event createAppsUsedPacoEvent(String usedAppsPrettyNamesString, String usedAppsTaskNamesString,
                                         Experiment experiment) {
-    Event event = new Event();
-    event.setExperimentId(experiment.getId());
-    event.setServerExperimentId(experiment.getServerId());
-    event.setExperimentName(experiment.getExperimentDAO().getTitle());
-    event.setExperimentVersion(experiment.getExperimentDAO().getVersion());
-    event.setResponseTime(new DateTime());
+    Event event = new Event(experiment);
 
     Output responseForInput = new Output();
     responseForInput.setAnswer(usedAppsPrettyNamesString);
@@ -391,12 +386,7 @@ public class ProcessService extends Service {
   }
 
   protected Event createScreenOffPacoEvent(Experiment experiment) {
-    Event event = new Event();
-    event.setExperimentId(experiment.getId());
-    event.setServerExperimentId(experiment.getServerId());
-    event.setExperimentName(experiment.getExperimentDAO().getTitle());
-    event.setExperimentVersion(experiment.getExperimentDAO().getVersion());
-    event.setResponseTime(new DateTime());
+    Event event = new Event(experiment);
 
     Output responseForInput = new Output();
 

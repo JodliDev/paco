@@ -152,6 +152,13 @@ public class Event implements Parcelable, EventInterface {
 
   public Event() {
   }
+  public Event(Experiment experiment) {
+    setExperimentId(experiment.getId());
+    setServerExperimentId(experiment.getServerId());
+    setExperimentName(experiment.getExperimentDAO().getTitle());
+    setExperimentVersion(experiment.getExperimentDAO().getVersion());
+    setResponseTime(new DateTime());
+  }
 
   @JsonIgnore
   public long getId() {
