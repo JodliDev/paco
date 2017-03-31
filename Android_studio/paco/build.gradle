@@ -23,6 +23,9 @@ android {
             disable 'ExtraTranslation'  //JodliDev: it would be better to just remove all the unused translations
                                         // - but I wasnt confident enough to decide that on myself
         }
+        debug {
+            minifyEnabled false
+        }
     }
 }
 
