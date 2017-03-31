@@ -148,7 +148,7 @@
     <string name="gps_message">\"GPS für verbesserte Ortung verwenden (nur draußen)?</string>
     <string name="i_did_not_understand">Ich habe nicht verstanden</string>
     <string name="ic_phone_make_model_carrier_label">Telefon-Hersteller, Modell, Netzbetreiber</string>
-    <string name="informed_consent_preamble">Durch das Beitreten zu diesem Experiment teilen Sie Ihre Daten mit dem Ersteller und den Administratoren des Experimentes. Diese können Ihre Informationen für Forschung, Produktentwicklung, oder andere Zwecke nutzen. Bitte lesen Sie die deren Datenschutz- oder Datenverarbeitungserklärung und entscheiden Sie, ob Sie an diesem Experiment teilnehmen möchten.</string>
+    <string name="informed_consent_preamble">Indem Sie zu diesem Experiment beitreten, teilen Sie Ihre Daten mit dem Ersteller und den Administratoren des Experimentes. Diese können Ihre Informationen für Forschung, Produktentwicklung, oder andere Zwecke nutzen. Bitte lesen Sie deren Einverständniserklärung und entscheiden Sie, ob Sie an diesem Experiment teilnehmen möchten.</string>
     <string name="installed_app_data_collected">Am Telefon installierte Apps</string>
     <string name="invalid_data">Fehler beim Laden der Experiment-Daten</string>
     <string name="join_this_experiment">Experiment beitreten</string>
@@ -257,7 +257,7 @@
     <string name="title_results">Ergebnisse</string>
     <string name="title_troubleshooting">Fehlersuche</string>
     <string name="troubleshooting_no_diagnostics_report_message">Kein Diagnose-Report</string>
-    <string name="types_of_data_collected">Typen der gesammelten Daten</string>
+    <string name="types_of_data_collected">Gesammelte Daten</string>
     <string name="unable_to_save_experiment">Beitritt zum Experiment fehlgeschlagen. Bitte informieren Sie die Person, welche die Studie durchführt.</string>
     <string name="unchartable_error">Nicht darstellbar</string>
     <string name="unknown_author_text">Unbekannter Autor</string>
