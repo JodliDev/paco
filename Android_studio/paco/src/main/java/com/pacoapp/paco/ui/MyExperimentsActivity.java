@@ -315,6 +315,11 @@ public class MyExperimentsActivity extends ActionBarActivity implements
     sortExperimentsByTitle(experiments);
     adapter = new AvailableExperimentsListAdapter(this, R.id.find_experiments_list, experiments);
     list.setAdapter(adapter);
+
+    if(experiments.size() == 0) {
+      Intent find = new Intent(this, FindExperimentsActivity.class);
+      this.startActivity(find);
+    }
   }
 
   public static void sortExperimentsByTitle(List<Experiment> experiments2) {
