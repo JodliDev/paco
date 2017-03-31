@@ -55,11 +55,22 @@ public class LollipopAppUseChangeDetector {
 
 
   public boolean isAppOfInterestForClosing(AppUsageEvent appUsageEvent) {
-    return tasksOfInterestForClosing.contains(appUsageEvent.getAppIdentifier());
+    String app = appUsageEvent.getAppIdentifier();
+    for(String s: tasksOfInterestForClosing){
+      if(app.startsWith(s))
+        return true;
+    }
+    return false;
   }
 
   public boolean isAppOfInterestForOpening(AppUsageEvent appUsageEvent) {
-    return tasksOfInterestForOpening.contains(appUsageEvent.getAppIdentifier());
+    String app = appUsageEvent.getAppIdentifier();
+    for(String s: tasksOfInterestForOpening){
+      if(app.startsWith(s)) {
+        return true;
+      }
+    }
+    return false;
   }
 
 
