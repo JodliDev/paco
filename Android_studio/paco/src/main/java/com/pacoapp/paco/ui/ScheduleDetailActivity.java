@@ -137,16 +137,11 @@ public class ScheduleDetailActivity extends ActionBarActivity implements Schedul
   }
 
   private void createJoinEvent() {
-    Event event = new Event();
-    event.setExperimentId(experiment.getId());
-    event.setServerExperimentId(experiment.getServerId());
-    event.setExperimentName(experiment.getExperimentDAO().getTitle());
+    Event event = new Event(experiment);
     event.setExperimentGroupName(null);
     event.setActionTriggerId(null);
     event.setActionTriggerSpecId(null);
     event.setActionId(null);
-    event.setExperimentVersion(experiment.getExperimentDAO().getVersion());
-    event.setResponseTime(new DateTime());
 
     //event.addResponse(createOutput("joined", "true"));
 
