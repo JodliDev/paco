@@ -46,7 +46,7 @@ public class AuthUtil {
   }
 
   public static String getEmailOfUser(HttpServletRequest req, User user) {
-	String email = req.getHeader("email"); //FORK
+	String email = req.getHeader("user_id"); //FORK
 //FORK	String email = user != null ? user.getEmail() : null;
 //FORK    if (email == null) {
    	if (email == null && (email=user.getEmail()) == null) { //FORK

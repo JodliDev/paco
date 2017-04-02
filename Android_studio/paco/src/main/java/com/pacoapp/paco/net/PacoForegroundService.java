@@ -110,8 +110,8 @@ public class PacoForegroundService extends GetAuthTokenInForeground {
   }
 
   public void addAccessTokenBearerHeader(String accessToken, final List<Pair<String, String>> headers) {
-    headers.add(new Pair<String, String>("Authorization", "Bearer " + accessToken));
-    headers.add(new Pair<String, String>("email", userPrefs.getSelectedAccount())); //FORK
+//    headers.add(new Pair<String, String>("Authorization", "Bearer " + accessToken)); FORK
+    headers.add(new Pair<String, String>("user_id", userPrefs.getSelectedAccount())); //FORK
   }
 
 
