@@ -95,6 +95,7 @@ public class FindExperimentsActivity extends ActionBarActivity implements Networ
   private List<Experiment> experiments = Lists.newArrayList();
   private ProgressDialogFragment newFragment;
   private ProgressBar progressBar;
+  private EditText filter_edit;
   private String experimentCursor;
   private boolean loadedAllExperiments;
   private NavigationDrawerFragment mNavigationDrawerFragment;
@@ -123,31 +124,17 @@ public class FindExperimentsActivity extends ActionBarActivity implements Networ
 
 
 
-    EditText filter_edit = (EditText) findViewById(R.id.filter_edit);
+    filter_edit = (EditText) findViewById(R.id.filter_edit);
     filter_edit.setText(userPrefs.getAccessKey());
     findViewById(R.id.filter_box).setVisibility(View.VISIBLE);
 
     filter_edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
       @Override
       public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        userPrefs.saveAccessKey(v.getText().toString());
         refreshList();
         return true;
       }
     });
-
-//    filter_edit.addTextChangedListener(new TextWatcher() {
-//      @Override
-//      public void afterTextChanged(Editable s) {
-//        userPrefs.saveAccessKey(s.toString());
-//      }
-//      @Override
-//      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//      }
-//      @Override
-//      public void onTextChanged(CharSequence s, int start, int before, int count) {
-//      }
-//    });
 
 
 
@@ -395,6 +382,7 @@ public class FindExperimentsActivity extends ActionBarActivity implements Networ
 
 
   protected void refreshList() {
+    userPrefs.saveAccessKey(filter_edit.getText().toString());
     progressBar.setVisibility(View.VISIBLE);
     final String myExperimentsUrl = ExperimentUrlBuilder.buildUrlForPublicExperiments(userPrefs, experimentCursor,
                                                                                     FindExperimentsActivity.DOWNLOAD_LIMIT);
