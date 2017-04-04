@@ -1,0 +1,16 @@
+web/*
+data/logins
+data/experiments/published/*
+!data/experiments/published/.placeholder
+data/experiments/unpublished/*
+!data/experiments/unpublished/.placeholder
+data/experiments/key_restricted/*
+!data/experiments/key_restricted/.placeholder
+data/experiment_index/*
+!data/experiment_index/.placeholder
+data/events/datafiles/*
+!data/events/datafiles/.placeholder
+data/events/inputs/*
+!data/events/inputs/.placeholder
+data/events/keys/*
+!data/events/keys/.placeholder
