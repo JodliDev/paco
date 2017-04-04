@@ -41,10 +41,10 @@
         android:icon="@android:drawable/ic_menu_info_details"
         android:orderInCategory="100"
         app:showAsAction="never" />
-    <item android:id="@+id/action_user_agreement"
-        android:title="@string/action_user_agreement"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
+    <!--<item android:id="@+id/action_user_agreement"-->
+        <!--android:title="@string/action_user_agreement"-->
+        <!--android:orderInCategory="100"-->
+        <!--app:showAsAction="never" />-->
     <!--   -->
     <item android:id="@+id/action_open_source_libs"
         android:title="@string/action_open_source_libs"
