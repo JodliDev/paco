@@ -84,6 +84,7 @@ public class UserPreferences {
   private static final String SELECTED_ACCOUNT_KEY = "selected_account";
 
   private static final String SELECTED_ACCOUNT_PREF = "selected_account_pref";
+  private static final String ACCESS_KEY = "access_key";
 
   private static final String RINGTONE_PREF_KEY = "ringtone_pref";
 
@@ -282,6 +283,13 @@ public class UserPreferences {
   public String getSelectedAccount() {
     SharedPreferences prefs = context.getSharedPreferences(SELECTED_ACCOUNT_PREF, Context.MODE_PRIVATE);
     return prefs.getString(SELECTED_ACCOUNT_KEY, null);
+  }
+
+  public void saveAccessKey(String name) { //FORK
+    getAppPrefs().edit().putString(ACCESS_KEY, name).commit();
+  }
+  public String getAccessKey() { //FORK
+    return getAppPrefs().getString(ACCESS_KEY, null);
   }
 
   public void setRingtoneUri(String ringtoneUri) {

@@ -23,13 +23,17 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.sql.Timestamp;
@@ -106,74 +110,6 @@ public class SplashActivity extends Activity implements NetworkClient {
         return;
     }
     show("Unknown error, click the button again");
-}
-  protected void oldonActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == ACCOUNT_CHOOSER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-      String accountName = null;
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-        accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-      } else {
-        accountName = data.getStringExtra(AccountChooser.ACCOUNT_NAME);
-      }
-      if (accountName != null) {
-        userPrefs.saveSelectedAccount(accountName);
-        getAuthAccessToken(accountName);
-//        String token = GoogleAuthUtil.getToken(this, accountName, PacoService.AUTH_TOKEN_TYPE_USERINFO_EMAIL);
-//        finish();
-      } else {
-        finish(); // TODO handler errors
-      }
-    } else {
-      Toast.makeText(this, R.string.you_must_pick_an_account, Toast.LENGTH_SHORT).show();
-    }
-  }
-
-
-  private void getAuthAccessToken(final String accountName) {
-    AccountManager accountManager = AccountManager.get(this);
-    Account[] accounts = accountManager.getAccountsByType("com.google");
-    Account account = null;
-    for (Account currentAccount : accounts) {
-      if (currentAccount.name.equals(accountName)) {
-        account = currentAccount;
-        break;
-      }
-    }
-
-    String accessToken = getAccessToken();
-    if (accessToken != null) {
-      Log.info("Invalidating previous OAuth2 access token: " + accessToken);
-      accountManager.invalidateAuthToken(account.type, accessToken);
-      setAccessToken(null);
-    }
-
-    String authTokenType = AbstractAuthTokenTask.AUTH_TOKEN_TYPE_USERINFO_EMAIL;
-
-    Log.info("Get access token for " + accountName + " using authTokenType " + authTokenType);
-    accountManager.getAuthToken(account, authTokenType, null, this,
-        new AccountManagerCallback<Bundle>() {
-          @Override
-          public void run(AccountManagerFuture<Bundle> future) {
-            try {
-              String accessToken = future.getResult().getString(AccountManager.KEY_AUTHTOKEN);
-              Log.info("Got OAuth2 access token: " + accessToken);
-              setAccessToken(accessToken);
-//
-//              Intent result = new Intent();
-//              result.putExtra(AccountChooser.ACCOUNT_NAME, accountName);
-//              SplashActivity.this.setResult(0, result);
-              SplashActivity.this.finish();
-//              finish();
-
-            } catch (OperationCanceledException e) {
-              Log.error("The user has denied you access to the API");
-            } catch (Exception e) {
-              Log.error(e.getMessage());
-              Log.error("Exception: ", e);
-            }
-          }
-        }, null);
   }
 
   private void setAccessToken(String token) {
@@ -222,13 +158,34 @@ public class SplashActivity extends Activity implements NetworkClient {
   public void authenticateUser() {
     if (userPrefs.getSelectedAccount() == null || changingExistingAccount) {
       pickUserAccount();
-    } //FORK else {
-      if (isDeviceOnline()) {
-        getTask(this).execute();
-      } else {
-        Toast.makeText(this, getString(R.string.network_required), Toast.LENGTH_LONG).show();
+    }
+
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+    builder.setTitle(R.string.provide_access_key_title);
+    builder.setMessage(R.string.provide_access_key);
+    final EditText access_key_input = new EditText(this);
+    access_key_input.setInputType(InputType.TYPE_CLASS_TEXT);
+    builder.setView(access_key_input);
+
+    builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+      public void onClick(DialogInterface dialog, int id) {
+        userPrefs.saveAccessKey(access_key_input.getText().toString());
+        getTask(SplashActivity.this).execute();
       }
-//FORK    }
+    });
+    builder.setNegativeButton(R.string.cancel_button, new DialogInterface.OnClickListener() {
+      public void onClick(DialogInterface dialog, int id) {
+      }
+    });
+    builder.create().show();
+//
+//
+//      if (isDeviceOnline()) {
+//        getTask(this).execute();
+//      } else {
+//        Toast.makeText(this, getString(R.string.network_required), Toast.LENGTH_LONG).show();
+//      }
   }
 
   private AbstractAuthTokenTask getTask(SplashActivity activity) {
@@ -260,17 +217,6 @@ public class SplashActivity extends Activity implements NetworkClient {
 //      Intent intent = new Intent(SplashActivity.this, AccountChooser.class);
 //      startActivityForResult(intent, REQUEST_CODE_PICK_ACCOUNT);
 //    }
-  }
-
-  private Account getAccountFor(String selectedAccount) {
-    AccountManager am = AccountManager.get(this);
-    Account[] accounts = am.getAccountsByType("com.google");
-    for (Account account : accounts) {
-      if (account.name.equals(selectedAccount)) {
-        return account;
-      }
-    }
-    return null;
   }
 
   /** Checks whether the device currently has a network connection */

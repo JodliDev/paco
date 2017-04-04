@@ -19,7 +19,7 @@
 <resources>
 
     <string name="app_name" description="Name of the Paco app used on the Home Screen and other places [No Translation]" translatable="false">Paco-Anon</string> <!--FORK-->
-    <string name="server" description="default server address for Paco[No Translation]" translatable="false">paco-anon.appspot.com</string> <!--FORK-->
+    <string name="server" description="default server address for Paco[No Translation]" translatable="false">134.34.42.79</string> <!--FORK-->
     <string name="app_package" description="unique Android package name[No Translation]" translatable="false">com.pacoapp.paco</string> <!--FORK-->
     <string name="contact_email" description="contact email address [No Translation]" translatable="false">jodlidev@gmail.com</string> <!--FORK-->
     <string name="about_googlegroups" description="user group email address [No Translation]" translatable="false">paco-users@googlegroups.com</string>
@@ -266,6 +266,7 @@
     <string name="could_not_successfully_join_try_again_" description="Error message on joining experiment. This is transient so ask them to try again.">Could not successfully join. Try again.</string>
     <string name="experiment_list_download_complete" description="Message shown to users when all experiments have been retrieved from server.">Download complete</string>
     <string name="could_not_retrieve_experiments_try_again_" description="Error message shown to user when experiment list could not be retrieved.">Could not retrieve experiments. Try again.</string>
+    <string name="access_key" description="Title for the filter-text-field">Key: </string>
     <string name="by" description="connector for showing the organization that is offering this experiment, e.g, 'by Google'">by</string>
     <string name="joined_on" description="Text shown in experiment card that lists when the user joined the experiment, e.g., 'Joined on August 5th'">Joined on</string>
     <string name="you_must_pick_an_account" description="Message to user that they must choose a Google account to proceed.">You must pick an account</string>
@@ -386,6 +387,9 @@
     <string name="diagnostic_accessibility_type">accessibility access</string>
     <string name="dialog_permissions_needed">Permissions needed</string>
     <string name="dialog_app_usage_permissions_needed_msg">This experiment requires the permission to access your App-usage. Please give Paco access to your App usage data (under Settings/Security/App usage)</string>
+
+    <string name="provide_access_key_title">Please provide your access-key</string>
+    <string name="provide_access_key">Without an access-key you can only access public experiments.\nYou can change your access-key in the Experiment-Hub.</string>
 
 
 </resources>

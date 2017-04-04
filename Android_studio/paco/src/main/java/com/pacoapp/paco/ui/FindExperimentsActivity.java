@@ -54,6 +54,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -63,6 +66,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -115,9 +119,38 @@ public class FindExperimentsActivity extends ActionBarActivity implements Networ
 //    mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 //    mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
-    Intent intent = getIntent();
-
     userPrefs = new UserPreferences(this);
+
+
+
+    EditText filter_edit = (EditText) findViewById(R.id.filter_edit);
+    filter_edit.setText(userPrefs.getAccessKey());
+    findViewById(R.id.filter_box).setVisibility(View.VISIBLE);
+
+    filter_edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+      @Override
+      public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        userPrefs.saveAccessKey(v.getText().toString());
+        refreshList();
+        return true;
+      }
+    });
+
+//    filter_edit.addTextChangedListener(new TextWatcher() {
+//      @Override
+//      public void afterTextChanged(Editable s) {
+//        userPrefs.saveAccessKey(s.toString());
+//      }
+//      @Override
+//      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//      }
+//      @Override
+//      public void onTextChanged(CharSequence s, int start, int before, int count) {
+//      }
+//    });
+
+
+
     list = (ListView) findViewById(R.id.find_experiments_list);
 //    createListHeader();
 //    createRefreshHeader();
@@ -221,9 +254,9 @@ public class FindExperimentsActivity extends ActionBarActivity implements Networ
     } else if (id == R.id.action_user_guide) {
       launchHelp();
       return true;
-    } else if (id == R.id.action_user_agreement) {
-      launchEula();
-      return true;
+//    } else if (id == R.id.action_user_agreement) {
+//      launchEula();
+//      return true;
     } else if (id == R.id.action_open_source_libs) {
       launchOpenSourceLibs();
       return true;
@@ -598,7 +631,8 @@ public class FindExperimentsActivity extends ActionBarActivity implements Networ
     runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        Toast.makeText(FindExperimentsActivity.this, msg, Toast.LENGTH_LONG);
+        progressBar.setVisibility(View.GONE);
+        Toast.makeText(FindExperimentsActivity.this, msg, Toast.LENGTH_LONG).show();
       }
     });
   }
@@ -610,7 +644,7 @@ public class FindExperimentsActivity extends ActionBarActivity implements Networ
       public void run() {
         progressBar.setVisibility(View.GONE);
         if (msg != null) {
-          Toast.makeText(FindExperimentsActivity.this, R.string.experiment_list_download_complete, Toast.LENGTH_LONG);
+//          Toast.makeText(FindExperimentsActivity.this, R.string.experiment_list_download_complete, Toast.LENGTH_LONG).show();
           updateDownloadedExperiments(msg);
           saveRefreshTime();
         } else {

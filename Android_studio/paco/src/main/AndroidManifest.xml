@@ -55,6 +55,7 @@
         <activity
             android:name="com.pacoapp.paco.ui.FindExperimentsActivity"
             android:label="@string/find_public_experiments_title"
+            android:windowSoftInputMode="stateUnchanged"
             android:configChanges="orientation|keyboardHidden|locale|layoutDirection"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -67,6 +68,7 @@
         <activity
             android:name="com.pacoapp.paco.ui.FindMyExperimentsActivity"
             android:label="@string/title_activity_find_my_Experiments"
+            android:windowSoftInputMode="stateUnchanged"
             android:configChanges="orientation|keyboardHidden|locale|layoutDirection"
             android:screenOrientation="portrait" >
         </activity>
