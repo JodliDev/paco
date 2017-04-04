@@ -531,6 +531,7 @@ pacoApp.service('template', function() {
     postInstallInstructions: '<b>You have successfully joined the experiment!</b><br/><br/>\nNo need to do anything else for now.<br/><br/>\nPaco will send you a notification when it is time to participate.<br/><br/>\nBe sure your ringer/buzzer is on so you will hear the notification.',
     published: false,
     publishedUsers: [],
+    accessKeys: [],
     ringtoneUri: '/assets/ringtone/Paco Bark',
   }
 

@@ -33,6 +33,14 @@
             can edit this experiment and see its results.</div>
         </div>
       </md-input-container>
+      
+      <md-input-container flex>
+        <label>Access-Keys</label>
+        <textarea ng-model="experiment.accessKeys" ng-list=", "></textarea>
+        <div ng-messages>
+          <div ng-message>Php-backend only: If not empty, this experiment can only be seen, if participants entry a respective key (separated by commas).</div>
+        </div>
+      </md-input-container>
 
       <md-input-container flex>
         <label>Published Audience</label>
@@ -41,7 +49,6 @@
           <div ng-message>Enter emails separated by commas. An empty list is publishing publicly.</div>
         </div>
       </md-input-container>
-
 
       <div layout="row">
         <div layout-margin flex>
