@@ -144,7 +144,7 @@
     <string name="force_upload_events_button_label">Events synchronisieren</string>
     <string name="gallery">Gallerie</string>
     <string name="go_to_network_settings">Netzwerk-Einstellungen</string>
-    <string name="google_email_address_label">Google Email-Adresse</string>
+    <string name="google_email_address_label">VP-Nummer</string>
     <string name="gps_message">\"GPS für verbesserte Ortung verwenden (nur draußen)?</string>
     <string name="i_did_not_understand">Ich habe nicht verstanden</string>
     <string name="ic_phone_make_model_carrier_label">Telefon-Hersteller, Modell, Netzbetreiber</string>
@@ -159,7 +159,7 @@
     <string name="load_more_experiments_from_server">Für mehr Experimente noch einmal Aktualisieren</string>
     <string name="location_settings">Ortungs-Einstellungen</string>
     <string name="location_to_be_recorded_default_prompt">Standort wird aufgezeichnet</string>
-    <string name="login_button_label">Einloggen</string>
+    <string name="login_button_label">Start</string>
     <string name="login_with_your_google_email_to_join_experiments_message">Loggen Sie sich mit Ihrem Google-Account ein um Experimenten beizutreten</string>
     <string name="main_page_menu_item">Haupseite</string>
     <string name="make_selections">Auswählen</string>
@@ -280,4 +280,8 @@
     <string name="title_activity_raw_data_viewer">Rohdaten-Anzeige</string>
     <string name="dialog_app_usage_permissions_needed_msg">Für dieses Experiment benötigt Paco Zugriff auf Ihre Nutzungsdaten (Möglich unter: Einstellungen/Sicherheit/Apps mit Zugriff auf Nutzungsdaten)</string>
     <string name="dialog_permissions_needed">Berechtigung benötigt</string>
+    <string name="access_key" description="Title for the filter-text-field">Schlüssel: </string>
+    <string name="provide_access_key_title">Bitte Schlüssel angeben</string>
+    <string name="provide_access_key">Ohne einen Zugangsschlüssel sind nur öffentliche Experimente sichtbar.\nDer Zugangsschlüssel kann im Experiment-Hub geändert werden.</string>
+
 </resources>
