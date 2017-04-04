@@ -99,15 +99,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		//*****
 		//create variable-keys
 		//*****
-		$t_inputs = '"who","when","appId","pacoVersion","experimentGroupName",';
+		$t_inputs = '"who";"when";"appId";"pacoVersion";"experimentGroupName";';
 		foreach(KEYS_EVENTS as $k) {
-			$t_inputs .= '"' .$k .'",';
+			$t_inputs .= '"' .$k .'";';
 		}
 		
 		//$t_index = '';
 		$exp_index = [];
 		foreach(KEYS_RESULTS as $k) {
-			$t_inputs .= '"' .$k .'",';
+			$t_inputs .= '"' .$k .'";';
 			//$t_index .= '\'' .$k .'\'=>null,';
 			$exp_index[$k] = null;
 		}
@@ -153,7 +153,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 					error('Protected Variable-Name: ' .$name, 'Please choose another Variable-Name', 'Detected in group: ' .$group_name);
 				else
 					$key_check_array[$name] = $group_name;
-				$t_inputs .= '"' .$name .'",';
+				$t_inputs .= '"' .$name .'";';
 				//$t_index .= '\'' .$name .'\'=>null,';
 				$exp_index[$name] = null;
 			}
@@ -222,8 +222,7 @@ else if(isset($_GET['id']) && ($id = (int) $_GET['id'])) {
 		echo '{"results":[' .file_get_contents($filename_restricted) .']}';
 	
 }
-//else if(count($_GET)) { //public, new, popular, mine, joined, admin, new
-else if(isset($_GET['public'])) { //public, new, popular, mine, joined, admin, new
+else if(isset($_GET['public']) || isset($_GET['admin'])) {
 	$headers = apache_request_headers();
 	
 	$output = [];
@@ -273,6 +272,7 @@ else if(isset($_GET['public'])) { //public, new, popular, mine, joined, admin, n
 	
 	echo '{"results":[' .implode($output, ',') .']}';
 }
+//missing: new, popular, mine, joined, new
 
 
 

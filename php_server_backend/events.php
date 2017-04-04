@@ -18,7 +18,6 @@ function strip_input($s) {
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-
 	$rest_json = file_get_contents('php://input');
 	if(!($data = json_decode($rest_json, true)))
 		return;
@@ -49,12 +48,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			continue;
 		}
 		
-		$write =  '"' .$who .'","' .$when .'","' .$appId .'","' .$pacoVersion .'",';
+		$write =  '"' .$who .'";"' .$when .'";"' .$appId .'";"' .$pacoVersion .'";';
 		$group_name = isset($e['experimentGroupName']) ? $e['experimentGroupName'] : '';
-		$write .= '"' .strip_input($group_name) .'",';
+		$write .= '"' .strip_input($group_name) .'";';
 		
 		foreach(KEYS_EVENTS as $k) {
-			$write .= isset($e[$k]) ? ('"' .strip_input($e[$k]) .'",') : ',';
+			$write .= isset($e[$k]) ? ('"' .strip_input($e[$k]) .'";') : ';';
 		}
 		
 		$order = $EXPERIMENT_INDEX[$id];
@@ -66,7 +65,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$answer = isset($v['answer']) ? $v['answer'] : '';
 			$order[$v['name']] = '"' .strip_input($answer) .'|DEBUG:' .$v['name'] .'"';
 		}
-		$write .= implode(',', $order);
+		$write .= implode(';', $order);
 		
 		
 		if(($h = fopen($path, 'a'))
