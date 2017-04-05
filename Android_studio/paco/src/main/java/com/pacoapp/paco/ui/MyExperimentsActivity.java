@@ -99,6 +99,8 @@ public class MyExperimentsActivity extends ActionBarActivity implements
 
   private static final int RINGTONE_REQUESTCODE = 945;
   public static final int REFRESHING_EXPERIMENTS_DIALOG_ID = 1001;
+  private static final int CAME_FROM_EXPERIMENT_EXECUTOR = 33;
+  private boolean override_startup_enabled = true;
 
   private Logger Log = LoggerFactory.getLogger(this.getClass());
 
@@ -348,11 +350,16 @@ public class MyExperimentsActivity extends ActionBarActivity implements
       navDrawerList = (ListView)mNavigationDrawerFragment.getView().findViewById(R.id.navDrawerList);
 
       reloadAdapter();
+
+      Intent intent = getIntent();
+//      Log.debug(getCallingActivity().toString());
+
+
       if(experiments.size() == 0) {
         Intent find = new Intent(this, FindExperimentsActivity.class);
         this.startActivity(find);
       }
-      else if(getCallingActivity() == null) {
+      else if(override_startup_enabled) {
         //JodliDev: this is very inefficient... It would be much better to check getOverrideStartup() in InformedConsentActivity.java
         //and set an internal variable (that will be checked here) and unset it if the experiment is ended.
         //This way we would also be able to prevent users to have more than one experiment with overrideStartup=true.
@@ -366,12 +373,14 @@ public class MyExperimentsActivity extends ActionBarActivity implements
               Intent experimentIntent = new Intent(MyExperimentsActivity.this, ExperimentExecutor.class);
               experimentIntent.putExtra(Experiment.EXPERIMENT_GROUP_NAME_EXTRA_KEY, g.getName());
               experimentIntent.putExtra(Experiment.EXPERIMENT_SERVER_ID_EXTRA_KEY, e.getServerId());
-              startActivity(experimentIntent);
+              startActivityForResult(experimentIntent, CAME_FROM_EXPERIMENT_EXECUTOR);
               return;
             }
           }
         }
       }
+      else
+        override_startup_enabled = true; //activate override for next time
 
 
 
@@ -452,8 +461,14 @@ public class MyExperimentsActivity extends ActionBarActivity implements
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    if (RingtoneUtil.isOkRingtoneResult(requestCode, resultCode)) {
-      RingtoneUtil.updateRingtone(data, this);
+    if(requestCode == CAME_FROM_EXPERIMENT_EXECUTOR) {
+      override_startup_enabled = false;
+
+    }
+    else {
+      if (RingtoneUtil.isOkRingtoneResult(requestCode, resultCode)) {
+        RingtoneUtil.updateRingtone(data, this);
+      }
     }
   }
 
