@@ -202,7 +202,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 		write_file('data/events/keys/' .$id, substr($t_inputs, 0, -1)."\n");
 		//write_file('data/experiment_index/' .$id, '\'' .$id .'\'=>[' .substr($t_index, 0, -1) .'],');
-		write_file('data/experiment_index/' .$id, $id .':' .json_encode($exp_index) .',');
+		write_file('data/experiment_index/' .$id, '"' .$id .'":' .json_encode($exp_index) .',');
 		if(!file_exists('data/events/inputs/' .$id))
 			write_file('data/events/inputs/' .$id, '');
 		update_index();
