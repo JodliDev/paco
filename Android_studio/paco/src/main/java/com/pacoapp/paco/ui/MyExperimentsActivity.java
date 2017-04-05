@@ -185,10 +185,10 @@ public class MyExperimentsActivity extends ActionBarActivity implements
       launchFindMyExperiments();
       break;
     case 2:
-      //TODO (JodliDev): remove it or implement it
       launchFindPublicExperiments();
       break;
     case 3:
+      //TODO (JodliDev): remove it or implement it
       launchCompletedExperiments();
       break;
     default:

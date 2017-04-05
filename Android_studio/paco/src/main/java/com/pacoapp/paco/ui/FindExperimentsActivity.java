@@ -158,7 +158,6 @@ public class FindExperimentsActivity extends ActionBarActivity implements Networ
     //navDrawerList.setItemChecked(position, true);
     switch (position) {
     case 0:
-      // we are here launchMyCurrentExperiments();
       launchMyCurrentExperiments();
       break;
     case 1:
