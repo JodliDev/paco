@@ -272,7 +272,8 @@ else if(isset($_GET['public']) || isset($_GET['admin'])) {
 	
 	echo '{"results":[' .implode($output, ',') .']}';
 }
-//missing: new, popular, mine, joined, new
+else //new, popular, mine, joined, new
+	echo '{"results":[]}';
 
 
 
