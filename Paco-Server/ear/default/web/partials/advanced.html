@@ -32,6 +32,14 @@
     </div>
 
     <div class="row">
+      <md-checkbox ng-model="group.skipGroupSelection" aria-label="Log trigger-related accessibility events">
+        Skip group-selection to this group
+      </md-checkbox>
+
+      <no-ios ng-if="group.skipGroupSelection">Not implemented in iOS</no-ios>
+    </div>
+
+    <div class="row">
       <md-checkbox ng-model="group.backgroundListen" aria-label="Listen for other apps sending data to PACO">
         Background Listening
       </md-checkbox>
