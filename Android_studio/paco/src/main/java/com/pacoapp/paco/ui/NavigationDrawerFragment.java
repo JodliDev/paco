@@ -106,8 +106,9 @@ public class NavigationDrawerFragment extends Fragment {
                 new String[]{
                         getString(R.string.running_experiments_title),
                         getString(R.string.find_my_experiments),
-                        getString(R.string.find_public_experiments_title),
-                        getString(R.string.completed_experiments_title),
+                        getString(R.string.find_public_experiments_title)
+                        //TODO (JodliDev): remove it or implement it
+//                        getString(R.string.completed_experiments_title),
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;

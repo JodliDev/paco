@@ -168,6 +168,7 @@ public class FindMyExperimentsActivity extends ActionBarActivity implements Netw
       launchFindPublicExperiments();
       break;
     case 3:
+      //TODO (JodliDev): remove it or implement it
       launchCompletedExperiments();
       break;
     default:

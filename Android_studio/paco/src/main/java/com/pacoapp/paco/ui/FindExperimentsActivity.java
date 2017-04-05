@@ -179,14 +179,16 @@ public class FindExperimentsActivity extends ActionBarActivity implements Networ
     switch (position) {
     case 0:
       // we are here launchMyCurrentExperiments();
+      launchMyCurrentExperiments();
       break;
     case 1:
       launchFindMyExperiments();
       break;
     case 2:
-      launchFindPublicExperiments();
+      // we are here launchFindPublicExperiments();
       break;
     case 3:
+      //TODO (JodliDev): remove it or implement it
       launchCompletedExperiments();
       break;
     default:
@@ -273,8 +275,8 @@ public class FindExperimentsActivity extends ActionBarActivity implements Networ
     startActivity(new Intent(this, FindMyExperimentsActivity.class));
   }
 
-  private void launchFindPublicExperiments() {
-    startActivity(new Intent(this, FindExperimentsActivity.class));
+  private void launchMyCurrentExperiments() {
+    startActivity(new Intent(this, MyExperimentsActivity.class));
   }
 
   private void launchCompletedExperiments() {
