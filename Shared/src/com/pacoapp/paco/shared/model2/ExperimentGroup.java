@@ -11,6 +11,7 @@ public class ExperimentGroup extends ModelBase implements Validatable, java.io.S
   private String name;
 
   private Boolean overrideStartup = false;
+  private Boolean skipGroupSelection = false;
   private Boolean customRendering = false;
   private String customRenderingCode;
 
@@ -121,11 +122,19 @@ public class ExperimentGroup extends ModelBase implements Validatable, java.io.S
 //      throw new IllegalArgumentException(validator.stringifyResults());
 //    }
   }
+
   public void setOverrideStartup(boolean overrideStartup) {
     this.overrideStartup = overrideStartup;
   }
   public boolean getOverrideStartup() {
     return overrideStartup;
+  }
+
+  public void setSkipGroupSelection(boolean skipGroupSelection) {
+    this.skipGroupSelection = skipGroupSelection;
+  }
+  public boolean getSkipGroupSelection() {
+    return skipGroupSelection;
   }
 
   public Boolean getFixedDuration() {

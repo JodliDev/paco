@@ -616,13 +616,25 @@ public class MyExperimentsActivity extends ActionBarActivity implements
             showPopup(experiment, v);
           } else {
             Intent experimentIntent = null;
+
+
+            ExperimentGroup experimentGroup = null;
             if (groups.size() > 1) {
+              for (ExperimentGroup g : groups) {
+                if (g.getSkipGroupSelection()) {
+                  experimentGroup = g;
+                }
+              }
+            }
+            else {
+              experimentGroup = groups.get(0);
+            }
+            if (experimentGroup == null) {
               experimentIntent = new Intent(MyExperimentsActivity.this, ExperimentGroupPicker.class);
               experimentIntent.putExtra(ExperimentGroupPicker.SHOULD_GO_TO_RENDER_NEXT,
                                         ExperimentGroupPicker.RENDER_NEXT);
             } else {
               Class clazz = null;
-              final ExperimentGroup experimentGroup = groups.get(0);
               if (experimentGroup.getCustomRendering()) {
                 clazz = ExperimentExecutorCustomRendering.class;
               } else {
