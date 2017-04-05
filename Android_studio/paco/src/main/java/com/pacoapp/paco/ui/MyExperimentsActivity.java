@@ -348,6 +348,34 @@ public class MyExperimentsActivity extends ActionBarActivity implements
       navDrawerList = (ListView)mNavigationDrawerFragment.getView().findViewById(R.id.navDrawerList);
 
       reloadAdapter();
+      if(experiments.size() == 0) {
+        Intent find = new Intent(this, FindExperimentsActivity.class);
+        this.startActivity(find);
+      }
+      else if(getCallingActivity() == null) {
+        //JodliDev: this is very inefficient... It would be much better to check getOverrideStartup() in InformedConsentActivity.java
+        //and set an internal variable (that will be checked here) and unset it if the experiment is ended.
+        //This way we would also be able to prevent users to have more than one experiment with overrideStartup=true.
+        //The problem is, there are at least 3 identical places in the source where experiments are ended and who
+        //knows where else. The app will break if override is not removed properly. But I cant be sure that
+        //there isnt another variation of stopExperiment(), deleteExperiment () or createStopEvent() with another name...
+        for(Experiment e : experiments) {
+          final List<ExperimentGroup> groups = e.getExperimentDAO().getGroups();
+          for(ExperimentGroup g : groups) {
+            if(g.getOverrideStartup()) {
+              Intent experimentIntent = new Intent(MyExperimentsActivity.this, ExperimentExecutor.class);
+              experimentIntent.putExtra(Experiment.EXPERIMENT_GROUP_NAME_EXTRA_KEY, g.getName());
+              experimentIntent.putExtra(Experiment.EXPERIMENT_SERVER_ID_EXTRA_KEY, e.getServerId());
+              startActivity(experimentIntent);
+              return;
+            }
+          }
+        }
+      }
+
+
+
+
       setListHeader();
       if (invitationLayout.getVisibility() == View.VISIBLE) {
         List<Experiment> unseen = removeJoinedExperiments(invitations);

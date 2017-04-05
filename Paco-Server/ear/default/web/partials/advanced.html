@@ -16,6 +16,20 @@
         <no-ios ng-if="group.endOfDayGroup" message="'iOS does not support EOD groups'"></no-ios>
       </div>
     </div>
+    
+    <div class="row">
+	  <md-input-container flex>
+        <md-checkbox ng-model="group.overrideStartup" aria-label="Log trigger-related accessibility events">
+          Override App-startup
+        </md-checkbox>
+          <div ng-messages>
+            <div ng-message>
+              Keep in mind that when the user has another experiment, that uses the same option, installed, it will lead to unexpected behavior - the same happens if more than one group has this option enabled!)
+            </div>
+          </div>
+      </md-input-container>	
+      <no-ios ng-if="group.overrideStartup">Not implemented in iOS</no-ios>
+    </div>
 
     <div class="row">
       <md-checkbox ng-model="group.backgroundListen" aria-label="Listen for other apps sending data to PACO">
