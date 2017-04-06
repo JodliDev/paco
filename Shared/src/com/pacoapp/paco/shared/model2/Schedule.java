@@ -21,9 +21,11 @@ package com.pacoapp.paco.shared.model2;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
 public class Schedule extends ModelBase implements Validatable, MinimumBufferable, Serializable {
+  private static ResourceBundle locale = ResourceBundle.getBundle("locale.Strings");;
 
   public static final int SATURDAY = 64;
   public static final int FRIDAY = 32;
@@ -51,7 +53,11 @@ public class Schedule extends ModelBase implements Validatable, MinimumBufferabl
   public static final int ESM_PERIOD_MONTH = 2;
 
   public static final int DEFAULT_ESM_PERIOD = ESM_PERIOD_DAY;
-  public static final String[] ESM_PERIODS_NAMES = new String[] { "Day", "Week", "Month" };
+  public static final String[] ESM_PERIODS_NAMES = new String[] {
+          locale.getString("Day"),
+          locale.getString("Week"),
+          locale.getString("Month")
+  };
   public static final Integer DEFAULT_REPEAT_RATE = 1;
   public static final int[] DAYS_OF_WEEK = new int[] { 1, 2, 4, 8, 16, 32, 64 };
   public static int[] ESM_PERIODS = new int[] { ESM_PERIOD_DAY, ESM_PERIOD_WEEK, ESM_PERIOD_MONTH };
