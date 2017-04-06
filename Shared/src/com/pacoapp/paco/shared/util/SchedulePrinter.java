@@ -1,6 +1,7 @@
 package com.pacoapp.paco.shared.util;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
@@ -15,8 +16,17 @@ import com.pacoapp.paco.shared.model2.ScheduleTrigger;
 import com.pacoapp.paco.shared.model2.SignalTime;
 
 public class SchedulePrinter {
-
-  public static final String[] DAYS_SHORT_NAMES = new String[] { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+  private static ResourceBundle locale = ResourceBundle.getBundle("locale.Strings");;
+  public static final String[] DAYS_SHORT_NAMES = new String[] {
+          locale.getString("Sun"),
+          locale.getString("Mon"),
+          locale.getString("Tue"),
+          locale.getString("Wed"),
+          locale.getString("Thu"),
+          locale.getString("Fri"),
+          locale.getString("Sat")
+  };
+//  public static final String[] DAYS_SHORT_NAMES = new String[] { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 
   public static String createStringOfAllSchedules(ExperimentDAO experiment) {
     List<String> groupStrings = Lists.newArrayList();
@@ -82,11 +92,11 @@ public class SchedulePrinter {
   private static void dailyScheduleToString(StringBuilder buf, Schedule schedule) {
     final Integer repeatRate = schedule.getRepeatRate();
     if (repeatRate > 1) {
-      buf.append("Every ");
+      buf.append(locale.getString("Every")).append(" ");
       buf.append(repeatRate);
-      buf.append(" days at ");
+      buf.append(" ").append(locale.getString("days_at")).append(" ");
     } else {
-      buf.append("Daily at ");
+      buf.append(locale.getString("Daily_at")).append(" ");
     }
     timesOfDayToString(buf, schedule);
   }
@@ -100,12 +110,11 @@ public class SchedulePrinter {
         } else {
           buf.append(",");
         }
+        buf.append(getHourOffsetAsTimeString(time));
         final String label = time.getLabel();
         if (label != null && !label.isEmpty() && !label.equals("null")) {
-          buf.append(label);
-          buf.append(": ");
+          buf.append(" (").append(label).append(")");
         }
-        buf.append(getHourOffsetAsTimeString(time));
       }
     }
 
@@ -114,11 +123,11 @@ public class SchedulePrinter {
   private static void monthlyScheduleToString(StringBuilder buf, Schedule schedule) {
     final Integer repeatRate = schedule.getRepeatRate();
     if (repeatRate > 1) {
-      buf.append("Every ");
+      buf.append(locale.getString("Every")).append(" ");
       buf.append(repeatRate);
-      buf.append(" months on ");
+      buf.append(" ").append(locale.getString("months_on")).append(" ");
     } else {
-      buf.append("Monthly on ");
+      buf.append(" ").append(locale.getString("Monthly_on")).append(" ");
     }
     if (schedule.getByDayOfMonth()) {
       buf.append(schedule.getNthOfMonth());
@@ -133,28 +142,28 @@ public class SchedulePrinter {
   private static void weeklyScheduleToString(StringBuilder buf, Schedule schedule) {
     final Integer repeatRate = schedule.getRepeatRate();
     if (repeatRate > 1) {
-      buf.append("Every ");
+      buf.append(locale.getString("Every")).append(" ");
       buf.append(repeatRate);
-      buf.append(" weeks at ");
+      buf.append(locale.getString("weeks_at"));
     } else {
-      buf.append("Weekly at ");
+      buf.append(locale.getString("Weekly_at")).append(" ");
     }
     buf.append(stringNamesOf(schedule.getWeekDaysScheduled()));
-    buf.append(" at ");
+    buf.append(" ").append(locale.getString("at")).append(" ");
     timesOfDayToString(buf, schedule);
   }
 
   private static void esmScheduleToString(StringBuilder buf, Schedule schedule) {
-    buf.append("Randomly ");
-    buf.append(schedule.getEsmFrequency().toString());
-    buf.append(" times per ");
-    buf.append(Schedule.ESM_PERIODS_NAMES[schedule.getEsmPeriodInDays()].toLowerCase());
-    buf.append(" between ");
-    buf.append(getHourOffsetAsTimeString(schedule.getEsmStartHour()));
-    buf.append(" and ");
-    buf.append(getHourOffsetAsTimeString(schedule.getEsmEndHour()));
+    buf.append(locale.getString("randomly")).append(" ")
+        .append(schedule.getEsmFrequency().toString())
+        .append(" ").append(locale.getString("times_per")).append(" ")
+        .append(Schedule.ESM_PERIODS_NAMES[schedule.getEsmPeriodInDays()])
+        .append(" ").append(locale.getString("between")).append(" ")
+        .append(getHourOffsetAsTimeString(schedule.getEsmStartHour()))
+        .append(" ").append(locale.getString("and")).append(" ")
+        .append(getHourOffsetAsTimeString(schedule.getEsmEndHour()));
     if (schedule.getEsmWeekends()) {
-      buf.append(" incl weekends ");
+      buf.append(" ").append(locale.getString("incl_weekends")).append(" ");
     }
 
   }

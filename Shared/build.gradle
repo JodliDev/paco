@@ -16,5 +16,8 @@ sourceSets {
         java {
             srcDirs = ['src', 'src_non_j2objc']
         }
+        resources {
+            srcDirs = ['src']
+        }
     }
 }
