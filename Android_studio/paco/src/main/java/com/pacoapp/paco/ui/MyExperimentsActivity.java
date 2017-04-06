@@ -360,12 +360,14 @@ public class MyExperimentsActivity extends ActionBarActivity implements
         this.startActivity(find);
       }
       else if(override_startup_enabled) {
-        //JodliDev: this is very inefficient... It would be much better to check getOverrideStartup() in InformedConsentActivity.java
-        //and set an internal variable (that will be checked here) and unset it if the experiment is ended.
+        //TODO (JodliDev): this is very inefficient... It would be much better to check getOverrideStartup() in InformedConsentActivity.java
+        //and set an internal variable (that would then be checked here) and unset it if the experiment is ended.
         //This way we would also be able to prevent users to have more than one experiment with overrideStartup=true.
         //The problem is, there are at least 3 identical places in the source where experiments are ended and who
-        //knows where else. The app will break if override is not removed properly. But I cant be sure that
+        //knows where else. The app would totally break if override is not removed properly. But I cant be sure that
         //there isnt another variation of stopExperiment(), deleteExperiment () or createStopEvent() with another name...
+        //In the future I (or someone else) need to integrate all stop-functions into one place so this can be done properly
+        //without having identical code all over the place
         for(Experiment e : experiments) {
           final List<ExperimentGroup> groups = e.getExperimentDAO().getGroups();
           for(ExperimentGroup g : groups) {
