@@ -829,7 +829,12 @@ public class MyExperimentsActivity extends ActionBarActivity implements
     emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, aEmailList);
     emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.email_subject_paco_feedback));
     emailIntent.setType("plain/text");
-    startActivity(emailIntent);
+    try {
+      startActivity(emailIntent);
+    }
+    catch(Exception e) {
+      Log.debug("No email-app installed?");
+    }
   }
 
   @SuppressLint("NewApi")
