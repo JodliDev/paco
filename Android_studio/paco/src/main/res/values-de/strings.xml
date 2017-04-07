@@ -280,7 +280,7 @@
     <string name="title_activity_raw_data_viewer">Rohdaten-Anzeige</string>
     <string name="dialog_app_usage_permissions_needed_msg">Für dieses Experiment benötigt Paco Zugriff auf Ihre Nutzungsdaten (Möglich unter: Einstellungen/Sicherheit/Apps mit Zugriff auf Nutzungsdaten)</string>
     <string name="dialog_permissions_needed">Berechtigung benötigt</string>
-    <string name="access_key" description="Title for the filter-text-field">Schlüssel: </string>
+    <string name="access_key" description="Title for the filter-text-field">Experimentcode: </string>
     <string name="provide_access_key_title">Bitte Experimentcode angeben</string>
     <string name="provide_access_key">Falls Ihnen ein Experimentcode mitgeteilt wurde, geben Sie diesen bitte hier an. Falls Sie den Experimentcode momentan nicht wissen, können Sie diesen auch noch später im Experiment-Hub angeben. Wenn Sie keinen Experimentcode haben, können Sie diesen Teil mit OK einfach überspringen. Es werden dann nur öffentliche Experimente angezeigt.</string>
 
