@@ -39,7 +39,7 @@ function unlink_others($a, $id) {
 	}
 }
 
-function error($msg) {
+function error() {
 	$args = func_get_args();
 	$output = '[{"eventId":0,"status":false,"experimentId":0, "errorMessage":"[';
 	foreach($args as $msg) {
@@ -71,15 +71,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if(!isset($_GET['id']) || !($id = (int) $_GET['id']))
 			return;
 		
-		if(unlink('data/experiment_index/' .$id) && unlink('data/experiments/' .$id) && unlink('data/events/keys/' .$id) && unlink('data/events/inputs/' .$id)) {
-			if(!filesize('data/events/inputs/' .$id))
-				unlink('data/events/inputs/' .$id);
-			update_index();
-			echo '[{"eventId":0,"status":true}]';
-			return;
-		}
-		else
-			echo '[{"eventId":0,"status":false, "errorMessage":"Deleting files (partly?) failed!"}]';
+		if(!unlink('data/experiment_index/' .$id))
+			return error('Could not remove data/experiment_index/' .$id, 'No files were deleted', 'Aborting...');
+		if(file_exists('data/experiments/key_restricted/' .$id) && !unlink('data/experiments/key_restricted/' .$id))
+			return error('Could not remove data/experiments/key_restricted/' .$id, 'experiment_index-file was deleted','Save the experiment again if you wish to restore it', 'Aborting...');
+		else if(file_exists('data/experiments/published/' .$id) && !unlink('data/experiments/published/' .$id))
+			return error('Could not remove data/experiments/published/' .$id, 'experiment_index-file was deleted','Save the experiment again if you wish to restore it', 'Aborting...');
+		else if(file_exists('data/experiments/unpublished/' .$id) && !unlink('data/experiments/unpublished/' .$id))
+			return error('Could not remove data/experiments/unpublished/' .$id, 'experiment_index-file was deleted','Save the experiment again if you wish to restore it', 'Aborting...');
+		
+		if(!unlink('data/events/keys/' .$id))
+			return error('Could not remove data/events/keys/' .$id, 'But the experiment was sucessfully removed', 'Aborting...');
+		update_index();
+		
+		if(!unlink('data/events/inputs/' .$id))
+			return error('Could not remove data/events/inputs/' .$id, 'But the experiment was sucessfully removed', 'Aborting...');
+		
+		echo '[{"eventId":0,"status":true}]';
+		return;
 	}
 	else {
 		$rest_json = file_get_contents('php://input');
@@ -99,7 +108,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		//*****
 		//create variable-keys
 		//*****
-		$t_inputs = '"who";"when";"appId";"pacoVersion";"experimentGroupName";';
+		$t_inputs = '"who";"when";"appId";"pacoVersion";"experimentGroupName";timezone;responseDate;responseTime;scheduledDate;scheduledTime;missedSignal;emptyResponse;';
 		foreach(KEYS_EVENTS as $k) {
 			$t_inputs .= '"' .$k .'";';
 		}
@@ -143,7 +152,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		
 		
 		$key_check_array = [];
-		foreach($data['groups'] as $group) {
+		foreach($data['groups'] as $i => &$group) {
 			$group_name = $group['name'];
 			foreach($group['inputs'] as $input) {
 				$name = $input['name'];
@@ -156,6 +165,35 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$t_inputs .= '"' .$name .'";';
 				//$t_index .= '\'' .$name .'\'=>null,';
 				$exp_index[$name] = null;
+			}
+			
+			
+			//adding ids
+			$set_id = time();
+			if(isset($group['actionTriggers'])) {
+				foreach($group['actionTriggers'] as &$trigger) {
+					if(!isset($trigger['id']))
+						$trigger['id'] = $set_id++;
+						//$data['groups'][$i]['actionTriggers']['id'] = $id++;
+					if(isset($trigger['actions'])) {
+						foreach($trigger['actions'] as &$action) {
+							if(!isset($action['id']))
+								$action['id'] = $set_id++;
+						}
+					}
+					if(isset($trigger['schedules'])) {
+						foreach($trigger['schedules'] as &$schedule) {
+							if(!isset($schedule['id']))
+								$schedule['id'] = $set_id++;
+						}
+					}
+					if(isset($trigger['cues'])) {
+						foreach($trigger['cues'] as &$schedule) {
+							if(!isset($schedule['id']))
+								$schedule['id'] = $set_id++;
+						}
+					}
+				}
 			}
 		}
 		
