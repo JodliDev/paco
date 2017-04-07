@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if(!($data = json_decode($rest_json, true)))
 		return;
 	
-	$headers = apache_request_headers();
+	$headers = apache_request_headers(); //$_SERVER doesnt seem to capture the special Paco-headers
 	if(!isset($headers['user_id']) || !isset($headers['http.useragent']) || !isset($headers['paco.version']))
 		return;
 	$who = strip_input($headers['user_id']);
@@ -48,26 +48,70 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			continue;
 		}
 		
-		$write =  '"' .$who .'";"' .$when .'";"' .$appId .'";"' .$pacoVersion .'";';
-		$group_name = isset($e['experimentGroupName']) ? $e['experimentGroupName'] : '';
-		$write .= '"' .strip_input($group_name) .'";';
-		
-		foreach(KEYS_EVENTS as $k) {
-			$write .= isset($e[$k]) ? ('"' .strip_input($e[$k]) .'";') : ';';
+		//*****
+		//format resonseTime
+		//*****
+		if(isset($e['responseTime'])) {
+			$timezone = explode('+', strip_input($e['responseTime']));
+			$date_time = explode(' ', $timezone[0]);
+			if(count($timezone) != 2 || count($date_time) != 2)
+				return;
+			$responseTime = '"' .$date_time[0] .'";"' .$date_time[1] .'";';
 		}
+		else
+			$responseTime = ';;';
 		
+		//*****
+		//format scheduledTime
+		//*****
+		if(isset($e['scheduledTime'])) {
+			$timezone = explode('+', strip_input($e['scheduledTime']));
+			$date_time = explode(' ', $timezone[0]);
+			if(count($timezone) != 2 || count($date_time) != 2)
+				return;
+			$scheduledTime = '"' .$date_time[0] .'";"' .$date_time[1] .'";';
+		}
+		else
+			$scheduledTime = ';;';
+			
+		
+		//*****
+		//get responses-array (and check emptyResponse)
+		//*****
 		$order = $EXPERIMENT_INDEX[$id];
 		
+		$emptyResponse = 1;
 		foreach($e['responses'] as $v) {
-			//if(substr($v['name'], 0, 5) == 'input')
-				//$order[$group_name .$v['name']] = '"' .strip_input($v['answer']) .'"';
-			//else
-			$answer = isset($v['answer']) ? $v['answer'] : '';
+			if(isset($v['answer'])) {
+				$answer = $v['answer'];
+				$emptyResponse = 0;
+			}
+			else
+				$answer = '';
 			$order[$v['name']] = '"' .strip_input($answer) .'|DEBUG:' .$v['name'] .'"';
 		}
-		$write .= implode(';', $order);
 		
 		
+		//*****
+		//create output
+		//*****
+		$write =  '"' .$who .'";"' .$when .'";"' .$appId .'";"' .$pacoVersion .'";'
+			.(isset($e['experimentGroupName']) ? '"' .strip_input($e['experimentGroupName']) .'";' : ';') //experimentGroupName;
+			.'"+' .$timezone[1] .'";'															//timezone;
+			.$responseTime .$scheduledTime														//responseTime; scheduledTime;
+			.'"' .((isset($e['scheduledTime']) && !isset($e['responseTime'])) ? 1 : 0) .'";'	//missedSignal;
+			.'"' .$emptyResponse .'";';															//emptyResponse;
+		
+		foreach(KEYS_EVENTS as $k) {
+			$write .= isset($e[$k]) ? ('"' .strip_input($e[$k]) .'";') : ';';					//experiment-values[];
+		}
+			
+		$write .= implode(';', $order);															//response-array[];
+		
+		
+		//*****
+		//write data
+		//*****
 		if(($h = fopen($path, 'a'))
 				&& flock($h, LOCK_EX)
 				&& fwrite($h, $write ."\n")

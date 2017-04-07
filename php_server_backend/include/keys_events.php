@@ -13,16 +13,16 @@ const KEYS_EVENTS = [
 	'referredGroup',
 	'lat',
 	'lon',
-	'scheduledTime', 
-	'responseTime',
+	//'scheduledTime', 
+	//'responseTime',
 	'eodResponseTime',
 	'shared',
 	'actionId',
 	'actionTriggerId',
 	'actionTriggerSpecId',
-	'timeZone', //?
-	'missedSignal', //?
-	'emptyResponse' //?
+	//'timeZone', //?
+	//'missedSignal', //?
+	//'emptyResponse' //?
 ];
 
 ?>
