@@ -1018,10 +1018,12 @@ public class InputLayout extends LinearLayout implements SpeechRecognitionListen
       text = "";
     }
     inputTextView.setText(Html.fromHtml(text));
-    inputTextView.setTextSize(18);
     if (!Strings.isNullOrEmpty(text)) {
       inputTextView.setBackgroundColor(Color.argb(40, 200, 200, 250));
+      inputTextView.setTextSize(18);
     }
+    else
+      inputTextView.setTextSize(1);
     return inputTextView;
   }
 
