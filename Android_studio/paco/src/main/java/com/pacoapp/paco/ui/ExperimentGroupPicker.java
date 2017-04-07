@@ -111,8 +111,8 @@ public class ExperimentGroupPicker extends ActionBarActivity implements Experime
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    int id = item.getItemId();
-    if (id == android.R.id.home) {
+    if (item.getItemId() == android.R.id.home) {
+      onBackPressed();
       finish();
       return true;
     }

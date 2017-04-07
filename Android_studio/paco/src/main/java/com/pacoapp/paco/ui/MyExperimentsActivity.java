@@ -99,7 +99,7 @@ public class MyExperimentsActivity extends ActionBarActivity implements
 
   private static final int RINGTONE_REQUESTCODE = 945;
   public static final int REFRESHING_EXPERIMENTS_DIALOG_ID = 1001;
-  private static final int CAME_FROM_EXPERIMENT_EXECUTOR = 33;
+  private static final int NO_OVERRIDE_STARTUP = 33;
   private boolean override_startup_enabled = true;
 
   private Logger Log = LoggerFactory.getLogger(this.getClass());
@@ -373,10 +373,12 @@ public class MyExperimentsActivity extends ActionBarActivity implements
           final List<ExperimentGroup> groups = e.getExperimentDAO().getGroups();
           for(ExperimentGroup g : groups) {
             if(g.getOverrideStartup()) {
-              Intent experimentIntent = new Intent(MyExperimentsActivity.this, ExperimentExecutor.class);
+              Intent experimentIntent = new Intent(MyExperimentsActivity.this, g.getCustomRendering()
+                      ? ExperimentExecutorCustomRendering.class
+                      : ExperimentExecutor.class);
               experimentIntent.putExtra(Experiment.EXPERIMENT_GROUP_NAME_EXTRA_KEY, g.getName());
               experimentIntent.putExtra(Experiment.EXPERIMENT_SERVER_ID_EXTRA_KEY, e.getServerId());
-              startActivityForResult(experimentIntent, CAME_FROM_EXPERIMENT_EXECUTOR);
+              startActivityForResult(experimentIntent, NO_OVERRIDE_STARTUP);
               return;
             }
           }
@@ -464,7 +466,7 @@ public class MyExperimentsActivity extends ActionBarActivity implements
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    if(requestCode == CAME_FROM_EXPERIMENT_EXECUTOR) {
+    if(requestCode == NO_OVERRIDE_STARTUP) {
       override_startup_enabled = false;
 
     }
@@ -663,7 +665,7 @@ public class MyExperimentsActivity extends ActionBarActivity implements
 
             }
             experimentIntent.putExtra(Experiment.EXPERIMENT_SERVER_ID_EXTRA_KEY, experimentServerId);
-            startActivity(experimentIntent);
+            startActivityForResult(experimentIntent, NO_OVERRIDE_STARTUP);
           }
         }
       }

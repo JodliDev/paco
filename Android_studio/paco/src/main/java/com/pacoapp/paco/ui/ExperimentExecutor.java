@@ -646,16 +646,12 @@ public class ExperimentExecutor extends ActionBarActivity implements ChangeListe
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case android.R.id.home:
-        onBackPressed();
-        return true;
-      default:
-        return super.onOptionsItemSelected(item);
+    if(item.getItemId() == android.R.id.home) {
+      onBackPressed();
+      return true;
     }
-
-
-//    return optionsMenu.onOptionsItemSelected(item);
+    else
+      return super.onOptionsItemSelected(item);
   }
 
   public void stopExperiment() {
