@@ -117,12 +117,12 @@
     <string name="self_report_only_schedule_type" description="List choice for schedule that does not signal. User initiates response.">Self report only</string>
     <string name="advanced_schedule_type" description="List choice for schedule that signals in custom, advanced ways">Advanced</string>
     <string name="survey_expired" description="Message to user that the signal to which they were responding has expired and there is no work to be done.">This survey request has expired. No need to enter a response</string>
-    <string name="gps_message" description="Message to user to enable GPS location, but only when outside.">"Use GPS for improved location (outside only)? "</string>
+    <string name="gps_message" description="Message to user to enable GPS location, but only when outside.">Use GPS for improved location (outside only)?</string>
     <string name="enable_button" description="Dialog Button label to enable GPS">Enable</string>
     <string name="cancel_button" description="Dialog Button label to cancel GPS">Cancel</string>
-    <string name="need_location" description="Message to user about need to enable location services">"You must enable some form of Location Service if you want to include location data. "</string>
+    <string name="need_location" description="Message to user about need to enable location services">You must enable some form of Location Service if you want to include location data.</string>
     <string name="required_answers_missing" description="Message shown to user submitting a form without filling in required fields.">Required Answers Missing</string>
-    <string name="must_answer" description="Label for error dialog listing which fields are required">"Must answer: "</string>
+    <string name="must_answer" description="Label for error dialog listing which fields are required">Must answer: </string>
     <string name="about_paco_menu_item" description="Menu Item text for About screens">About Paco</string>
     <string name="eula_menu_item" description="Menu Item to see user agreement text">User Agreement</string>
     <string name="debug_menu_item" description="Menu Item to debug app">Debug</string>
@@ -134,7 +134,7 @@
     <string name="modify_time_title" description="Dialog Box title for editing a schedule time">Modify Time</string>
     <string name="days_of_week_title" description="Dialog Box title for editing days of the week to schedule">Days of Week</string>
     <string name="start_hour_must_be_before_end_hour_warning" description="Error message when edited start time is after end time">Start hour must be before end hour</string>
-    <string name="show_trends_button" description="Button label for chart that turns on a trend line ">"  Show Trends  "</string>
+    <string name="show_trends_button" description="Button label for chart that turns on a trend line ">Show Trends</string>
     <string name="make_selections" description="Button label for list questionss that allow multiple selections">Make selections</string>
     <string name="edit_schedule_menu_item" description="Menu Item to edit schedule">Edit Schedule</string>
     <string name="stop_experiment_menu_item"  description="Menu Item to stop an experiment">Stop Experiment</string>
@@ -151,30 +151,30 @@
     <string name="cannot_open_camera_warning" description="Error message when survey cannot open the Camera app">Cannot Open Camera</string>
     <string name="done_button" description="Button label in dialog where user selects multiple options from a list. Signifies that they are done and closes dialog.">Done</string>
     <string name="time_to_participate_notification_text" description="Default message for Experiment Notifications">Time to participate!</string>
-    <string name="time_for_notification_title" description="Default ticker text for Experiment Notification. Experiment name is appended to this.">"Time for "</string>
+    <string name="time_for_notification_title" description="Default ticker text for Experiment Notification. Experiment name is appended to this.">Time for </string>
     <string name="refresh_experiment_menu_item" description="Menu item to refresh running experiments">Refresh Running Experiments</string>
     <string name="main_page_menu_item" description="Menu item to return to the main screen.">Main Page</string>
     <string name="missed_signal_value" description="Label for signaled response that was not answered before it timed out.">Missed</string>
     <string name="choose_account" description="Instruction text for choosing a Google Account to use in Paco">Please Choose an Account to use with Paco</string>
-    <string name="daily_scheduled_times_for" description="Prefix title for screen that shows daily scheduled times for an experiment. Experiment name is appended.">"Daily Scheduled Times for: "</string>
+    <string name="daily_scheduled_times_for" description="Prefix title for screen that shows daily scheduled times for an experiment. Experiment name is appended.">Daily Scheduled Times for: </string>
     <string name="scheduled_times" description="Label for list of scheduled times in experiment">Scheduled Times</string>
     <string name="experiment_name" description="Default placeholder for Experiment name while loading real data">Experiment Name</string>
     <string name="suggested_signalling_schedule" description="Label for screen for editing default schedule">Suggested signalling schedule:</string>
-    <string name="schedule_period" description="Label for choosing ESM schedule period (day, week, month)">"Schedule Period:  "</string>
+    <string name="schedule_period" description="Label for choosing ESM schedule period (day, week, month)">Schedule Period:</string>
     <string name="times_per_period" description="Label for entering integer value for frequency of ESM signals (# of times per day, wk, mo)">Times per period:</string>
     <string name="weekends" description="Label for checkbox to configure whether signaling happens on weekends as well as weekdays.">Weekends?</string>
     <string name="start_hour" description="Label for time picker that sets the starting time of day for an esm schedule">Start Hour</string>
     <string name="default_start_time" description="String value of default start time for esm schedule">9:30am</string>
-    <string name="end_hour" description="Label for time picker that sets the ending time of day for an esm schedule">"End Hour:   "</string>
+    <string name="end_hour" description="Label for time picker that sets the ending time of day for an esm schedule">End Hour:</string>
     <string name="default_end_hour" description="String value of default end time for esm schedule">5:30pm</string>
     <string name="responses" description="Label for table of users' survey responses">Responses</string>
     <string name="no_data" description="Default list value for ui elements that show lists of data">No data</string>
     <string name="description" description="Label for field showing experiment's description on Experiment details page.">Description:</string>
-    <string name="schedule" description="Label for showing a schedule summary in Experiment details page">"Schedule: "</string>
-    <string name="start_date" description="Label for experiment start date in experiment details page">"Start Date: "</string>
-    <string name="end_date"  description="Label for experiment end date in experiment details page">"End Date: "</string>
-    <string name="esm_frequency"  description="Label for esm frequency in experiment details page">"ESM Frequency: "</string>
-    <string name="scheduled_time" description="Label for list of scheduled times in experiment details page">"Scheduled Time: "</string>
+    <string name="schedule" description="Label for showing a schedule summary in Experiment details page">Schedule:</string>
+    <string name="start_date" description="Label for experiment start date in experiment details page">Start Date:</string>
+    <string name="end_date"  description="Label for experiment end date in experiment details page">End Date:</string>
+    <string name="esm_frequency"  description="Label for esm frequency in experiment details page">ESM Frequency:</string>
+    <string name="scheduled_time" description="Label for list of scheduled times in experiment details page">Scheduled Time:</string>
     <string name="creator" description="Label for creator of experiment in experiment details page">Creator:</string>
     <string name="join_this_experiment" description="Label for button to join experiment in experiment details page">Join this Experiment</string>
     <string name="raw_data_button_text" description="Label for button to go to view of raw data collected">Go to Raw Data</string>
@@ -186,13 +186,13 @@
     <string name="available_experiments" description="Title for list of experiments (retrieved from server) that can be joined by user">Available Experiments</string>
     <string name="retrieving_location" description="Status message for retrieving location">Retrieving...</string>
     <string name="location_settings" description="Label for button to take user to system location settings">Location Settings</string>
-    <string name="daily_scheduled_time_for" description="Title for list of daily times in schedule edit screen">"Daily Scheduled Time for: "</string>
-    <string name="by_day_of_month" description="List choice for monthly schedule type (choose by day of the month)">"          By Day of Month"</string>
-    <string name="by_day_of_week" description="List choice for monthly schedule type (choose by day of the week)">          Day of Week"</string>
+    <string name="daily_scheduled_time_for" description="Title for list of daily times in schedule edit screen">Daily Scheduled Time for:</string>
+    <string name="by_day_of_month" description="List choice for monthly schedule type (choose by day of the month)">By Day of Month</string>
+    <string name="by_day_of_week" description="List choice for monthly schedule type (choose by day of the week)">Day of Week</string>
     <string name="day_of_month" description="Label for list picker of day of month (1..31)">Day of Month:</string>
     <string name="day_of_week" description="Label for widget to pick day of week (smtwrfs)">Day of Week:</string>
     <string name="take_picture" description="Button label for taking a picture with the camera app as part of a survey">Add a Picture</string>
-    <string name="repeat_every_" description="Label for list to pick how many days between signal repeats on a schedule">"Repeat Every "</string>
+    <string name="repeat_every_" description="Label for list to pick how many days between signal repeats on a schedule">Repeat Every </string>
     <string name="days" description="List choice for period of ESM schedule">Days</string>
     <string name="months" description="List choice for period of ESM schedule">Months</string>
     <string name="weeks" description="List choice for period of ESM schedule">Weeks</string>
