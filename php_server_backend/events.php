@@ -21,12 +21,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$rest_json = file_get_contents('php://input');
 	if(!($data = json_decode($rest_json, true)))
 		return;
-	
 	$headers = apache_request_headers(); //$_SERVER doesnt seem to capture the special Paco-headers
 	if(!isset($headers['user_id']) || !isset($headers['http.useragent']) || !isset($headers['paco.version']))
 		return;
-	$who = strip_input($headers['user_id']);
-	if(!check_user($who))
+	if(!($who = (int) $headers['user_id']))
 		return;
 	
 	$appId = strip_input($headers['http.useragent']);

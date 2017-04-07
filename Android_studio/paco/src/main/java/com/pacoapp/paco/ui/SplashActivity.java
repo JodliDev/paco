@@ -197,7 +197,7 @@ public class SplashActivity extends Activity implements NetworkClient {
   public void pickUserAccount() {
     //FORK>
     Timestamp t = new Timestamp(System.currentTimeMillis());
-    String username = String.valueOf(Math.round(t.getTime()/1000)%10000000)+"." + String.valueOf(Math.round(Math.random()*1000));
+    String username = String.valueOf(Math.round(t.getTime()/1000)%10000000) + String.valueOf(Math.round(Math.random()*1000));
     userPrefs.saveSelectedAccount(username);
     Log.debug("Fork - Account is: " + username);
     //<FORK
