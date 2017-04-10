@@ -28,16 +28,13 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.TelephonyManager;
@@ -61,6 +58,7 @@ import com.pacoapp.paco.net.NetworkUtil;
 import com.pacoapp.paco.net.SyncService;
 import com.pacoapp.paco.sensors.android.AndroidInstalledApplications;
 import com.pacoapp.paco.sensors.android.BroadcastTriggerReceiver;
+import com.pacoapp.paco.sensors.android.procmon.AppUsageEventsService;
 import com.pacoapp.paco.shared.model2.ActionTrigger;
 import com.pacoapp.paco.shared.model2.ExperimentGroup;
 import com.pacoapp.paco.shared.model2.Schedule;
@@ -213,11 +211,11 @@ public class InformedConsentActivity extends ActionBarActivity implements Experi
     boolean watchProcesses = ExperimentHelper.shouldWatchProcesses(experiment.getExperimentDAO());
 
     if (watchProcesses && android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      //check for App usage-permissions:
-      final UsageStatsManager usageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE);
-      final List<UsageStats> queryUsageStats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, 0, System.currentTimeMillis());
-
-      if (queryUsageStats.isEmpty()) {
+//      final UsageStatsManager usageStatsManager = (UsageStatsManager) getSystemService(Context.USAGE_STATS_SERVICE); //not supported in API 21
+      @SuppressWarnings("WrongConstant")
+        final UsageStatsManager usageStatsManager = (UsageStatsManager) getSystemService("usagestats");
+      final AppUsageEventsService usageEventsService = new AppUsageEventsService(usageStatsManager, BroadcastTriggerReceiver.getFrequency(getApplicationContext()));
+      if(!usageEventsService.canGetStats()) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this)
                 .setIcon(R.drawable.paco64)
                 .setTitle(R.string.dialog_permissions_needed)
