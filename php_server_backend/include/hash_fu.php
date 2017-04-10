@@ -1,5 +1,5 @@
 <?php
-//error_reporting(0);
+error_reporting(0);
 function check_local() {
 	return $_SERVER['REMOTE_ADDR'] == '127.0.0.1' || $_SERVER['REMOTE_ADDR'] == '::1';
 }

@@ -1,5 +1,5 @@
 <?php
-//error_reporting(0);
+error_reporting(0);
 require('include/hash_fu.php');
 
 if(isset($_POST['create'])) {

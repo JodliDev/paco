@@ -1,5 +1,5 @@
 <?php
-//error_reporting(0);
+error_reporting(0);
 header('Cache-Control: no-cache, must-revalidate');
 header('Content-Type: application/json');
 

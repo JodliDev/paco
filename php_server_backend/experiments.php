@@ -1,5 +1,5 @@
 <?php
-//error_reporting(0);
+error_reporting(0);
 header('Content-Type: application/json;charset=UTF-8');
 header('Cache-Control: no-cache, must-revalidate');
 require('include/keys_events.php');
@@ -113,42 +113,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$t_inputs .= '"' .$k .'";';
 		}
 		
-		//$t_index = '';
 		$exp_index = [];
 		foreach(KEYS_RESULTS as $k) {
 			$t_inputs .= '"' .$k .'";';
-			//$t_index .= '\'' .$k .'\'=>null,';
 			$exp_index[$k] = null;
 		}
-		
-		
-		//$i = $max_i = 0;
-		//foreach($data['groups'] as $group) {
-			//$max_i = max(count($group['inputs']), $max_i);
-		//}
-		
-		//for($i=1; $i<=$max_i; ++$i) {
-			//$t_index .= '\'input' .$i .'\'=>null,';
-			//$t_inputs .= '"input' .$i .'",';
-		//}
-		
-		//$key_check_array = [];
-		//foreach($data['groups'] as $group) {
-			//$group_name = $group['name'];
-			//if(isset($key_check_array[$group_name]))
-				//error('Group name "'.$group_name .'" is assigned more than once');
-			//else
-				//$key_check_array[$group_name] = true;
-			
-			//$count = 1;
-			//foreach($group['inputs'] as $input) {
-				//$name = $input['name'];
-				//$t_index .= '\'' .$group_name .'input' .$count .'\'=>null,';
-				//$t_inputs .= '"' .$group_name .': ' .$name .'",';
-				
-				//++$count;
-			//}
-		//}
 		
 		
 		$key_check_array = [];
