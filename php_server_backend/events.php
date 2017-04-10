@@ -50,11 +50,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		//format resonseTime
 		//*****
 		if(isset($e['responseTime'])) {
-			$timezone = explode('+', strip_input($e['responseTime']));
-			$date_time = explode(' ', $timezone[0]);
-			if(count($timezone) != 2 || count($date_time) != 2)
-				return;
-			$responseTime = '"' .$date_time[0] .'";"' .$date_time[1] .'";';
+			$date = new DateTime($e['responseTime']);
+			$timezone = $date->getTimezone()->getName();
+			$responseTime = '"' .$date->format('Y/m/d') .'";"' .$date->format('H:i:s') .'";';
 		}
 		else
 			$responseTime = ';;';
@@ -63,11 +61,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		//format scheduledTime
 		//*****
 		if(isset($e['scheduledTime'])) {
-			$timezone = explode('+', strip_input($e['scheduledTime']));
-			$date_time = explode(' ', $timezone[0]);
-			if(count($timezone) != 2 || count($date_time) != 2)
-				return;
-			$scheduledTime = '"' .$date_time[0] .'";"' .$date_time[1] .'";';
+			$date = new DateTime($e['scheduledTime']);
+			$timezone = $date->getTimezone()->getName();
+			$scheduledTime = '"' .$date->format('Y/m/d') .'";"' .$date->format('H:i:s') .'";';
 		}
 		else
 			$scheduledTime = ';;';
@@ -82,11 +78,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		foreach($e['responses'] as $v) {
 			if(isset($v['answer'])) {
 				$answer = $v['answer'];
-				$emptyResponse = 0;
+				if(strlen($v['answer']) && $v['name'] != 'Form Duration')
+					$emptyResponse = 0;
 			}
 			else
 				$answer = '';
-			$order[$v['name']] = '"' .strip_input($answer) .'|DEBUG:' .$v['name'] .'"';
+			$order[$v['name']] = '"' .strip_input($answer) .'"';
 		}
 		
 		
@@ -95,9 +92,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		//*****
 		$write =  '"' .$who .'";"' .$when .'";"' .$appId .'";"' .$pacoVersion .'";'
 			.(isset($e['experimentGroupName']) ? '"' .strip_input($e['experimentGroupName']) .'";' : ';') //experimentGroupName;
-			.'"+' .$timezone[1] .'";'															//timezone;
+			.'"' .$timezone .'";'																//timezone;
 			.$responseTime .$scheduledTime														//responseTime; scheduledTime;
-			.'"' .((isset($e['scheduledTime']) && !isset($e['responseTime'])) ? 1 : 0) .'";'	//missedSignal;
+			//.'"' .((isset($e['scheduledTime']) && !isset($e['responseTime'])) ? 1 : 0) .'";'	//missedSignal;
+			.'"' .((isset($e['scheduledTime']) && !count($e['responses'])) ? 1 : 0) .'";'		//missedSignal;
 			.'"' .$emptyResponse .'";';															//emptyResponse;
 		
 		foreach(KEYS_EVENTS as $k) {
