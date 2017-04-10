@@ -18,108 +18,133 @@ function strip_input($s) {
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$rest_json = file_get_contents('php://input');
-	if(!($data = json_decode($rest_json, true)))
-		return;
-	$headers = apache_request_headers(); //$_SERVER doesnt seem to capture the special Paco-headers
-	if(!isset($headers['user_id']) || !isset($headers['http.useragent']) || !isset($headers['paco.version']))
-		return;
-	if(!($who = (int) $headers['user_id']))
-		return;
-	
-	$appId = strip_input($headers['http.useragent']);
+	try {
+		$rest_json = file_get_contents('php://input');
+		if(!($data = json_decode($rest_json, true)))
+			return;
+		$headers = apache_request_headers(); //$_SERVER doesnt seem to capture the special Paco-headers
+		if(!isset($headers['user_id']) || !isset($headers['http.useragent']) || !isset($headers['paco.version']))
+			return;
+		if(!($who = (int) $headers['user_id']))
+			return;
 		
-	$when = time();
-	$pacoVersion = strip_input($headers['paco.version']);
+		$appId = strip_input($headers['http.useragent']);
+			
+		$when = time();
+		$pacoVersion = strip_input($headers['paco.version']);
 
-	$output = [];
-	$count = 0;
-	$path_before = 'data/events/inputs/';
-	foreach($data as $e) {
-		$id = $e['experimentId'];
-		$path = $path_before .$id;
-		
-		if(!file_exists($path)) {
-			$output[] = '{"eventId":' .$count .',"status":false,"errorMessage":"Experiment does not exist"}';
+		$output = [];
+		$count = 0;
+		$path_before = 'data/events/inputs/';
+		foreach($data as $e) {
+			$id = $e['experimentId'];
+			$path = $path_before .$id;
 			
-			++$count;
-			continue;
-		}
-		
-		//*****
-		//format resonseTime
-		//*****
-		if(isset($e['responseTime'])) {
-			$date = new DateTime($e['responseTime']);
-			$timezone = $date->getTimezone()->getName();
-			$responseTime = '"' .$date->format('Y/m/d') .'";"' .$date->format('H:i:s') .'";';
-		}
-		else
-			$responseTime = ';;';
-		
-		//*****
-		//format scheduledTime
-		//*****
-		if(isset($e['scheduledTime'])) {
-			$date = new DateTime($e['scheduledTime']);
-			$timezone = $date->getTimezone()->getName();
-			$scheduledTime = '"' .$date->format('Y/m/d') .'";"' .$date->format('H:i:s') .'";';
-		}
-		else
-			$scheduledTime = ';;';
+			if(!file_exists($path)) {
+				$output[] = '{"eventId":' .$count .',"status":false,"errorMessage":"Experiment does not exist"}';
+				
+				++$count;
+				continue;
+			}
 			
-		
-		//*****
-		//get responses-array (and check emptyResponse)
-		//*****
-		$order = $EXPERIMENT_INDEX[$id];
-		
-		$emptyResponse = 1;
-		foreach($e['responses'] as $v) {
-			if(isset($v['answer'])) {
-				$answer = $v['answer'];
-				if(strlen($v['answer']) && $v['name'] != 'Form Duration')
-					$emptyResponse = 0;
+			//*****
+			//format resonseTime
+			//*****
+			if(isset($e['responseTime'])) {
+				$date = new DateTime($e['responseTime']);
+				$timezone = $date->getTimezone()->getName();
+				$responseTime = '"' .$date->format('Y/m/d') .'";"' .$date->format('H:i:s') .'";';
 			}
 			else
-				$answer = '';
-			$order[$v['name']] = '"' .strip_input($answer) .'"';
-		}
-		
-		
-		//*****
-		//create output
-		//*****
-		$write =  '"' .$who .'";"' .$when .'";"' .$appId .'";"' .$pacoVersion .'";'
-			.(isset($e['experimentGroupName']) ? '"' .strip_input($e['experimentGroupName']) .'";' : ';') //experimentGroupName;
-			.'"' .$timezone .'";'																//timezone;
-			.$responseTime .$scheduledTime														//responseTime; scheduledTime;
-			//.'"' .((isset($e['scheduledTime']) && !isset($e['responseTime'])) ? 1 : 0) .'";'	//missedSignal;
-			.'"' .((isset($e['scheduledTime']) && !count($e['responses'])) ? 1 : 0) .'";'		//missedSignal;
-			.'"' .$emptyResponse .'";';															//emptyResponse;
-		
-		foreach(KEYS_EVENTS as $k) {
-			$write .= isset($e[$k]) ? ('"' .strip_input($e[$k]) .'";') : ';';					//experiment-values[];
-		}
+				$responseTime = ';;';
 			
-		$write .= implode(';', $order);															//response-array[];
-		
-		
-		//*****
-		//write data
-		//*****
-		if(($h = fopen($path, 'a'))
-				&& flock($h, LOCK_EX)
-				&& fwrite($h, $write ."\n")
-				&& flock($h, LOCK_UN)
-				&& fclose($h)
-			)
-			$output[] = '{"eventId":' .$count .',"status":true}';
-		else
-			$output[] = '{"eventId":' .$count .',"status":false}';
-		++$count;
+			//*****
+			//format scheduledTime
+			//*****
+			if(isset($e['scheduledTime'])) {
+				$date = new DateTime($e['scheduledTime']);
+				$timezone = $date->getTimezone()->getName();
+				$scheduledTime = '"' .$date->format('Y/m/d') .'";"' .$date->format('H:i:s') .'";';
+			}
+			else
+				$scheduledTime = ';;';
+				
+			
+			//*****
+			//get responses-array (and check emptyResponse)
+			//*****
+			$order = $EXPERIMENT_INDEX[$id];
+			
+			$emptyResponse = 1;
+			foreach($e['responses'] as $v) {
+				$name = $v['name'];
+				if(isset($v['answer']) && strlen($v['answer'])) {
+					if($name != 'Form Duration')
+						$emptyResponse = 0;
+					
+					if(file_exists('data/events/media/photo/' .$id .'/' .$name)) {
+						if(!file_exists('data/events/media/photo/' .$id.'/'.$name.'/'.$who))
+							mkdir('data/events/media/photo/' .$id.'/'.$name.'/'.$who, 0755);
+						$answer = 'data/events/media/photo/' .$id.'/'.$name.'/'.$who.'/'.time().'-'.$count.'.jpg';
+						$h = fopen($answer, 'w');
+						fwrite($h, base64_decode($v['answer']));
+						fclose($h);
+					}
+					else if(file_exists('data/events/media/audio/' .$id .'/' .$name)) {
+						if(!file_exists('data/events/media/audio/' .$id.'/'.$name.'/'.$who))
+							mkdir('data/events/media/audio/' .$id.'/'.$name.'/'.$who, 0755);
+						$answer = 'data/events/media/audio/' .$id.'/'.$name.'/'.$who.'/'.time().'-'.$count.'.mp4';
+						$h = fopen($answer, 'w');
+						fwrite($h, base64_decode($v['answer']));
+						fclose($h);
+					}
+					else
+						$answer = $v['answer'];
+				}
+				else {
+					$answer = '';
+				}
+				$order[$name] = '"' .strip_input($answer) .'"';
+			}
+			
+			
+			//*****
+			//create output
+			//*****
+			$write =  '"' .$who .'";"' .$when .'";"' .$appId .'";"' .$pacoVersion .'";'
+				.(isset($e['experimentGroupName']) ? '"' .strip_input($e['experimentGroupName']) .'";' : ';') //experimentGroupName;
+				.'"' .$timezone .'";'																//timezone;
+				.$responseTime .$scheduledTime														//responseTime; scheduledTime;
+				//.'"' .((isset($e['scheduledTime']) && !isset($e['responseTime'])) ? 1 : 0) .'";'	//missedSignal;
+				.'"' .((isset($e['scheduledTime']) && !count($e['responses'])) ? 1 : 0) .'";'		//missedSignal;
+				.'"' .$emptyResponse .'";';															//emptyResponse;
+			
+			foreach(KEYS_EVENTS as $k) {
+				$write .= isset($e[$k]) ? ('"' .strip_input($e[$k]) .'";') : ';';					//experiment-values[];
+			}
+				
+			$write .= implode(';', $order);															//response-array[];
+			
+			
+			//*****
+			//write data
+			//*****
+			if(($h = fopen($path, 'a'))
+					&& flock($h, LOCK_EX)
+					&& fwrite($h, $write ."\n")
+					&& flock($h, LOCK_UN)
+					&& fclose($h)
+				)
+				$output[] = '{"eventId":' .$count .',"status":true}';
+			else
+				$output[] = '{"eventId":' .$count .',"status":false}';
+			++$count;
+		}
+		echo '[' .implode(',', $output) .']';
 	}
-	echo '[' .implode(',', $output) .']';
+	catch(Exception $e) {
+		echo '{status:false}';
+	}
 }
 
 else if(isset($_GET['q'])) {

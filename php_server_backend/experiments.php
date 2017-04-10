@@ -165,6 +165,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$t_inputs .= '"' .$name .'";';
 				//$t_index .= '\'' .$name .'\'=>null,';
 				$exp_index[$name] = null;
+				
+				if($input['responseType'] == 'photo') {
+					if(!file_exists('data/events/media/photo/' .$id))
+						mkdir('data/events/media/photo/' .$id, 0755);
+					if(!file_exists('data/events/media/photo/' .$id .'/' .$name))
+						mkdir('data/events/media/photo/' .$id .'/' .$name, 0755);
+				}
+				else if($input['responseType'] == 'audio') {
+					if(!file_exists('data/events/media/audio/' .$id))
+						mkdir('data/events/media/audio/' .$id, 0755);
+					if(!file_exists('data/events/media/audio/' .$id .'/' .$name))
+						mkdir('data/events/media/audio/' .$id .'/' .$name, 0755);
+				}
 			}
 			
 			
