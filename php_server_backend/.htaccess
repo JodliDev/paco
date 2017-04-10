@@ -5,4 +5,4 @@ RewriteRule ^(.+)$ $1.php [NC,L]
 
 RewriteCond %{REQUEST_URI} !^.+/web/.*$
 RewriteCond %{REQUEST_FILENAME} !experiments|events|userinfo|change_login|jobStatus
-RewriteRule ^(.*)$ /%{URL-path}/web/$1 [NC,L]
+RewriteRule ^(.*)$ web/$1 [NC,L]
