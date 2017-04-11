@@ -386,7 +386,7 @@ public class NotificationCreator {
     }
 
     Intent surveyIntent = new Intent(context, ExperimentExecutor.class);
-    surveyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    surveyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
     surveyIntent.putExtra(NOTIFICATION_ID, notificationHolder.getId().longValue());
 
     PendingIntent notificationIntent = PendingIntent.getActivity(context,
