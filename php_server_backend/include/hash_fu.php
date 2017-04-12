@@ -87,13 +87,13 @@ class APR1_MD5 {
     }
 }
 
-function hash_pass($plainpasswd) {
-	return APR1_MD5::hash(base64_decode($plainpasswd));
+function hash_pass($pass) {
+	return APR1_MD5::hash(base64_decode($pass));
 }
 function check_user() {
 	$cookie_user = $_COOKIE['user'];
-	$cookie_pass = hash_pass($_COOKIE['pass']);
-
+	$cookie_pass = base64_decode($_COOKIE['pass']);
+	
 	$user = null;
 	if(!file_exists('data/.logins'))
 		return null;
@@ -103,7 +103,8 @@ function check_user() {
 		if($line == '')
 			continue;
 		$data = explode(':', $line);
-		if($data[0] == $cookie_user && $data[1] == $cookie_pass) {
+		
+		if($data[0] == $cookie_user && APR1_MD5::check($cookie_pass, $data[1])) {
 			$user = $data[0];
 			break;
 		}

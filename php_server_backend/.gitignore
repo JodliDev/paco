@@ -1,5 +1,7 @@
+web
 web/*
-data/logins
+data/.logins
+data/.htaccess
 data/experiments/published/*
 !data/experiments/published/.placeholder
 
@@ -12,8 +14,8 @@ data/experiments/key_restricted/*
 data/experiment_index/*
 !data/experiment_index/.placeholder
 
-data/events/datafiles/*
-!data/events/datafiles/.placeholder
+data/events/generated/*
+!data/events/generated/.placeholder
 
 data/events/media/photo/*
 !data/events/media/photo/.placeholder

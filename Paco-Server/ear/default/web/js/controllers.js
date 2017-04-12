@@ -595,6 +595,8 @@ pacoApp.controller('DataCtrl', [
         });
         promise.then(function(result) {
           $scope.reportData = result.data;
+          if(result.zipUrl)
+            $scope.zipUrl = result.zipUrl
           $scope.reportType = result.type;
         });
       };
@@ -742,7 +744,8 @@ pacoApp.controller('ReportCtrl', [
               var csvData = (window.URL || window.webkitURL).createObjectURL(blob);
               $mdDialog.hide({
                 data : csvData,
-                type : $scope.reportType
+                type : $scope.reportType,
+                zipUrl: $scope.options.photos ? 'data/events/generated/'+experiment.id+'.zip' : false
               });
             });
       }

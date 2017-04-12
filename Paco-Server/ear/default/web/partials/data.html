@@ -101,10 +101,19 @@
           <a ng-href="" ng-click="showReportOptions(experiment)" class="download">
             <md-button>Generate Report</md-button>
           </a>
+          <a ng-href="data/events/" class="download" target="_blank">
+            <md-button>Browse raw user-data<img style="vertical-align:top" src="img/only_php.png"/></md-button>
+            
+          </a>
 
         <a class="button" id="downloadButton" download="report.{{reportType}}" href="{{reportData}}" ng-if="reportData">
           <md-button class="md-raised md-primary">
             Download {{reportType}}
+          </md-button>
+        </a>
+        <a class="button" id="downloadButton" href="{{zipUrl}}" ng-if="zipUrl" target="_blank">
+          <md-button class="md-raised md-primary">
+            Download Media-zip
           </md-button>
         </a>
         </div>
