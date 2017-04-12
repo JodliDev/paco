@@ -2,26 +2,11 @@
 //error_reporting(0);
 require('include/hash_fu.php');
 
-if(isset($_POST['create'])) {
-	if(!isset($_POST['user']) || !isset($_POST['pass']))
-		return;
-	
-	$user = $_POST['user'];
-	$pass = hash_pass($_POST['pass']);
-	
-	
-	$h = fopen('data/logins', 'a');
-	fwrite($h, $user .':' .$pass);
-	fclose($h);
-	
-	echo '<b>Login saved!</b><br/>If you want to remove a login, you have to remove the according line in the "data/logins"-file';
-}
-else if(isset($_GET['logout'])) {
+if(isset($_GET['logout'])) {
 	setcookie("user", '', time()-3600);
 	setcookie("pass", '', time()-3600);
 	header('Location: /');
 }
-
 
 ?>
 
@@ -69,7 +54,6 @@ function check_login() {
 }
 
 function create_login() {
-	console.log("create&"+ cookie_string().join("&"));
 	send("POST", "create&"+ cookie_string().join("&"), function(data) {
 			document.getElementById("message").innerText = data.message;
 		});
