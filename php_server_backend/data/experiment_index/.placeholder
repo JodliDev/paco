@@ -1,0 +1,3 @@
+index-files for each experiment are saved here.
+Only "merged" is actually used by scripts. The other ones are only here so
+it is easier for the admin-scripts to change the index without having to interpret it first.
