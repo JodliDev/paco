@@ -12,7 +12,7 @@ function update_index() {
 	$output = '';
 	
 	while($file = readdir($h_folder)) {
-		if($file != '..' && $file != '.' && $file != 'merged') {
+		if($file[0] != '.' && $file != 'merged') {
 			$filename = $path .$file;
 			$output .= file_get_contents($filename);
 		}
