@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+//error_reporting(0);
 header('Content-Type: application/json');
 header('Cache-Control: no-cache, must-revalidate');
 
@@ -83,17 +83,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 						$emptyResponse = 0;
 					
 					if(file_exists('data/events/media/photo/' .$id .'/' .$name)) {
-						if(!file_exists('data/events/media/photo/' .$id.'/'.$name.'/'.$who))
-							mkdir('data/events/media/photo/' .$id.'/'.$name.'/'.$who, 0755);
-						$answer = 'data/events/media/photo/' .$id.'/'.$name.'/'.$who.'/'.time().'-'.$count.'.jpg';
+						$answer = 'data/events/media/photo/' .$id.'/'.$name.'/'.time().'-'.$who.'-'.$count.'.jpg';
 						$h = fopen($answer, 'w');
 						fwrite($h, base64_decode($v['answer']));
 						fclose($h);
 					}
 					else if(file_exists('data/events/media/audio/' .$id .'/' .$name)) {
-						if(!file_exists('data/events/media/audio/' .$id.'/'.$name.'/'.$who))
-							mkdir('data/events/media/audio/' .$id.'/'.$name.'/'.$who, 0755);
-						$answer = 'data/events/media/audio/' .$id.'/'.$name.'/'.$who.'/'.time().'-'.$count.'.mp4';
+						$answer = 'data/events/media/audio/' .$id.'/'.$name.'/'.time().'-'.$who.'-'.$count.'.mp4';
 						$h = fopen($answer, 'w');
 						fwrite($h, base64_decode($v['answer']));
 						fclose($h);
@@ -157,7 +153,7 @@ else if(isset($_GET['q'])) {
 		echo '<html><body>No HTML-generating. Please use &quot;Generate CSV&quot;</body></html>';
 	else if(isset($_GET['json']))
 		echo '{"events": [{"responseTime":"No JSON-generating or web-preview. Please use \"Generate CSV\""}]}';
-	else if(isset($_GET['csv']))
+	else if(isset($_GET['csv']) || isset($_GET['zip']))
 		echo $id;
 }
 
