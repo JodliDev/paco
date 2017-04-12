@@ -1,5 +1,5 @@
 <?php
-//error_reporting(0);
+error_reporting(0);
 header('Content-Type: application/json');
 header('Cache-Control: no-cache, must-revalidate');
 
@@ -144,17 +144,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 else if(isset($_GET['q'])) {
-	$q = $_GET['q']; //This has to change! Why would you ever pass a query in GET..?
+	$q = $_GET['q']; //This has to change! Why would you ever pass a query in GET..?!
 	$id = (int) substr($q, strpos($q, '=')+1, -1);
 	if(!$id)
 		return;
 	
 	if(isset($_GET['html']))
-		echo '<html><body>No HTML-generating. Please use &quot;Generate CSV&quot;</body></html>';
+		echo '<html><body>No HTML-generation. Please use &quot;Generate CSV&quot;</body></html>';
 	else if(isset($_GET['json']))
-		echo '{"events": [{"responseTime":"No JSON-generating or web-preview. Please use \"Generate CSV\""}]}';
-	else if(isset($_GET['csv']) || isset($_GET['zip']))
-		echo $id;
+		echo '{"events": [{"responseTime":"No JSON-generation or web-preview. Please use \"Generate CSV\""}]}';
+	else if(isset($_GET['csv'])) {
+		
+		if(isset($_GET['includePhotos']))
+			echo '"' .$id .'&zip=1"'; //hackydiduuuu
+		else
+			echo $id;
+	}
 }
 
 

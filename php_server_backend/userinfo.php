@@ -19,10 +19,10 @@ try {
 			
 			if(!file_exists('data/.logins')) {
 				file_put_contents('data/.htaccess', 'Options +Indexes
-	AuthType Basic
-	AuthName "Password Protected Area"
-	AuthUserFile '.dirname($_SERVER['SCRIPT_FILENAME']).'/data/.logins
-	Require valid-user');
+AuthType Basic
+AuthName "Password Protected Area"
+AuthUserFile '.dirname($_SERVER['SCRIPT_FILENAME']).'/data/.logins
+Require valid-user');
 			}
 			
 			file_put_contents('data/.logins', $user .':' .$pass ."\n", FILE_APPEND);
