@@ -103,18 +103,24 @@
             android:text="@string/server_address_label"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/server_address_warning"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/server_address_warning"-->
+            <!--android:textAppearance="?android:attr/textAppearanceSmall" />-->
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray" />
 
-        <EditText
+        <!--<EditText-->
+            <!--android:id="@+id/serverAddressView"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="http://wwww.pacoapp.com/"-->
+            <!--android:textAppearance="?android:attr/textAppearanceMedium" />-->
+        <TextView
             android:id="@+id/serverAddressView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

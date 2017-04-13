@@ -204,9 +204,9 @@ public class SettingsActivity extends ActionBarActivity {
   @Override
   protected void onPause() {
     super.onPause();
-    if (!serverAddressTextView.getText().equals(userPrefs.getServerAddress())) {
-      userPrefs.setServerAddress(serverAddressTextView.getText().toString());
-    }
+//    if (!serverAddressTextView.getText().equals(userPrefs.getServerAddress())) {
+//      userPrefs.setServerAddress(serverAddressTextView.getText().toString());
+//    }
     if (emailChangeAlertDialog != null) {
       emailChangeAlertDialog.dismiss();
       emailChangeAlertDialog = null;
