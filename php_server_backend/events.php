@@ -90,15 +90,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 					
 					if(file_exists('data/events/media/photo/' .$id .'/' .$name)) {
 						$answer = 'data/events/media/photo/' .$id.'/'.$name.'/'.time().'-'.$who.'-'.$count.'.jpg';
-						$h = fopen($answer, 'w');
-						fwrite($h, base64_decode($v['answer']));
-						fclose($h);
+						file_put_contents($answer, base64_decode($v['answer']));
 					}
 					else if(file_exists('data/events/media/audio/' .$id .'/' .$name)) {
 						$answer = 'data/events/media/audio/' .$id.'/'.$name.'/'.time().'-'.$who.'-'.$count.'.mp4';
-						$h = fopen($answer, 'w');
-						fwrite($h, base64_decode($v['answer']));
-						fclose($h);
+						file_put_contents($answer, base64_decode($v['answer']));
 					}
 					else
 						$answer = $v['answer'];
@@ -131,12 +127,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			//*****
 			//write data
 			//*****
-			if(($h = fopen($path, 'a'))
-					&& flock($h, LOCK_EX)
-					&& fwrite($h, $write ."\n")
-					&& flock($h, LOCK_UN)
-					&& fclose($h)
-				)
+			if(file_put_contents($path, $write ."\n", FILE_APPEND | LOCK_EX))
 				$output[] = '{"eventId":' .$count .',"status":true}';
 			else
 				$output[] = '{"eventId":' .$count .',"status":false, "errorMessage":"Server-error: Failed to write file"}';

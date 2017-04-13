@@ -90,11 +90,7 @@ if(function_exists('exec')) {
 }
 else {//no permission for external commands
 	$output = file_get_contents('data/events/keys/' .$id) .file_get_contents('data/events/inputs/' .$id);
-	$h = fopen($path.'.csv', 'w');
-	flock($h, LOCK_EX);
-	fwrite($h, $output);
-	flock($h, LOCK_UN);
-	fclose($h);
+	file_put_contents($path.'.csv', $output, LOCK_EX);
 	echo $output;
 }
 ?>
