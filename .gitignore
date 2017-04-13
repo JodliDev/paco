@@ -76,4 +76,5 @@ Paco-iOS/ParseKit/include*
 /Android_studio/.gradle/*
 /Android_studio/paco/paco.iml
 /Android_studio/paco/*.log
+/Android_studio/paco/*.apk
 /Shared/Shared.iml
