@@ -19,17 +19,32 @@ So if you want to look into your gathered data you have to download them first.
 
 
 
-## What does not work
+## Difference to Java-server
+
+* Features that are exclusive to the php-server are marked in the forntend
+  with ![php only](../Paco-Server/ear/default/web/img/only_php.png)
+* Features that are exclusive to the java-server are marked in the forntend
+  with ![Java only](../Paco-Server/ear/default/web/img/only_java.png)
+
+
+### What only works on php-server
+
+* Takes way less server-performance
+* data is stored in files that can be viewed and used directly
+* Media-files can be ziped and are downloadable in a useable way
+* Sending messages to participants through the app
+* Access-key-feature is only supported in php-server
+
+
+### What does not work on php-server
 
 * Experiment-Invitations
-* Different experiment lists (_new_, _popular_, mine_, _joined_ and _admin_
-  are all identical)
+* Different experiment lists (_new_, _popular_, mine_, _joined_ and _admin_)
 * Web-data-preview
 * Export to JSON or HTML
 * Specific experiment administrators (everyone who has a log in to the server, can
   change all experiments)
-* End to end-encryption
-* Media (foto, or recordings) - never tested or implemented
+* End to end-encryption - never tested or implemented
 
 
 
@@ -37,6 +52,9 @@ So if you want to look into your gathered data you have to download them first.
 
 __PHP__
 * For running the backend-server.
+
+__PHP-zip__
+* For packaging media-files into a zip-folder.
 	
 __Apache-server__
 * To read the additional-Paco-headers, `apache_request_headers()` is used.
@@ -44,17 +62,18 @@ __Apache-server__
 __.htaccess__
 * To limit the access from outside to the directories _data/_ and _include/_.
 * Module mode_rewrite: So the php scripts can be called without their
-	  _.php_-extention (which is what the paco-app does).
+  _.php_-extention (which is what the paco-app does).
 
-__Access to shell-commands (recommended)__
+__Access to system-commands (recommended)__
 * Data is stored in two files. In one is the actual data, in the other
   are the variable-names for the data.
   If you generate a CSV-file, these two files are just merged together
   Unfortunately, php has no way to mere file without reading them first.
-  This is why the export uses the sytsem command `cat` (or `type` on windows)
-  which is way faster.
+  This is why the export tries to use the system command `cat`
+  (or `type` on windows) in an independent process, which is way faster,
+  and is not influenced by php-timeout.
   If this command is not available, the files are merged via php - then
-  you may want to increase the max excecution time of php-cripts on your
+  you may want to increase the max excecution time of php-scripts on your
   server or you may end up getting a timeout if you have very big data-files.
 
   You can also access the data directly over the filesystem.
@@ -78,13 +97,24 @@ change_login.php
 events.php
 experiments.php
 jobStatus.php
-jobStatus.php
+server_message.php
+userinfo.php
 .htaccess
 ```
 
 All files that are subject to change are stored in _data/_
 So, if you want to backup your server-data you only need to save the
 _data/_-directory.
+
+
+### Permissions (especially on linux):
+
+Make sure that the right permissions are set in the _data/_ directory
+(and its sub-directories). Php needs read, write and delete-permissions
+in _data/_ and all its sub-directories. If you find that data are not saved
+as expected its most likely a permission-problem.
+Setting the permission to _0755_ for each file and directory in _data/_ 
+(and _data/_ itself too) should be sufficent.
 
 
 ### If you want to have the php-server in a subfolder (not root):
@@ -111,6 +141,7 @@ So other projects might not work until you delete or rename the
  _.htaccess_-file.
 
 
+
 ## Admin-Accounts
 
 The login-system of the php-server does not use a google account for logins,
@@ -120,10 +151,22 @@ Everyone who is logged in, can view and change all experiments that are saved
 on the server.
 For security reasons admin accounts can only be set if you call the scripts
 from the machine itself (localhost).
+Login-data are stored in _data/.logins_. If you want to remove an admin-account,
+you have to do that manually by deleting the respective line from _data/.logins_.
+After you have created your first admin-account, a _.htaccess_-file is created in
+_data/_ to restrict access to this directory from the web. The same login-data are
+also used to access this folder from the web.
+
+__Notice:__
+If you never set up an admin-account, the _data/_-folder will not
+be protected by _.htaccess_. To restrict access from the web, it is advisable to
+create _data/.htaccess_ manually and put in the following: `Deny from all`
 
 
-### Set up admin accounts on a webserver:
-If you need to set up admin accounts on a webserver and are not able to access it from localhost, you have two options:
+### Setting up admin accounts on a webserver:
+
+If you need to set up admin accounts on a webserver and are not able to
+access it from localhost, you have two options:
 
 
 __Option 1:__ Create and copy the admin accounts from your local server:
@@ -154,6 +197,10 @@ function check_local() {
 
 ## Data structure
 
+If you want to view the raw data it can be accessed in the _data/_-directory
+(from web: _EXAMPLE.COM/data/_). All user-data-files (.csv and .zip) that are
+created by the web-frontend are stored in _data/events/generated/_.
+
 __Experiments__
 * Experiments are saved (in JSON-format) to _data/experiments/published/_,
   _data/experiments/unpublished/_ and _data/experiments/restricted/_
@@ -169,13 +216,64 @@ __Events__
 * When creating a new experiment a key file with the variable-names is
   saved into _data/events/keys/_.
 * Userdata are saved to _data/events/inputs/_.
-* Generated CSV-files are stored into _data/events/datafiles/_
+* Generated CSV-files are stored into _data/events/generated/_
   These files are not deleted automatically. If you want to remove them
   you have to do that in the datastructure.
   
+  
+__Media__
+* photo- and audio-files are stored in their respective directory in
+  _data/events/media/_.
+*  If an experiment uses media-data a folder is created for that experiment
+  in the _audio_- and _photo_-directory for that experiment. Inside that
+  experiment-folder, another folder for each variable
+  (that uses media-data) is created.
+* The filename for each mediafile is created as follows:
+  `timestamp-user_id-upload_id.extension`
+* generated zip-folders for media-data are stored in a zip-folder in
+  _data/events/generated/_
+
 
 The files in _data/experiment_index/_ and _data/events/keys/_ are only used
 when userdata is stored. The experiment-editor works fine without them.
 So if some of these files ever get messed up, just save the concerning experiment
 over the web-frontend and new files (including _data/experiment_index/merged_
 and _data/experiments/restricted/index_) should be created.
+
+
+
+## How generating files work
+
+* All generated files (.csv and .zip) are stored in _data/events/generated_.
+  These files are never deleted, so you have to clean that directory
+  manually if you want to free up disk-space.
+* Also the generate-process first checks if there have been new data since
+  the last file has been generated. If not, the the already generated file
+  is passed on to save performance.
+
+### When there is too much data
+
+* When there is too much user-data for an experiment, it is possible, that the
+  php-file that generates the .csv- and .zip-file (_jobStatus.php_) gets a
+  timeout (depending on your server-configuration the php-script timeouts
+  after 10 minutes or less).
+* For generating .csv-files _jobStatus.php_ creates an independent process
+  that uses the system command `cat` (or `type` on windows) and then
+  waits until the respective file is created. If `cat` (or `type` ) takes
+  too long, _jobStatus.php_, may be canceled due timeout. This should
+  not influence the process that generates the .csv-file. You will find
+  that file in _data/events/generated/**EXPERIMENT_ID**.csv_ after the process
+  has finished. Or you can use the frontend and "generate" your .csv-file
+  again. If there has not been any new user-data, _jobStatus.php_ will just
+  pass on the last generated file (this refers to .zip-generation as well).
+* If _jobStatus.php_ has no access to system-commands ( `cat` or `type`
+  on windows) the _jobStatus.php_ generates the .csv-file by itself.
+* If all attempts of generating a .csv-file fail, you can manually download
+  your data from _data/events/_. To create a .csv-file you just have to
+  add the contents from _data/events/keys/**EXPERIMENT_ID**_ as the first line
+  into _data/events/inputs/**EXPERIMENT_ID**_.
+
+* .zip-Files for media-data are generated by _jobStatus.php_ itself.
+* If this process is not able to complete before it gets a
+  timeout, you will have to download the media-data from
+  _data/events/media_ on your own.

@@ -35,7 +35,7 @@
       </md-input-container>
 
       <md-input-container flex>
-        <label>Published Audience<img style="vertical-align:top" src="img/only_java.png"/></label>
+        <label>Published Audience<only-java/></label>
         <textarea ng-model="experiment.publishedUsers" ng-list=", "></textarea>
         <div ng-messages>
           <div ng-message>Enter emails separated by commas. An empty list is publishing publicly.</div>
@@ -43,7 +43,7 @@
       </md-input-container>
       
       <md-input-container flex>
-        <label>Access-Keys<img style="vertical-align:top" src="img/only_php.png"/></label>
+        <label>Access-Keys<only-php/></label>
         <textarea ng-model="experiment.accessKeys" ng-list=", "></textarea>
         <div ng-messages>
           <div ng-message>If not empty, this experiment can only be seen, if participants entry a respective key (separated by commas).</div>
@@ -62,7 +62,7 @@
     </div>
 
       <md-input-container layout-margin>
-        <label>RSA Public key<img style="vertical-align:top" src="img/only_java.png"/></label>
+        <label>RSA Public key<only-java/></label>
         <textarea ng-model="experiment.publicKey"></textarea>
         <div ng-messages>
           <div ng-message>Leave empty for no end-to-end encryption.</div>

@@ -204,3 +204,12 @@ md-dialog .paco-help {
   width: 960px;
 }
 
+.only-php, .only-java {
+	display:inline-block;
+	vertical-align:top;
+	width:40px;
+	height:11px;
+}
+.only-php img, .only-java img {
+	vertical-align:top;
+}

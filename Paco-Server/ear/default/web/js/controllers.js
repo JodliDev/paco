@@ -1183,3 +1183,51 @@ pacoApp.controller('Experiment2Ctrl', [ '$scope', '$mdDialog', '$filter', 'confi
         }
       });
     } ]);
+    
+pacoApp.controller('ServerMessageCtrl', [
+    '$scope',
+    '$http',
+    '$mdDialog',
+    '$routeParams',
+    function($scope, $http, $mdDialog, $routeParams) {
+      $scope.experimentId = parseInt($routeParams.editId);
+      $http.get('server_message?get&id='+$routeParams.editId).success(
+          function(data) {
+            $scope.serverMessage = data;
+          });
+      
+      $scope.setServerMessage = function(type) {
+        $scope.cancelSave = false;
+        $mdDialog.show(
+            $mdDialog.alert().title('Saving Message').content('Saving to remote PACO server').ariaLabel('Saving Message').ok(
+                'Cancel')).then(function() {
+          $scope.cancelSave = true;
+        });
+        
+        $scope.serverMessage.id = $routeParams.editId;
+        if(type == 'delete')
+			$scope.serverMessage.msg = '';
+        
+        $http.post('/server_message?'+type, $scope.serverMessage).then(function(response) {
+          var data = response.data;
+
+          if ($scope.cancelSave) {
+            return;
+          }
+          $mdDialog.cancel();
+            if (data.status === true) {
+              $scope.serverMessage.timestamp = data.timestamp;
+            } else {
+              var errorMessage = data.errorMessage;
+              $mdDialog.show({
+                templateUrl : 'partials/error.html',
+                locals : {
+                  errorMessage : data.errorMessage
+                },
+                controller : 'ErrorCtrl'
+              });
+            }
+        });
+      };
+
+    } ]);

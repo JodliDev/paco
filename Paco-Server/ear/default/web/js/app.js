@@ -54,6 +54,10 @@ pacoApp.config(['$routeProvider','$locationProvider',
       templateUrl: 'partials/respondpub.html',
       reloadOnSearch: false,
     }).
+    when('/server_message/:editId',{
+      templateUrl: 'partials/server_message.html',
+      reloadOnSearch: false,
+    }).
     otherwise({
       templateUrl: 'partials/welcome.html',
       reloadOnSearch: false,

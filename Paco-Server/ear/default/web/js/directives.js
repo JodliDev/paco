@@ -232,6 +232,26 @@ pacoApp.directive('pacoHelp', function() {
   };
 });
 
+pacoApp.directive('onlyPhp', function() {
+  return {
+    restrict: 'E',
+    transclude: true,
+    template: '<div class="only-php"><img src="img/only_php.png"></div>',
+    link: function(scope, element) {
+    }
+  };
+});
+
+pacoApp.directive('onlyJava', function() {
+  return {
+    restrict: 'E',
+    transclude: true,
+    template: '<div class="only-php"><img src="img/only_java.png"></div>',
+    link: function(scope, element) {
+    }
+  };
+});
+
 //
 
 /**
