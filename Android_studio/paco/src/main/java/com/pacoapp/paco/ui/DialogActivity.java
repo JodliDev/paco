@@ -13,6 +13,7 @@ import com.pacoapp.paco.R;
 
 public class DialogActivity extends Activity {
   public static final String MSG_KEY = "DialogActivity_msg";
+  public static final String TITLE_KEY = "DialogActivity_title";
 
 
   @Override
@@ -20,10 +21,11 @@ public class DialogActivity extends Activity {
     super.onCreate(savedInstanceState);
 
     Bundle extras = getIntent().getExtras();
-
+    String title = (extras.getString(TITLE_KEY) == null) ? extras.getString(TITLE_KEY) : getString(R.string.app_name);
     final AlertDialog.Builder dialog_builder = new AlertDialog.Builder(this)
             .setIcon(R.drawable.paco64)
             .setTitle(R.string.app_name)
+            .setTitle((extras.getString(TITLE_KEY) == null) ? getString(R.string.app_name) : extras.getString(TITLE_KEY))
             .setMessage(extras.getString(MSG_KEY))
             .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
               public void onClick(DialogInterface dialog, int which) {
