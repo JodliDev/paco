@@ -64,6 +64,7 @@ public class Experiment implements Parcelable {
   private Long serverId;
   private String joinDate;
 
+  private long serverMessageTimestamp;
   @JsonIgnore
   private String json;
   private ExperimentDAO experimentDelegate;
@@ -123,6 +124,13 @@ public class Experiment implements Parcelable {
   @JsonProperty("localId")
   public Long getId() {
     return id;
+  }
+
+  public void setServerMessageTimestamp(long t) {
+    serverMessageTimestamp = t;
+  }
+  public long getServerMessageTimestamp() {
+    return serverMessageTimestamp;
   }
 
   public int describeContents() {

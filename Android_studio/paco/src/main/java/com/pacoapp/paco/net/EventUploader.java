@@ -13,12 +13,18 @@ import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.pacoapp.paco.UserPreferences;
 import com.pacoapp.paco.model.Event;
+import com.pacoapp.paco.model.Experiment;
+import com.pacoapp.paco.model.ExperimentProviderUtil;
+import com.pacoapp.paco.model.Output;
 import com.pacoapp.paco.shared.comm.Outcome;
 import com.pacoapp.paco.shared.model2.EventStore;
 import com.pacoapp.paco.shared.model2.JsonConverter;
+import com.pacoapp.paco.ui.DialogActivity;
 
 import android.content.Context;
+import android.content.Intent;
 
 public class EventUploader {
 
@@ -26,13 +32,13 @@ public class EventUploader {
 
   private Logger Log = LoggerFactory.getLogger(EventUploader.class);
 
-  private EventStore eventStore;
+  private ExperimentProviderUtil eventStore;
   private String serverAddress;
 
   private Context context;
 
   public EventUploader(Context context, String serverAddress,
-                       EventStore eventStore) {
+                       ExperimentProviderUtil eventStore) {
     this.context = context;
     this.eventStore = eventStore;
     this.serverAddress = serverAddress;
@@ -73,12 +79,39 @@ public class EventUploader {
   }
 
   public void markEventsAccordingToOutcomes(List<Event> events, final List<Outcome> outcomes) {
-    for (int i = 0; i < outcomes.size(); i++) {
+    int max = outcomes.size();
+    for (int i = 0; i < max; i++) {
       Outcome currentOutcome = outcomes.get(i);
       if (currentOutcome.succeeded()) {
         Event correspondingEvent = events.get((int) currentOutcome.getEventId());
         correspondingEvent.setUploaded(true);
         eventStore.updateEvent(correspondingEvent);
+      }
+      else if(currentOutcome.getIsServerMessage()) {
+        Event correspondingEvent = events.get((int) currentOutcome.getEventId());
+        Log.debug(Long.toString(correspondingEvent.getExperimentServerId()));
+        Experiment experiment = eventStore.getExperimentByServerId(correspondingEvent.getExperimentServerId());
+        long t_old = experiment.getServerMessageTimestamp();
+        long t = currentOutcome.getMsgTimestamp();
+
+        if(t > t_old) {
+          experiment.setServerMessageTimestamp(t);
+          eventStore.updateJoinedExperiment(experiment);
+
+          Event event = new Event(experiment);
+
+          Output responseForInput = new Output();
+          responseForInput.setAnswer(Long.toString(t));
+          responseForInput.setName("message_received");
+          event.addResponse(responseForInput);
+          eventStore.insertEvent(event);
+
+          Intent intent = new Intent(context, DialogActivity.class);
+          intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+          intent.putExtra(DialogActivity.MSG_KEY, currentOutcome.getErrorMessage());
+          intent.putExtra(DialogActivity.TITLE_KEY, correspondingEvent.getExperimentName());
+          context.startActivity(intent);
+        }
       }
     }
   }

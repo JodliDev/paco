@@ -5,6 +5,8 @@ public class Outcome implements java.io.Serializable {
   private long eventId;
   private boolean status;
   private String errorMessage;
+  private boolean isServerMessage;
+  private long msgTimestamp;
 
   public Outcome(long eventId) {
     this();
@@ -13,7 +15,7 @@ public class Outcome implements java.io.Serializable {
 
   public Outcome() {
     super();
-      this.status = true;
+      this.status = false;//always assume that data was not saved unless server tells us otherwise
   }
 
   public Outcome(long eventId, String errorMessage) {
@@ -57,4 +59,17 @@ public class Outcome implements java.io.Serializable {
     return status;
   }
 
+  public void setIsServerMessage(boolean isServerMessage) {
+    this.status = false;
+    this.isServerMessage = isServerMessage;
+  }
+  public boolean getIsServerMessage() {
+    return this.isServerMessage;
+  }
+  public void setMsgTimestamp(long msgTimestamp) {
+    this.msgTimestamp = msgTimestamp;
+  }
+  public long getMsgTimestamp() {
+    return this.msgTimestamp;
+  }
 }
