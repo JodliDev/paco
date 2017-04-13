@@ -64,8 +64,10 @@ function remove_access_keys($key_index, $id) {
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 	require('include/hash_fu.php');
-	if(!check_user())
-		return;
+	if(!check_user()) {
+		echo '{"status":false, "errorMessage":"[{\"msg\":\"Not logged in!\"}]"}';
+		exit();
+	}
 	
 	if(isset($_GET['delete'])) {
 		if(!isset($_GET['id']) || !($id = (int) $_GET['id']))

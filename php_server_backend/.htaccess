@@ -1,8 +1,8 @@
 RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} (experiments|events|userinfo|change_login|jobStatus)$
+RewriteCond %{REQUEST_FILENAME} (experiments|events|userinfo|change_login|jobStatus|server_message)$
 RewriteRule ^(.+)$ $1.php [NC,L]
 
 
 RewriteCond %{REQUEST_URI} !^.+/(web|data)/.*$
-RewriteCond %{REQUEST_FILENAME} !experiments|events|userinfo|change_login|jobStatus
+RewriteCond %{REQUEST_FILENAME} !experiments|events|userinfo|change_login|jobStatus|server_message
 RewriteRule ^(.*)$ web/$1 [NC,L]

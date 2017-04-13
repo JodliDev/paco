@@ -10,7 +10,7 @@
       <div class="switches">
         Options
         <md-switch ng-model="options.anonymous" aria-label="Anonymize report">
-          Anonymous report<img style="vertical-align:top" src="img/only_java.png"/>
+          Anonymous report<only-java/>
         </md-switch>
         <md-switch ng-model="options.photos" aria-label="Include photos" 
           ng-if="reportType === 'json'">
@@ -18,7 +18,7 @@
         </md-switch>
         <md-switch ng-model="options.photos" aria-label="Include photos" 
           ng-if="reportType === 'csv'">
-          zip audio/photo<img style="vertical-align:top" src="img/only_php.png"/>
+          zip audio/photo<only-php/>
         </md-switch>
         
       </div>

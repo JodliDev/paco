@@ -1,0 +1,59 @@
+<div ng-controller="ServerMessageCtrl" class="centered edit">
+  <md-card>
+    <md-card-content>
+      <div ng-controller="ExperimentCtrl" class="nav padded">
+        <a href="#/experiments">
+          <md-button>
+            Experiments
+          </md-button>
+        </a>
+        <img src="/img/ic_chevron_right_24px.svg">
+        <a href="#/server_message/{{experiment.id}}">
+          <md-button>
+            {{experiment.title}}
+          </md-button>
+        </a>
+        <img src="/img/ic_chevron_right_24px.svg">
+
+        <a href="#/server_message/{{experiment.id}}">
+          <md-button>
+            Server message
+          </md-button>
+        </a>
+      </div>
+    </md-card-content>
+  </md-card>
+  <md-card>
+    <md-card-content>
+      <div layout="row" layout-padding layout-margin>
+        <md-input-container flex=80>
+          <label>Message</label>
+          <textarea ng-model="serverMessage.msg"></textarea>
+          <div ng-messages>
+            <div ng-message>As long as it is saved here, the next time a participant uploads data to your study, this message will be shown via prompt (only once each participant).</div>
+          </div>
+        </md-input-container>
+        <div flex></div>
+        <md-input-container flex=15>
+          <label>Message-id</label>
+          <input type="text" ng-model="serverMessage.timestamp" ng-disabled="true"></input>
+        </md-input-container>
+      </div>
+    </md-card-content>
+  </md-card>
+  <md-card>
+    <md-card-content>
+      <div layout="row" class="nav padded">
+        <md-button class="md-primary button"  flex=15
+          ng-click="setServerMessage('delete')" ng-if="!loading">
+          Delete message
+        </md-button>
+        <div flex></div>
+        <md-button class="md-primary button"  flex=80
+          ng-click="setServerMessage('set')" ng-if="!loading">
+          Save message
+        </md-button>
+      </div>
+    </md-card-content>
+  </md-card>
+</div>
