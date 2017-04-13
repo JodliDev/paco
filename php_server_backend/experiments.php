@@ -23,13 +23,8 @@ function update_index() {
 }
 
 function write_file($file, $s) {
-	if(!($h = fopen($file, 'w'))
-			|| !flock($h, LOCK_EX)
-			|| fwrite($h, $s) === false
-			|| !flock($h, LOCK_UN)
-			|| !fclose($h)) {
+	if(!file_put_contents($file, $s, LOCK_EX))
 		error('Writing the file \'' .$file .'\' failed');
-	}
 }
 
 function unlink_others($a, $id) {
