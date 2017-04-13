@@ -1,29 +1,23 @@
-# PACO is an opensource, mobile, behavorial research platform
+# PACO-ANON is an opensource, mobile, behavorial research platform
+This is a fork of the original PACO-project (https://github.com/google/paco).
 
-For general information visit the home page: 
-http://www.pacoapp.com/
 
-To get the Android app, go to the Play Store: 
-https://play.google.com/store/apps/details?id=com.pacoapp.paco
+It offers the same functionality but has a changed login-system. Participants
+are not bound to a google-account but can partake completely anonymous.
 
-To get the iOS app, go to the App Store: 
-https://itunes.apple.com/us/app/paco/id787552234?mt=8
+Also this project offers an alternative php-backend (instead of the PACO-Java-server)
+wich is optimized for needing view ressources and being easy to set up and has better ways
+of exporting datafiles.
 
-To learn about development, check out our wiki: 
-https://github.com/google/paco/wiki
 
-Also, you can stay in touch
+This project is for researchers who need to offer their participants anonymity but only have
+the ressources of running a low end server with only standard-configurations.
 
-### Social Media
-* Blog: http://blog.pacoapp.com
-* Twitter: https://twitter.com/@PacoApp
-* G+: https://plus.google.com/+Pacoapp/posts
 
-### Mailing Lists
-* Developers: https://groups.google.com/forum/#!forum/paco-developers
-* Announcements: https://groups.google.com/forum/#!forum/paco-announcements
-* Users: https://groups.google.com/forum/#!forum/paco-users
+
+If you have any suggestions found a bug or need any assistance in setting up the project feel
+free to contact me at jodliDev@gmail.com
 
 
 LICENSE:
-Paco is licensed under the Apache 2.0 License
+Paco-Anon is licensed under the Apache 2.0 License
