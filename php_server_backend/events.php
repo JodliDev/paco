@@ -34,7 +34,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$pacoVersion = strip_input($headers['paco.version']);
 
 		$output = [];
-		$messages = [];
+		//$messages = [];
 		$count = 0;
 		$path_before = 'data/events/inputs/';
 		foreach($data as $e) {
@@ -49,9 +49,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			}
 			
 			
-			if(file_exists('data/messages/' .$id)) {
-				$messages[] = '{"eventId":"'.$count.'","status":false,"isServerMessage":true,"msgTimestamp":"'.filemtime('data/messages/'.$id).'","errorMessage":"'.file_get_contents('data/messages/'.$id).'"}';
-			}
 			
 			//*****
 			//format resonseTime
@@ -131,9 +128,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$output[] = '{"eventId":' .$count .',"status":true}';
 			else
 				$output[] = '{"eventId":' .$count .',"status":false, "errorMessage":"Server-error: Failed to write file"}';
+			
+			
+			//*****
+			//server message
+			//*****
+			if(file_exists('data/messages/' .$id)) {
+				$output[] = '{"eventId":"'.$count.'","status":false,"isServerMessage":true,"msgTimestamp":"'.filemtime('data/messages/'.$id).'","errorMessage":"'.file_get_contents('data/messages/'.$id).'"}';
+			}
 			++$count;
 		}
-		echo '[' .implode(',', $output) .',' .implode(',', $messages) .']';
+		//echo '[' .implode(',', $output) ',' .implode(',', $messages) .']';
+		echo '[' .implode(',', $output) .']';
 	}
 	catch(Exception $e) {
 		echo '{"status":"false","errorMessage":"internal server-error"}';
