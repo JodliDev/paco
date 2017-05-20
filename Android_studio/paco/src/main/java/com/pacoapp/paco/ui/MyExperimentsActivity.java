@@ -99,7 +99,8 @@ public class MyExperimentsActivity extends ActionBarActivity implements
 
   private static final int RINGTONE_REQUESTCODE = 945;
   public static final int REFRESHING_EXPERIMENTS_DIALOG_ID = 1001;
-  private static final int CAME_FROM_EXPERIMENT_EXECUTOR = 33;
+  private static final int NO_OVERRIDE_STARTUP = 33;
+  private static final String NO_OVERRIDE_STARTUP_KEY = "no_override_startup";
   private boolean override_startup_enabled = true;
 
   private Logger Log = LoggerFactory.getLogger(this.getClass());
@@ -190,6 +191,7 @@ public class MyExperimentsActivity extends ActionBarActivity implements
       launchFindPublicExperiments();
       break;
     case 3:
+      //TODO (JodliDev): remove it or implement it
       launchCompletedExperiments();
       break;
     default:
@@ -354,12 +356,11 @@ public class MyExperimentsActivity extends ActionBarActivity implements
       Intent intent = getIntent();
 //      Log.debug(getCallingActivity().toString());
 
-
       if(experiments.size() == 0) {
         Intent find = new Intent(this, FindExperimentsActivity.class);
         this.startActivity(find);
       }
-      else if(override_startup_enabled) {
+      else if(override_startup_enabled && !intent.getBooleanExtra(NO_OVERRIDE_STARTUP_KEY, false)) {
         //TODO (JodliDev): this is very inefficient... It would be much better to check getOverrideStartup() in InformedConsentActivity.java
         //and set an internal variable (that would then be checked here) and unset it if the experiment is ended.
         //This way we would also be able to prevent users to have more than one experiment with overrideStartup=true.
@@ -372,10 +373,12 @@ public class MyExperimentsActivity extends ActionBarActivity implements
           final List<ExperimentGroup> groups = e.getExperimentDAO().getGroups();
           for(ExperimentGroup g : groups) {
             if(g.getOverrideStartup()) {
-              Intent experimentIntent = new Intent(MyExperimentsActivity.this, ExperimentExecutor.class);
+              Intent experimentIntent = new Intent(MyExperimentsActivity.this, g.getCustomRendering()
+                      ? ExperimentExecutorCustomRendering.class
+                      : ExperimentExecutor.class);
               experimentIntent.putExtra(Experiment.EXPERIMENT_GROUP_NAME_EXTRA_KEY, g.getName());
               experimentIntent.putExtra(Experiment.EXPERIMENT_SERVER_ID_EXTRA_KEY, e.getServerId());
-              startActivityForResult(experimentIntent, CAME_FROM_EXPERIMENT_EXECUTOR);
+              startActivityForResult(experimentIntent, NO_OVERRIDE_STARTUP);
               return;
             }
           }
@@ -817,15 +820,15 @@ public class MyExperimentsActivity extends ActionBarActivity implements
   }
 
   private void launchFindExperiments() {
-    startActivity(new Intent(this, FindMyOrAllExperimentsChooserActivity.class));
+    startActivityForResult(new Intent(this, FindMyOrAllExperimentsChooserActivity.class), NO_OVERRIDE_STARTUP);
   }
 
   private void launchFindMyExperiments() {
-    startActivity(new Intent(this, FindMyExperimentsActivity.class));
+    startActivityForResult(new Intent(this, FindMyExperimentsActivity.class), NO_OVERRIDE_STARTUP);
   }
 
   private void launchFindPublicExperiments() {
-    startActivity(new Intent(this, FindExperimentsActivity.class));
+    startActivityForResult(new Intent(this, FindExperimentsActivity.class), NO_OVERRIDE_STARTUP);
   }
 
   private void launchCompletedExperiments() {
