@@ -19,13 +19,13 @@
 <resources>
 
     <string name="app_name" description="Name of the Paco app used on the Home Screen and other places [No Translation]" translatable="false">Paco-Anon</string> <!--FORK-->
-    <string name="server" description="default server address for Paco[No Translation]" translatable="false">134.34.42.79</string> <!--FORK-->
+    <string name="server" description="default server address for Paco[No Translation]" translatable="false">www.paco.uni-konstanz.de</string> <!--FORK-->
     <string name="app_package" description="unique Android package name[No Translation]" translatable="false">com.pacoapp.paco</string> <!--FORK-->
     <string name="contact_email" description="contact email address [No Translation]" translatable="false">jodlidev@gmail.com</string> <!--FORK-->
     <string name="about_googlegroups" description="user group email address [No Translation]" translatable="false">paco-users@googlegroups.com</string>
     <string name="usergroup_website" description="Website for user group [No Translation]" translatable="false">https://groups.google.com/group/paco-users</string>
     <string name="about_support">Support:</string>
-    <string name="about_weburl" description="Home page url [No Translation]" translatable="false">134.34.42.79</string>
+    <string name="about_weburl" description="Home page url [No Translation]" translatable="false">www.paco.uni-konstanz.de</string>
     <string name="about_bob" description="[No Translation]" translatable="false">Bob Evans</string>
     <string name="about_alberto" description="[No Translation]" translatable="false">Alberto Savoia</string>
     <string name="about_arun" description="[No Translation]" translatable="false">Arun Saigal</string>
