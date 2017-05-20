@@ -220,8 +220,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		write_file('data/events/keys/' .$id, substr($t_inputs, 0, -1)."\n");
 		//write_file('data/experiment_index/' .$id, '\'' .$id .'\'=>[' .substr($t_index, 0, -1) .'],');
 		write_file('data/experiment_index/' .$id, '"' .$id .'":' .json_encode($exp_index) .',');
-		if(!file_exists('data/events/inputs/' .$id))
-			write_file('data/events/inputs/' .$id, '');
+		if(!file_exists('data/events/inputs/' .$id)) {
+			//write_file will throw an error if there is no content
+			$h = fopen('data/events/inputs/' .$id);
+			fwrite($h, '');
+		}
 		update_index();
 		
 		echo '[{"eventId":0,"status":true,"experimentId":' .$id .'}]';
