@@ -204,7 +204,7 @@ public class FindExperimentsActivity extends ActionBarActivity implements Networ
 
   @SuppressLint("NewApi")
   @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
+  public boolean onCreateOptionsMenu(Menu menu) {//REMOVE?
     int pos = 1;
     if (true || !mNavigationDrawerFragment.isDrawerOpen()) {
       getMenuInflater().inflate(R.menu.main, menu);
@@ -221,7 +221,7 @@ public class FindExperimentsActivity extends ActionBarActivity implements Networ
   }
 
   @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
+  public boolean onOptionsItemSelected(MenuItem item) {//REMOVE?
     int id = item.getItemId();
     if (id == R.id.action_refreshMenuItem) {
       if (!NetworkUtil.isConnected(this)) {
@@ -261,28 +261,28 @@ public class FindExperimentsActivity extends ActionBarActivity implements Networ
     return super.onOptionsItemSelected(item);
   }
 
-  private void launchTroubleshooting() {
+  private void launchTroubleshooting() {//REMOVE?
     startActivity(new Intent(this, TroubleshootingActivity.class));
   }
 
 
-  private void launchFindExperiments() {
+  private void launchFindExperiments() {//REMOVE?
     startActivity(new Intent(this, FindMyOrAllExperimentsChooserActivity.class));
   }
 
-  private void launchFindMyExperiments() {
+  private void launchFindMyExperiments() {//REMOVE?
     startActivity(new Intent(this, FindMyExperimentsActivity.class));
   }
 
-  private void launchMyCurrentExperiments() {
+  private void launchMyCurrentExperiments() {//REMOVE?
     startActivity(new Intent(this, MyExperimentsActivity.class));
   }
 
-  private void launchCompletedExperiments() {
+  private void launchCompletedExperiments() {//REMOVE?
     //startActivity(new Intent(this, CompletedExperimentsActivity.class));
   }
 
-  private void launchOpenSourceLibs() {
+  private void launchOpenSourceLibs() {//REMOVE?
     startActivity(new Intent(this, OpenSourceLicenseListActivity.class));
   }
 
