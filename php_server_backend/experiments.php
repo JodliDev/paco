@@ -188,6 +188,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$key_index = remove_access_keys($key_index, $id);
 			
 			foreach($data['accessKeys'] as $key) {
+				$key = strtolower($key);
 				if(!isset($key_index[$key]))
 					$key_index[$key] = [$id];
 				else if(!in_array($id, $key_index[$key]))
@@ -258,7 +259,7 @@ else if(isset($_GET['public']) || isset($_GET['admin'])) {
 	
 	
 	if(isset($headers['access_key'])) {
-		$key = $headers['access_key'];
+		$key = strtolower($headers['access_key']);
 		$key_index = json_decode(file_get_contents('data/experiments/key_restricted/index'), true);
 		if(isset($key_index[$key])) {
 			$ids = $key_index[$key];

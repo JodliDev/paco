@@ -34,7 +34,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$pacoVersion = strip_input($headers['paco.version']);
 
 		$output = [];
-		//$messages = [];
+		$messages = [];
 		$count = 0;
 		$path_before = 'data/events/inputs/';
 		foreach($data as $e) {
@@ -133,7 +133,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			//*****
 			//server message
 			//*****
-			if(file_exists('data/messages/' .$id)) {
+			if(!isset($messages[$id]) && file_exists('data/messages/' .$id)) {
+				$messages[$id] = true
 				$output[] = '{"eventId":"'.$count.'","status":false,"isServerMessage":true,"msgTimestamp":"'.filemtime('data/messages/'.$id).'","errorMessage":"'.file_get_contents('data/messages/'.$id).'"}';
 			}
 			++$count;
