@@ -390,22 +390,22 @@ public class ScheduleDetailFragment extends Fragment implements ExperimentLoadin
 
   private void showDailyScheduleConfiguration(ViewGroup container) {
     rootView = inflater.inflate(R.layout.daily_schedule, container, false);
-    if (schedule.getScheduleType().equals(Schedule.DAILY)) {
-      createRepeatRate(getString(R.string.days));
-    } else {
-      hideRepeatRate();
-    }
+//    if (schedule.getScheduleType().equals(Schedule.DAILY)) { REMOVE
+//      createRepeatRate(getString(R.string.days));
+//    } else {
+//      hideRepeatRate();
+//    }
     createTimesList();
   }
 
-  private void hideRepeatRate() {
-    LinearLayout repeatRateLayout = (LinearLayout) rootView.findViewById(R.id.RepeatPeriodLayout);
-    repeatRateLayout.setVisibility(View.GONE);
-  }
+//  private void hideRepeatRate() { REMOVE
+//    LinearLayout repeatRateLayout = (LinearLayout) rootView.findViewById(R.id.RepeatPeriodLayout);
+//    repeatRateLayout.setVisibility(View.GONE);
+//  }
 
   private void showWeeklyScheduleConfiguration(ViewGroup container) {
     rootView = inflater.inflate(R.layout.weekly_schedule, container, false);
-    createRepeatRate(getString(R.string.weeks));
+//    createRepeatRate(getString(R.string.weeks)); REMOVE
 
     createDaysOfWeekPicker();
     createTimesList();
@@ -413,7 +413,7 @@ public class ScheduleDetailFragment extends Fragment implements ExperimentLoadin
 
   private void showMonthlyScheduleConfiguration(ViewGroup container) {
     rootView = inflater.inflate(R.layout.monthly_schedule, container, false);
-    createRepeatRate(getString(R.string.months));
+//    createRepeatRate(getString(R.string.months)); REMOVE
 
     createDayOfMonth();
 
@@ -503,28 +503,28 @@ public class ScheduleDetailFragment extends Fragment implements ExperimentLoadin
     });
   }
 
-  private void createRepeatRate(String period) {
-    repeatRate = (Spinner) rootView.findViewById(R.id.RepeatRate);
-    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.repeat_range,
-                                                                         android.R.layout.simple_spinner_item);
-    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    repeatRate.setAdapter(adapter);
-    repeatRate.setSelection(schedule.getRepeatRate() - 1);
-
-    repeatRate.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        schedule.setRepeatRate(position + 1);
-      }
-
-      public void onNothingSelected(AdapterView<?> parent) {
-        // Nothing to be done here.
-      }
-    });
-
-    TextView repeatPeriodLabel = (TextView) rootView.findViewById(R.id.RepeatPeriodLabel);
-    repeatPeriodLabel.setText(" " + period);
-  }
+//  private void createRepeatRate(String period) { REMOVE
+//    repeatRate = (Spinner) rootView.findViewById(R.id.RepeatRate);
+//    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.repeat_range,
+//                                                                         android.R.layout.simple_spinner_item);
+//    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//    repeatRate.setAdapter(adapter);
+//    repeatRate.setSelection(schedule.getRepeatRate() - 1);
+//
+//    repeatRate.setOnItemSelectedListener(new OnItemSelectedListener() {
+//
+//      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//        schedule.setRepeatRate(position + 1);
+//      }
+//
+//      public void onNothingSelected(AdapterView<?> parent) {
+//        // Nothing to be done here.
+//      }
+//    });
+//
+//    TextView repeatPeriodLabel = (TextView) rootView.findViewById(R.id.RepeatPeriodLabel);
+//    repeatPeriodLabel.setText(" " + period);
+//  }
 
   private void createTimesList() {
     TextView title = (TextView) rootView.findViewById(R.id.experimentNameSchedule);

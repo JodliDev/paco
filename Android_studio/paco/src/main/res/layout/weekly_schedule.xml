@@ -28,7 +28,8 @@
 		android:layout_height="wrap_content" android:textSize="25dip"
 		android:id="@+id/experimentNameSchedule" android:text=""></TextView>
 
-	<include layout="@layout/repeat_on_dow_schedule" />
+	<!--REMOVE-->
+	<!--<include layout="@layout/repeat_on_dow_schedule" />-->
 
 	<include layout="@layout/repeat_every_n_schedule" />
 	<ListView android:id="@+id/timesList" android:layout_width="wrap_content" android:layout_height="260dp"/>

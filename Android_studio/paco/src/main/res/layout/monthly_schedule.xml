@@ -95,8 +95,9 @@
       layout="@layout/repeat_on_dow_schedule" />
   </LinearLayout>
 
-  <include
-    layout="@layout/repeat_every_n_schedule" />
+  <!--REMOVE-->
+  <!--<include-->
+    <!--layout="@layout/repeat_every_n_schedule" />-->
 
   <ListView
     android:id="@+id/timesList"

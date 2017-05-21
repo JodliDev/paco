@@ -15,6 +15,12 @@
  ~ specific language governing permissions and limitations
  ~ under the License.
  -->
+
+
+<!--REMOVE
+The option itself is very confusing for users.
+And I cant think of a szenario where the researcher wants their participants
+to skip days (if so, they can preconfigure it this way...-->
 <LinearLayout 
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/RepeatPeriodLayout"

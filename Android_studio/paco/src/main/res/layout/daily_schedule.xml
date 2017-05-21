@@ -25,12 +25,13 @@
 	<TextView android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:textSize="25dip"
 		android:id="@+id/experimentNameSchedule" android:text=""/>
-		
-	<include
-	    android:layout_gravity="left"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-	    layout="@layout/repeat_every_n_schedule" />
+
+	<!--REMOVE-->
+	<!--<include-->
+	    <!--android:layout_gravity="left"-->
+      <!--android:layout_width="wrap_content"-->
+      <!--android:layout_height="wrap_content"-->
+	    <!--layout="@layout/repeat_every_n_schedule" />-->
 	
 	<TextView
 	    android:layout_width="wrap_content"

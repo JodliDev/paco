@@ -269,22 +269,23 @@ public class ExperimentScheduleActivity extends Activity implements ExperimentLo
 
   private void showDailyScheduleConfiguration() {
     setContentView(R.layout.daily_schedule);
-    if (schedule.getScheduleType().equals(Schedule.DAILY)) {
-      createRepeatRate(getString(R.string.days));
-    } else {
-      hideRepeatRate();
-    }
+//    REMOVE
+//    if (schedule.getScheduleType().equals(Schedule.DAILY)) {
+////      createRepeatRate(getString(R.string.days));
+//    } else {
+//      hideRepeatRate();
+//    }
     createTimesList();
   }
 
-  private void hideRepeatRate() {
-    LinearLayout repeatRateLayout = (LinearLayout) findViewById(R.id.RepeatPeriodLayout);
-    repeatRateLayout.setVisibility(View.GONE);
-  }
+//  private void hideRepeatRate() { REMOVE
+//    LinearLayout repeatRateLayout = (LinearLayout) findViewById(R.id.RepeatPeriodLayout);
+//    repeatRateLayout.setVisibility(View.GONE);
+//  }
 
   private void showWeeklyScheduleConfiguration() {
     setContentView(R.layout.weekly_schedule);
-    createRepeatRate(getString(R.string.weeks));
+//    createRepeatRate(getString(R.string.weeks)); REMOVE
 
     createDaysOfWeekPicker();
     createTimesList();
@@ -292,7 +293,7 @@ public class ExperimentScheduleActivity extends Activity implements ExperimentLo
 
   private void showMonthlyScheduleConfiguration() {
     setContentView(R.layout.monthly_schedule);
-    createRepeatRate(getString(R.string.months));
+//    createRepeatRate(getString(R.string.months)); REMOVE
 
     createDayOfMonth();
 
@@ -382,7 +383,7 @@ public class ExperimentScheduleActivity extends Activity implements ExperimentLo
     });
   }
 
-  private void createRepeatRate(String period) {
+  private void createRepeatRate(String period) { //REMOVE
     repeatRate = (Spinner) findViewById(R.id.RepeatRate);
     ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.repeat_range,
                                                                          android.R.layout.simple_spinner_item);
