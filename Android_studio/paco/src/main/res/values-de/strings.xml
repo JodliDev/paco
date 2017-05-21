@@ -106,8 +106,8 @@
     <string name="email_subject_paco_feedback">Feedback</string>
     <string name="empty_response_error">Sie können keine leere Daten abschicken</string>
     <string name="enable_button">Aktivieren</string>
-    <string name="end_date">\"Enddatum:\"</string>
-    <string name="end_hour">\"Endstunde:\"</string>
+    <string name="end_date">Enddatum:</string>
+    <string name="end_hour">Ende:</string>
     <string name="end_of_study_prompt">Bitte beenden Sie das Experiment in den nächsten 24 Stunden</string>
     <string name="end_time_must_be_after_start_time_warning_label">Die Endzeit kann nicht vor der Startzeit sein</string>
     <string name="end_time_title">Endzeit</string>
@@ -124,7 +124,7 @@
     <string name="error">FEHLER</string>
     <string name="eos_check_related_needs_instruction">Überprüfen Sie die zugehörigen Informationen</string>
     <string name="error_loading_experiment_message">Etwas ist schief gelaufen\\nDas Experiment konnte nicht geladen werden\\nBitte beenden Sie und kontaktieren sie die Person, welche das Experiment leitet</string>
-    <string name="esm_frequency">\"ESM-Frequenz\"</string>
+    <string name="esm_frequency">ESM-Frequenz</string>
     <string name="eula_menu_item">Endbenutzer-Lizenzvertrag</string>
     <string name="eula_title">Endbenutzer-Lizenzvertrag</string>
     <string name="exit">Exit</string>
@@ -145,7 +145,7 @@
     <string name="gallery">Gallerie</string>
     <string name="go_to_network_settings">Netzwerk-Einstellungen</string>
     <string name="google_email_address_label">VP-Nummer</string>
-    <string name="gps_message">\"GPS für verbesserte Ortung verwenden (nur draußen)?</string>
+    <string name="gps_message">GPS für verbesserte Ortung verwenden (nur draußen)?</string>
     <string name="i_did_not_understand">Ich habe nicht verstanden</string>
     <string name="ic_phone_make_model_carrier_label">Telefon-Hersteller, Modell, Netzbetreiber</string>
     <string name="informed_consent_preamble">Indem Sie zu diesem Experiment beitreten, teilen Sie Ihre Daten mit dem Ersteller und den Administratoren des Experimentes. Diese können Ihre Informationen für Forschung, Produktentwicklung, oder andere Zwecke nutzen. Bitte lesen Sie deren Einverständniserklärung und entscheiden Sie, ob Sie an diesem Experiment teilnehmen möchten.</string>
@@ -175,7 +175,7 @@
     <string name="must_answer">Bitte beantworten:</string>
     <string name="navigation_drawer_close">Schließe Navigation</string>
     <string name="navigation_drawer_open">Öffne Navigation</string>
-    <string name="need_location">\"Um Ortungsdaten beizufügen, muss zumindest eine Form von Ortungsdiensten aktiviert sein.\"</string>
+    <string name="need_location">Um Ortungsdaten beizufügen, muss zumindest eine Form von Ortungsdiensten aktiviert sein.</string>
     <string name="need_network_connection">Für dieses Experiment wird eine Internet-Verbindung benötigt. Internetverbidung jetzt aktivieren?</string>
     <string name="network_required">Netzwerk benötigt</string>
     <string name="new_invitation_title">Sie haben neue Einladungen</string>
@@ -200,7 +200,7 @@
     <string name="raw_data_button_text">Zu den Rohdaten</string>
     <string name="record_audio_label">Audio aufnehmen</string>
     <string name="refresh_experiment_menu_item">Laufende Experimente aktualisieren</string>
-    <string name="repeat_every_">\"Wiederhole alle \"</string>
+    <string name="repeat_every_">Wiederhole alle </string>
     <string name="required_answers_missing">Leeres Pflichtfeld</string>
     <string name="responses">Antworten</string>
     <string name="responses_at_location_title">Antworten an diesem Ort</string>
@@ -214,9 +214,9 @@
     <string name="running_experiments_title">Laufende Experimente</string>
     <string name="save_button">Speichern</string>
     <string name="save_response">Antwort speichern</string>
-    <string name="schedule">\"Zeitplan:\"</string>
-    <string name="schedule_period">\"Zeitplan erstellen: \"</string>
-    <string name="scheduled_time">\"Geplante Zeit: \"</string>
+    <string name="schedule">Zeitplan:</string>
+    <string name="schedule_period">Zeitplan erstellen: </string>
+    <string name="scheduled_time">Geplante Zeit: </string>
     <string name="scheduled_times">Geplante Zeiten</string>
     <string name="select_signal_tone">Alarmton wählen</string>
     <string name="selected_experiment_not_on_phone_refresh">Das ausgewählte Experiment existiert nicht am Telefon. Experimente aktualisieren?</string>
@@ -225,10 +225,10 @@
     <string name="server_address_label">Server-Adresse</string>
     <string name="server_address_warning">WARNUNG: Nur verändern, wenn Sie wissen was Sie tun!</string>
     <string name="server_error">Ein Problem mit dem Server ist aufgetreten.</string>
-    <string name="show_trends_button">\" Zeige Trends \"</string>
+    <string name="show_trends_button"> Zeige Trends </string>
     <string name="start_and_end_time_too_short">Das Start- / End-Zeitfenstre ist zu kurz</string>
-    <string name="start_date">\"Start-Datum:\"</string>
-    <string name="start_hour">Start-Stunde</string>
+    <string name="start_date">Start-Datum:</string>
+    <string name="start_hour">Start</string>
     <string name="start_hour_must_be_before_end_hour_warning">Start-Stunde muss vor der End-Stunde liegen</string>
     <string name="start_time_title">Start-Zeit</string>
     <string name="stop_experiment_dialog_body">Sind Sie sicher, dass Sie das Experiment beenden wollen?</string>
@@ -244,7 +244,7 @@
     <string name="the_personal_analytics_companion_subtitle">Der persönliche Analyse-Begleiter</string>
     <string name="this_experiment_is_self_reporting_only">Dieses Experiment ist nicht geplant. Selbstreport oder getriggert.</string>
     <string name="this_experiment_schedule_is_not_editable">Der Zeitplan dieses Experiments kann nicht bearbeitet werden</string>
-    <string name="time_for_notification_title">\"Zeit für \"</string>
+    <string name="time_for_notification_title">Zeit für </string>
     <string name="time_schedule_edit_label">Zeit</string>
     <string name="time_to_participate_notification_text">Zeit zur Teilnahme!</string>
     <string name="times_per_period">Zeiten pro Periode:</string>
