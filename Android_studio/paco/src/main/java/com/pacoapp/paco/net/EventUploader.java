@@ -91,6 +91,8 @@ public class EventUploader {
         Event correspondingEvent = events.get((int) currentOutcome.getEventId());
         Log.debug(Long.toString(correspondingEvent.getExperimentServerId()));
         Experiment experiment = eventStore.getExperimentByServerId(correspondingEvent.getExperimentServerId());
+        if(experiment == null) //happens when you remove an experiment
+          return;
         long t_old = experiment.getServerMessageTimestamp();
         long t = currentOutcome.getMsgTimestamp();
 
