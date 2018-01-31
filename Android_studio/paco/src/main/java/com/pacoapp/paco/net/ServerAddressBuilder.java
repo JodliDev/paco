@@ -28,7 +28,7 @@ public class ServerAddressBuilder {
    * @return whether this is a local development address
    */
   public static boolean isLocalDevelopmentServerAddress(String serverAddress) {
-    return serverAddress.contains("10.0.2.2") || serverAddress.contains("10.42.0.1") || serverAddress.contains("127.0.0.1");
+    return serverAddress.contains("192.168.178") || serverAddress.contains("10.0.2.2") || serverAddress.contains("10.42.0.1") || serverAddress.contains("127.0.0.1");
   }
 
   public static HttpURLConnection getConnection(URL u) throws IOException {
