@@ -25,7 +25,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$headers = apache_request_headers(); //$_SERVER doesnt seem to capture the special Paco-headers
 		if(!isset($headers['user_id']) || !isset($headers['http.useragent']) || !isset($headers['paco.version']))
 			return;
-		if(!($who = (int) $headers['user_id']))
+		if(!($who = (float) $headers['user_id']))
 			return;
 		
 		$appId = strip_input($headers['http.useragent']);
@@ -134,7 +134,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			//server message
 			//*****
 			if(!isset($messages[$id]) && file_exists('data/messages/' .$id)) {
-				$messages[$id] = true
+				$messages[$id] = true;
 				$output[] = '{"eventId":"'.$count.'","status":false,"isServerMessage":true,"msgTimestamp":"'.filemtime('data/messages/'.$id).'","errorMessage":"'.file_get_contents('data/messages/'.$id).'"}';
 			}
 			++$count;
