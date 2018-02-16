@@ -17,18 +17,16 @@ try {
 			$user = $_POST['user'];
 			$pass = hash_pass($_POST['pass']);
 			
-			if(!file_exists('.logins')) {
-				if(!file_put_contents('data/.htaccess', 'Options +Indexes
+			
+			
+			if(!file_exists('.logins') && !file_put_contents('data/.htaccess', 'Options +Indexes
 AuthType Basic
 AuthName "Password Protected Area"
 AuthUserFile '.dirname($_SERVER['SCRIPT_FILENAME']).'/data/.logins
 Require valid-user')) {
-					echo '{"message":"write-error. Login-File could not be created!",';
-					exit;
-				}
+				echo '{"message":"write-error. Login-File could not be created!",';
 			}
-			
-			if(!file_put_contents('data/.logins', $user .':' .$pass ."\n", FILE_APPEND))
+			else if(!file_put_contents('data/.logins', $user .':' .$pass ."\n", FILE_APPEND))
 				echo '{"message":"write-error. Login-data could not be saved!",';
 			else
 				echo'{"user":"' .$user .'","message":"Login saved!\nIf you want to remove a login, you have to remove the according line in the \"data/logins\"-file",'; 
