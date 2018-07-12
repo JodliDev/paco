@@ -1,5 +1,6 @@
 <?php
-error_reporting(0);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 header('Content-Type: application/json;charset=UTF-8');
 header('Cache-Control: no-cache, must-revalidate');
 require('include/keys_events.php');
@@ -70,12 +71,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		
 		if(!unlink('data/experiment_index/' .$id))
 			return error('Could not remove data/experiment_index/' .$id, 'No files were deleted', 'Aborting...');
-		if(file_exists('data/experiments/key_restricted/' .$id) && !unlink('data/experiments/key_restricted/' .$id))
-			return error('Could not remove data/experiments/key_restricted/' .$id, 'experiment_index-file was deleted','Save the experiment again if you wish to restore it', 'Aborting...');
-		else if(file_exists('data/experiments/published/' .$id) && !unlink('data/experiments/published/' .$id))
-			return error('Could not remove data/experiments/published/' .$id, 'experiment_index-file was deleted','Save the experiment again if you wish to restore it', 'Aborting...');
+			
+		if(file_exists('data/experiments/key_restricted/' .$id)) {
+			remove_access_keys(json_decode(file_get_contents('data/experiments/key_restricted/index'), true), $id);
+			if(!unlink('data/experiments/key_restricted/' .$id))
+				error('Could not remove data/experiments/key_restricted/' .$id, 'experiment_index-file was deleted', 'Save the experiment again if you wish to restore it', 'Aborting...');
+		}
+		
+		if(file_exists('data/experiments/published/' .$id) && !unlink('data/experiments/published/' .$id))
+			return error('Could not remove data/experiments/published/' .$id, 'experiment_index-file was deleted', 'Save the experiment again if you wish to restore it', 'Aborting...');
 		else if(file_exists('data/experiments/unpublished/' .$id) && !unlink('data/experiments/unpublished/' .$id))
-			return error('Could not remove data/experiments/unpublished/' .$id, 'experiment_index-file was deleted','Save the experiment again if you wish to restore it', 'Aborting...');
+			return error('Could not remove data/experiments/unpublished/' .$id, 'experiment_index-file was deleted', 'Save the experiment again if you wish to restore it', 'Aborting...');
 		
 		if(!unlink('data/events/keys/' .$id))
 			return error('Could not remove data/events/keys/' .$id, 'But the experiment was sucessfully removed', 'Aborting...');
@@ -221,13 +227,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 		write_file('data/events/keys/' .$id, substr($t_inputs, 0, -1)."\n");
 		//write_file('data/experiment_index/' .$id, '\'' .$id .'\'=>[' .substr($t_index, 0, -1) .'],');
 		write_file('data/experiment_index/' .$id, '"' .$id .'":' .json_encode($exp_index) .',');
+		
+		
 		if(!file_exists('data/events/inputs/' .$id)) {
+			write_file('data/events/inputs/' .$id, ' ');
 			//write_file will throw an error if there is no content
-			$h = fopen('data/events/inputs/' .$id);
-			fwrite($h, '');
+			//$h = fopen('data/events/inputs/' .$id, 'w');
+			//if(!fwrite($h, ''))
+				//error('Could not create /data/events/inputs/' .$id);
+			fclose($h);
 		}
 		update_index();
-		
 		echo '[{"eventId":0,"status":true,"experimentId":' .$id .'}]';
 	}
 }

@@ -42,7 +42,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$path = $path_before .$id;
 			
 			if(!file_exists($path)) {
-				$output[] = '{"eventId":' .$count .',"status":false,"errorMessage":"Experiment does not exist"}';
+				$output[] = '{"eventId":' .$count .',"status":false,"errorMessage":"Experiment '.$id .' does not exist"}';
 				
 				++$count;
 				continue;
